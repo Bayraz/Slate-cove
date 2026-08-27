@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Slate &amp; Cove</title>
+<meta name="description" content="Tell us about your property and a property manager will be in touch within 24 hours with a free income estimate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Jost:wght@300;400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="header">
+    <div class="wrap header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__name">Slate &amp; Cove</span>
+        <span class="brand__tag">Corporate &amp; short-let management</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" hidden>
+        <span data-nav-label>Menu</span>
+      </button>
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="how-it-works.html">How it works</a>
+        <a class="nav__link" href="pricing.html">Pricing</a>
+        <a class="nav__link" href="locations.html">Locations</a>
+        <a class="nav__link" href="contact.html" aria-current="page">Contact</a>
+        <a class="nav__cta" href="contact.html">Book a viewing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+
+    <section class="section">
+      <div class="wrap page-head">
+        <div class="page-head__title">
+          <p class="eyebrow">Get started</p>
+          <h1 class="d2">Contact us</h1>
+        </div>
+        <p class="lead">Fill in the form and one of our property managers will be in touch within 24 hours. No obligation &mdash; just a conversation about what your property could earn.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap contact">
+        <form class="form" data-contact-form method="post">
+          <div class="form__row">
+            <label class="field">
+              <span>First name</span>
+              <input type="text" name="first-name" autocomplete="given-name" required>
+            </label>
+            <label class="field">
+              <span>Last name</span>
+              <input type="text" name="last-name" autocomplete="family-name" required>
+            </label>
+            <label class="field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <label class="field">
+              <span>Telephone</span>
+              <input type="tel" name="telephone" autocomplete="tel">
+            </label>
+          </div>
+          <div class="form__row form__row--address">
+            <label class="field">
+              <span>Property address</span>
+              <input type="text" name="address" autocomplete="street-address" required>
+            </label>
+            <label class="field">
+              <span>Postcode</span>
+              <input type="text" name="postcode" autocomplete="postal-code" required>
+            </label>
+          </div>
+          <div class="form__row form__row--detail">
+            <label class="field">
+              <span>Property type</span>
+              <select name="property-type">
+                <option>Flat</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Studio</option>
+                <option>HMO</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Bedrooms</span>
+              <input type="number" name="bedrooms" min="0" step="1">
+            </label>
+            <label class="field">
+              <span>Available from</span>
+              <input type="date" name="available-from">
+            </label>
+          </div>
+          <label class="field">
+            <span>Anything else we should know</span>
+            <textarea name="message" rows="4"></textarea>
+          </label>
+          <div class="form__submit">
+            <button class="btn btn--solid btn--lg" type="submit">Submit property</button>
+            <span class="form__note">No spam, no obligation. We reply within 24 hours.</span>
+          </div>
+          <p class="form__status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="contact-card">
+          <div class="contact-card__title">Speak to us directly</div>
+          <dl>
+            <div class="contact-card__item">
+              <dt>Email</dt>
+              <dd><a href="mailto:info@slateandcove.com">info@slateandcove.com</a></dd>
+            </div>
+            <div class="contact-card__item">
+              <dt>Telephone</dt>
+              <dd><a href="tel:+447484646008">+44 7484 646008</a></dd>
+            </div>
+            <div class="contact-card__item">
+              <dt>Office</dt>
+              <dd>124 City Road<br>London EC1V 2NX</dd>
+            </div>
+            <div class="contact-card__item">
+              <dt>Hours</dt>
+              <dd>Office, weekdays 9&ndash;6<br>Guest line, always</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__top">
+      <div class="footer__brand">
+        <div class="footer__mark">
+          <span class="brand__name">Slate &amp; Cove</span>
+          <span class="brand__tag">Corporate &amp; short-let management</span>
+        </div>
+        <p>Professional short-let management that gets the most out of your property, without the day-to-day.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Pages</div>
+        <ul class="footer__col">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="locations.html">Locations</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__col">
+          <li>Listing optimisation</li>
+          <li>Photography</li>
+          <li>Dynamic pricing</li>
+          <li>Guest communication</li>
+          <li>Cleaning &amp; linen</li>
+          <li>Maintenance</li>
+          <li>Monthly reporting</li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Contact</div>
+        <ul class="footer__col">
+          <li><a href="mailto:info@slateandcove.com">info@slateandcove.com</a></li>
+          <li><a href="tel:+447484646008">+44 7484 646008</a></li>
+          <li>124 City Road<br>London EC1V 2NX</li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer__bottom">
+      <div>
+        <span>&copy; 2026 Slate &amp; Cove</span>
+        <span>Registered in England &amp; Wales</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
