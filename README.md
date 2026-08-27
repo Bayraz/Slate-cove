@@ -1,42 +1,50 @@
 # Slate & Cove — website
 
-Implementation of the Claude Design prototype `Slate and Cove Website.dc.html`
-(project *Brochure redesign guidelines*).
+Next.js implementation of the Claude Design prototype
+`Slate and Cove Website.dc.html` (project *Brochure redesign guidelines*).
 
 ## Stack
 
-Plain static HTML, CSS and a small amount of vanilla JavaScript. No build step,
-no dependencies — open `index.html` or serve the directory and it runs.
+Next.js 15 (App Router) with React 19 and TypeScript. The site is entirely
+static, so `next.config.ts` sets `output: "export"` — `npm run build` emits a
+plain `out/` directory that can be hosted from any static bucket or CDN, with
+no Node server at runtime.
 
-The repository was empty and no target stack was specified. For a five-page
-marketing site this is the lowest-risk choice: real URLs for each page (better
-for SEO and sharing than the prototype's client-side page switching), nothing to
-install, and easy to port into a framework later if the site grows.
-
-```
-.
-├── index.html          Home
-├── how-it-works.html   How it works
-├── pricing.html        Pricing
-├── locations.html      Locations
-├── contact.html        Contact
-└── assets/
-    ├── css/styles.css  All styling, design tokens at the top
-    └── js/site.js      Small-screen nav toggle, contact-form feedback
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export to out/
+npm run typecheck
 ```
 
-Run it locally with any static server, e.g. `python3 -m http.server`.
+```
+app/
+├── layout.tsx           Fonts, metadata, header/footer shell
+├── globals.css          All styling; design tokens at the top
+├── page.tsx             Home
+├── how-it-works/
+├── pricing/
+├── locations/
+└── contact/
+components/
+├── Header.tsx           Client — nav state, active-route marking
+├── Footer.tsx
+├── ContactForm.tsx      Client — form state
+└── Slot.tsx             Photographic frame
+lib/
+├── content.ts           All site copy
+└── images.ts            Unsplash photo references
+```
 
 ## How it maps to the prototype
 
-The prototype is one document that swaps between five views with a `page` state
-variable (`<sc-if>` blocks). Each of those views is a separate HTML file here,
-and the nav is ordinary links. The current page is marked with
-`aria-current="page"`, which drives the blue underline the prototype rendered
-with an opacity binding.
+The prototype is one document that swaps between five views with a `page`
+state variable (`<sc-if>` blocks). Each view is a route here, so every section
+has a real URL. `Header` marks the active route with `aria-current="page"`,
+which drives the blue underline the prototype rendered with an opacity binding.
 
-Every colour, font, size and spacing value comes from the prototype. They are
-declared once as custom properties at the top of `styles.css`:
+Every colour, font, size and spacing value comes from the prototype, declared
+once as custom properties in `globals.css`:
 
 | Token | Value | Role |
 | --- | --- | --- |
@@ -49,58 +57,64 @@ declared once as custom properties at the top of `styles.css`:
 | `--blue` | `#B9C6CE` | hairlines, accents, step numerals |
 
 Type is Instrument Serif (display), Jost (body) and IBM Plex Mono (labels),
-loaded from Google Fonts exactly as the prototype did.
+loaded through `next/font/google`. That self-hosts them at build time, so the
+rendered pages make no request to a font CDN and there is no flash of fallback
+type.
 
-The prototype's inline styles were lifted into classes rather than copied
-verbatim; the rendered result is the same, but the comparison table, the plan
-cards and the eight service tiles are now driven by one rule each instead of
-repeating the same declarations per cell.
+Repeated content — the eight services, comparison rows, FAQ, coverage areas,
+plan features — lives in `lib/content.ts` and is mapped over, rather than
+repeated as markup.
 
 ## Decisions made beyond the prototype
 
 The prototype is a single fixed-width desktop canvas. These are the things a
 production site needs that it did not specify:
 
-- **Responsive behaviour.** The design is preserved exactly at ≥1280px.
-  Below that, breakpoints at 1200 / 900 / 640px reflow the multi-column grids,
-  and display type scales with `clamp()` where the design's size is the maximum.
+- **Responsive behaviour.** The design is preserved exactly at ≥1280px. Below
+  that, breakpoints at 1200 / 900 / 640px reflow the multi-column grids, and
+  display type scales with `clamp()` where the design's size is the maximum.
 - **Small-screen navigation.** Below 900px the five links collapse behind a
-  Menu toggle. The prototype had no mobile state; the toggle uses the same mono
-  label styling as the rest of the header.
+  Menu toggle, which closes on navigation and on growing past the breakpoint.
 - **The comparison table** keeps its exact `1.4fr 200px 200px 200px` grid and
-  scrolls horizontally inside its own container below ~860px, rather than being
-  restructured into cards.
+  scrolls horizontally inside its own container below ~860px, rather than
+  being restructured into cards.
 - **Semantics and accessibility.** Real `<form>` labels, `<figure>` for the
-  testimonials, `<dl>` for the contact details, a skip link, and visible focus
+  testimonials, `<dl>` for the contact details, a skip link, visible focus
   outlines. Content is unchanged.
-- **The site works without JavaScript.** `site.js` only adds the nav toggle and
-  the form status message.
+
+## Photography
+
+The design's two `<image-slot>` elements carried art direction but no saved
+image. `lib/images.ts` points them at Unsplash photographs matching that
+direction:
+
+| Slot | Direction from the design | Photo |
+| --- | --- | --- |
+| Home hero | *Hero interior — black and white, natural light, straight verticals* | [`6iEbq9Ne7b4`](https://unsplash.com/photos/a-modern-light-filled-apartment-interior-is-shown-6iEbq9Ne7b4) |
+| Locations | *Coverage map or London exterior — black and white* | [`b5ApUwSn7VI`](https://unsplash.com/photos/facade-of-georgian-style-terraced-houses-in-london-b5ApUwSn7VI) |
+
+Both render through `Slot.tsx`, which applies the `grayscale(1)` filter the
+design's black-and-white direction calls for, so a colour source needs no
+editing first.
+
+**Before launch, download these and serve them from `public/`.** Hotlinking
+Unsplash puts a third party in the critical render path and is not what their
+API guidelines recommend for a commercial site. Swapping `src` for a local
+path is the only change needed.
 
 ## Outstanding — needs a decision or content
 
 1. **Pricing percentages are placeholders.** Both plan cards read `From 00% of
-   net revenue`, exactly as the design does. The real commission rates need to
-   be supplied before this goes live.
-2. **No contact-form backend.** The form has no `action`, so `site.js`
-   intercepts the submit and shows a message instead of navigating somewhere
-   broken. Set the form's `action` (and remove that branch in `site.js`) once an
-   endpoint exists.
-3. **Two images are unfilled.** The design's `<image-slot>` elements on the home
-   hero and the locations page had no image saved in the project, only art
-   direction. They render as sized frames carrying that brief:
-   - Home hero — *"Hero interior — black and white, natural light, straight
-     verticals"*, min-height 620px
-   - Locations — *"Coverage map or London exterior — black and white"*,
-     min-height 360px
-
-   Drop an `<img>` into the `.slot` element and it takes over automatically; the
-   grayscale filter and cover-fit are already applied.
-4. **Testimonial attributions** cite Manchester and Birmingham, while the rest
+   net revenue`, exactly as the design does. Real commission rates needed.
+2. **No contact-form backend.** `ContactForm.tsx` intercepts the submit and
+   shows a message. Point it at a real handler to wire it up — or use a server
+   action, which would mean dropping `output: "export"`.
+3. **Testimonial attributions** cite Manchester and Birmingham, while the rest
    of the copy is London and Home Counties only. Carried over from the design
    as-is — worth checking whether that is intentional.
 
 ## Note on `_ds/`
 
-The handoff bundle includes a "Modernist" design system (red on white, Archivo).
-`Slate and Cove Website.dc.html` does not reference it — the website carries its
-own palette and typography, which is what is implemented here.
+The handoff bundle included a "Modernist" design system (red on white,
+Archivo). `Slate and Cove Website.dc.html` does not reference it — the website
+carries its own palette and typography, which is what is implemented here.
