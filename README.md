@@ -85,22 +85,24 @@ production site needs that it did not specify:
 ## Photography
 
 The design's two `<image-slot>` elements carried art direction but no saved
-image. `lib/images.ts` points them at Unsplash photographs matching that
-direction:
+image. `lib/images.ts` points them at the chosen Unsplash photographs:
 
 | Slot | Direction from the design | Photo |
 | --- | --- | --- |
-| Home hero | *Hero interior — black and white, natural light, straight verticals* | [`6iEbq9Ne7b4`](https://unsplash.com/photos/a-modern-light-filled-apartment-interior-is-shown-6iEbq9Ne7b4) |
-| Locations | *Coverage map or London exterior — black and white* | [`b5ApUwSn7VI`](https://unsplash.com/photos/facade-of-georgian-style-terraced-houses-in-london-b5ApUwSn7VI) |
+| Home hero | *Hero interior — black and white, natural light, straight verticals* | A-frame living room, angled windows |
+| Locations | *Coverage map or London exterior — black and white* | Stone cottage in a formal rose garden |
 
 Both render through `Slot.tsx`, which applies the `grayscale(1)` filter the
 design's black-and-white direction calls for, so a colour source needs no
 editing first.
 
-**Before launch, download these and serve them from `public/`.** Hotlinking
-Unsplash puts a third party in the critical render path and is not what their
-API guidelines recommend for a commercial site. Swapping `src` for a local
-path is the only change needed.
+**Before launch, download these into `public/` and serve them locally.**
+Hotlinking Unsplash puts a third party in the critical render path. Swapping
+`src` for a local path is the only change needed.
+
+The sources are requested at `w=1170`, which is comfortable for the locations
+frame and adequate — but not retina-sharp — for the full-bleed hero on a wide
+display. Raise the `w` parameter if that matters.
 
 ## Outstanding — needs a decision or content
 
