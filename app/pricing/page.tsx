@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EXCLUSIONS, PLAN_FLEXIBLE, PLAN_FULL_TIME } from "@/lib/content";
+import {
+  EXCLUSIONS,
+  MANAGEMENT_FEE,
+  PLAN_FLEXIBLE,
+  PLAN_FULL_TIME,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -36,7 +41,7 @@ export default function PricingPage() {
             </div>
             <p className="plan__price">
               <span className="plan__from">From</span>
-              <span className="plan__figure">00%</span>
+              <span className="plan__figure">{MANAGEMENT_FEE}</span>
               <span className="plan__unit">of net revenue</span>
             </p>
             <p className="plan__blurb">
@@ -63,7 +68,7 @@ export default function PricingPage() {
             </div>
             <p className="plan__price">
               <span className="plan__from">From</span>
-              <span className="plan__figure">00%</span>
+              <span className="plan__figure">{MANAGEMENT_FEE}</span>
               <span className="plan__unit">of net revenue</span>
             </p>
             <p className="plan__blurb">

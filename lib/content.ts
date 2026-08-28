@@ -163,6 +163,12 @@ export const FAQ = [
   },
 ] as const;
 
+/**
+ * The management commission, shown on both plan cards. Calculated on net
+ * revenue after platform fees, per the note under the plans.
+ */
+export const MANAGEMENT_FEE = "15%" as const;
+
 export const PLAN_FULL_TIME = [
   "Available full time, all year round",
   "Minimum six-month commitment period",
