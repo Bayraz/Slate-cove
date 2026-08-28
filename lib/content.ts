@@ -164,10 +164,13 @@ export const FAQ = [
 ] as const;
 
 /**
- * The management commission, shown on both plan cards. Calculated on net
- * revenue after platform fees, per the note under the plans.
+ * The management commission for each plan, shown on the plan cards.
+ * Calculated on net revenue after platform fees, per the note under the plans.
  */
-export const MANAGEMENT_FEE = "15%" as const;
+export const MANAGEMENT_FEES = {
+  fullTime: "15%",
+  flexible: "18%",
+} as const;
 
 export const PLAN_FULL_TIME = [
   "Available full time, all year round",

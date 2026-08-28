@@ -106,11 +106,10 @@ display. Raise the `w` parameter if that matters.
 
 ## Outstanding — needs a decision or content
 
-1. **Both plans show the same 15% rate.** `MANAGEMENT_FEE` in `lib/content.ts`
-   is the single source for the figure on both plan cards. If Full-time and
-   Flexible should differ, split it into two constants. The cards read
-   `From 15%`, keeping the design's "From" label — drop that `<span>` if the
-   rate is flat rather than a starting point.
+1. **Commission rates** live in `MANAGEMENT_FEES` in `lib/content.ts` —
+   Full-time 15%, Flexible 18%. The cards read `From 15%` / `From 18%`,
+   keeping the design's "From" label; drop that `<span>` if the rates are flat
+   rather than starting points.
 2. **No contact-form backend.** `ContactForm.tsx` intercepts the submit and
    shows a message. Point it at a real handler to wire it up — or use a server
    action, which would mean dropping `output: "export"`.

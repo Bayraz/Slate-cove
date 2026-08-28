@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   EXCLUSIONS,
-  MANAGEMENT_FEE,
+  MANAGEMENT_FEES,
   PLAN_FLEXIBLE,
   PLAN_FULL_TIME,
 } from "@/lib/content";
@@ -41,7 +41,7 @@ export default function PricingPage() {
             </div>
             <p className="plan__price">
               <span className="plan__from">From</span>
-              <span className="plan__figure">{MANAGEMENT_FEE}</span>
+              <span className="plan__figure">{MANAGEMENT_FEES.fullTime}</span>
               <span className="plan__unit">of net revenue</span>
             </p>
             <p className="plan__blurb">
@@ -68,7 +68,7 @@ export default function PricingPage() {
             </div>
             <p className="plan__price">
               <span className="plan__from">From</span>
-              <span className="plan__figure">{MANAGEMENT_FEE}</span>
+              <span className="plan__figure">{MANAGEMENT_FEES.flexible}</span>
               <span className="plan__unit">of net revenue</span>
             </p>
             <p className="plan__blurb">
