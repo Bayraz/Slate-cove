@@ -104,6 +104,39 @@ The sources are requested at `w=1170`, which is comfortable for the locations
 frame and adequate — but not retina-sharp — for the full-bleed hero on a wide
 display. Raise the `w` parameter if that matters.
 
+## SEO
+
+Everything below is generated from `lib/content.ts`, so the copy and what
+crawlers read can't drift apart.
+
+- **Metadata.** `metadataBase` plus per-page canonicals, Open Graph and Twitter
+  cards. Titles are keyword-led (`Airbnb Management Fees — 15% Full-time, 18%
+  Flexible`) rather than bare labels.
+- **`app/robots.ts`** allows everything, and names the AI crawlers explicitly —
+  GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot
+  and others. Some hosts block these by default; a blocked crawler cannot cite
+  you in an AI answer.
+- **`app/sitemap.ts`** emits `/sitemap.xml` from the `NAV` list.
+- **`lib/seo.ts`** holds the JSON-LD:
+  - `ProfessionalService` — address, phone, hours, both plan offers, and
+    `areaServed` covering all 38 places from the Locations page. This is what a
+    query like "Airbnb management in Chiswick" matches against.
+  - `FAQPage` on How it works — the eight Q&As, already paired. This is the
+    highest-value block for AI assistants, which quote question/answer pairs.
+  - `WebSite`.
+- **`public/llms.txt`** — a plain-language summary of the service, pricing,
+  coverage and contact details for AI crawlers. Unlike the rest, this one is
+  hand-written, so update it when pricing or coverage changes.
+
+Both `robots.ts` and `sitemap.ts` set `export const dynamic = "force-static"`,
+which `output: "export"` requires.
+
+**Deliberately not added: `Review` / `AggregateRating` schema.** The three
+testimonials came from the design and read as placeholders. Marking up
+testimonials that aren't real, verifiable customer reviews violates Google's
+structured-data policy and risks a manual action. Add it once there are
+genuine reviews to point at.
+
 ## Outstanding — needs a decision or content
 
 1. **Commission rates** live in `MANAGEMENT_FEES` in `lib/content.ts` —

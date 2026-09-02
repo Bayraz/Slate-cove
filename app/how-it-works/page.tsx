@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
 import { FAQ, STEPS } from "@/lib/content";
+import { faqSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "How it works",
+  title: "How Airbnb Management Works — From Enquiry to Payout",
   description:
-    "From first enquiry to first payout: consultation, onboarding, go live, ongoing management and your monthly payout.",
+    "From first enquiry to first payout: consultation, onboarding, go live, ongoing management and your monthly payout. Plus answers to the eight questions landlords ask most.",
+  alternates: { canonical: "/how-it-works" },
 };
 
 export default function HowItWorksPage() {
   return (
     <>
+      <JsonLd schema={faqSchema} />
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">

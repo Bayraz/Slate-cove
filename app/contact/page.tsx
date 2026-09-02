@@ -3,9 +3,10 @@ import ContactForm from "@/components/ContactForm";
 import { CONTACT } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Get a Free Rental Income Estimate",
   description:
-    "Tell us about your property and a property manager will be in touch within 24 hours with a free income estimate.",
+    "Tell us about your London property and a property manager will be in touch within 24 hours with a free short-let income estimate. No obligation.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

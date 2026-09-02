@@ -8,9 +8,10 @@ import {
 } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "Airbnb Management Fees — 15% Full-time, 18% Flexible",
   description:
-    "Simple, transparent short-let management pricing. No setup fees, no hidden costs — a straightforward percentage of net revenue.",
+    "Transparent short-let management pricing in London: 15% of net revenue full-time, 18% flexible. No setup fees, no hidden costs, no lock-in.",
+  alternates: { canonical: "/pricing" },
 };
 
 export default function PricingPage() {

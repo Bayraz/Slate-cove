@@ -5,9 +5,10 @@ import { LOCATIONS_IMAGE } from "@/lib/images";
 import { AREAS } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Locations",
+  title: "Areas We Cover — London & the Home Counties",
   description:
-    "Where we manage: Central and West London, Greater London, Berkshire and the Home Counties.",
+    "Short-let management across Kensington, Chelsea, Notting Hill, Chiswick, Ealing, Canary Wharf and the Home Counties including Windsor, Reading, Watford and Slough.",
+  alternates: { canonical: "/locations" },
 };
 
 export default function LocationsPage() {
