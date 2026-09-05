@@ -59,6 +59,12 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   category: "Property management",
+  // Google Search Console ownership. Verified via meta tag rather than the
+  // HTML file, which 404s: `trailingSlash: true` makes Vercel redirect
+  // /google….html to /google….html/, which does not exist.
+  verification: {
+    google: "zmRfvit05tUfzX-lVOOvO2MCxBNade5yLDeSCrWl0XE",
+  },
 };
 
 export default function RootLayout({
