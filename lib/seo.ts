@@ -8,7 +8,7 @@ import { AREAS, CONTACT, FAQ, MANAGEMENT_FEES } from "./content";
 
 export const SITE = {
   name: "Slate & Cove",
-  url: "https://slateandcove.com",
+  url: "https://www.slateandcove.com",
   tagline: "Corporate & short-let management",
   description:
     "Full-service short-let and Airbnb management in London. We list, price, host and clean your property — you read one report a month.",

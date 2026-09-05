@@ -47,11 +47,11 @@ to two weeks of signing; as little as 7 days when already guest-ready.
 
 ## Pages
 
-- [Home](https://slateandcove.com/): services, comparison against self-hosting and estate agents
-- [How it works](https://slateandcove.com/how-it-works/): the five-step process and FAQs
-- [Pricing](https://slateandcove.com/pricing/): both plans and what the fee excludes
-- [Locations](https://slateandcove.com/locations/): every area covered
-- [Contact](https://slateandcove.com/contact/): free income estimate enquiry form
+- [Home](https://www.slateandcove.com/): services, comparison against self-hosting and estate agents
+- [How it works](https://www.slateandcove.com/how-it-works/): the five-step process and FAQs
+- [Pricing](https://www.slateandcove.com/pricing/): both plans and what the fee excludes
+- [Locations](https://www.slateandcove.com/locations/): every area covered
+- [Contact](https://www.slateandcove.com/contact/): free income estimate enquiry form
 
 ## Contact
 
