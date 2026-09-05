@@ -143,9 +143,11 @@ genuine reviews to point at.
    Full-time 15%, Flexible 18%. The cards read `From 15%` / `From 18%`,
    keeping the design's "From" label; drop that `<span>` if the rates are flat
    rather than starting points.
-2. **No contact-form backend.** `ContactForm.tsx` intercepts the submit and
-   shows a message. Point it at a real handler to wire it up — or use a server
-   action, which would mean dropping `output: "export"`.
+2. **Contact form posts to Formspree** (`components/ContactForm.tsx`). The
+   `<form>` keeps a real `action`, so it still submits without JavaScript;
+   with JavaScript the post happens in the background and the visitor stays
+   on the page. The free tier caps at 50 submissions a month — watch that if
+   enquiries pick up.
 3. **Testimonial attributions** cite Manchester and Birmingham, while the rest
    of the copy is London and Home Counties only. Carried over from the design
    as-is — worth checking whether that is intentional.

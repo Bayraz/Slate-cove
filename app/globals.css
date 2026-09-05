@@ -1007,3 +1007,8 @@ img { max-width: 100%; display: block; }
 
 /* The prototype constrains this paragraph inside the dark home CTA. */
 .cta-split__body .body-lg { max-width: 520px; }
+
+/* Contact form outcome states. */
+.form__status--ok { color: var(--ink); }
+.form__status--error { color: var(--ink); }
+.btn:disabled { opacity: 0.6; cursor: default; }

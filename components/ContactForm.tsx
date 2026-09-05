@@ -2,26 +2,53 @@
 
 import { useState } from "react";
 
+const ENDPOINT = "https://formspree.io/f/xjyvekyr";
+
+type Status = "idle" | "sending" | "sent" | "error";
+
 /**
- * No submission endpoint is configured yet. Until one exists this keeps the
- * enquiry on the page rather than navigating somewhere broken.
+ * The site is a static export, so submissions go to Formspree rather than to
+ * our own backend.
  *
- * To wire it up: replace `handleSubmit` with a POST to your handler (or a
- * server action, which would mean dropping `output: "export"` from
- * next.config.ts).
+ * The <form> keeps a real `action` and `method`, so without JavaScript it
+ * still submits the ordinary way — the browser just lands on Formspree's own
+ * confirmation page. With JavaScript, the submit is intercepted and posted in
+ * the background, which keeps the visitor on the page.
  */
 export default function ContactForm() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus(
-      "This form has no submission endpoint yet — wire ContactForm up to your handler.",
-    );
-  };
+    const form = event.currentTarget;
+    setStatus("sending");
+
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (response.ok) {
+        form.reset();
+        setStatus("sent");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const sending = status === "sending";
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" action={ENDPOINT} method="POST" onSubmit={handleSubmit}>
+      {/* Gives the notification email a useful subject line. */}
+      <input type="hidden" name="_subject" value="New enquiry from slateandcove.com" />
+      {/* Formspree's honeypot: bots fill it in, people never see it. */}
+      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" hidden />
+
       <div className="form__row">
         <label className="field">
           <span>First name</span>
@@ -80,16 +107,29 @@ export default function ContactForm() {
       </label>
 
       <div className="form__submit">
-        <button className="btn btn--solid btn--lg" type="submit">
-          Submit property
+        <button className="btn btn--solid btn--lg" type="submit" disabled={sending}>
+          {sending ? "Sending…" : "Submit property"}
         </button>
         <span className="form__note">
           No spam, no obligation. We reply within 24 hours.
         </span>
       </div>
 
-      <p className="form__status" role="status" aria-live="polite">
-        {status}
+      <p
+        className={
+          status === "sent"
+            ? "form__status form__status--ok"
+            : status === "error"
+              ? "form__status form__status--error"
+              : "form__status"
+        }
+        role="status"
+        aria-live="polite"
+      >
+        {status === "sent" &&
+          "Thank you — your property details are with us. We will be in touch within 24 hours."}
+        {status === "error" &&
+          "Something went wrong sending that. Please email info@slateandcove.com or call +44 7484 646008."}
       </p>
     </form>
   );
