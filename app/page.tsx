@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="wrap hero">
           <div className="hero__body">
             <p className="eyebrow">Short-let &amp; Airbnb management — London</p>
-            <h1 className="d1">Your London property, run properly</h1>
+            <h1 className="d1">Your property, managed properly</h1>
             <p className="lead-lg">
               We list it, price it, host it and clean it. You hand over the keys
               and read one report a month.
