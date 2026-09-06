@@ -138,7 +138,7 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   border: 0;
   cursor: pointer;
-  transition: background-color 120ms linear, color 120ms linear;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .btn--solid {
@@ -167,8 +167,7 @@ img { max-width: 100%; display: block; }
 /* Image slots -------------------------------------------------------------
    The prototype used <image-slot>, an editor-only custom element, with no
    image saved. Rendered by components/Slot.tsx; the photographs are
-   configured in lib/images.ts. The design calls for black and white
-   throughout, hence the grayscale filter. */
+   configured in lib/images.ts. */
 
 .slot {
   position: relative;
@@ -182,7 +181,6 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1);
 }
 
 /* --------------------------------------------------------------------------
@@ -192,7 +190,7 @@ img { max-width: 100%; display: block; }
 .header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 40;
   background: var(--paper);
   border-bottom: 2px solid var(--ink);
 }
@@ -276,7 +274,7 @@ img { max-width: 100%; display: block; }
   color: #FFFFFF;
   padding: 15px 26px;
   letter-spacing: 0.18em;
-  transition: background-color 120ms linear;
+  transition: background-color 180ms ease;
 }
 .nav__cta:hover { background: var(--wine-deep); color: #FFFFFF; }
 
@@ -962,26 +960,46 @@ img { max-width: 100%; display: block; }
 @media (max-width: 900px) {
   .nav-toggle { display: inline-flex; }
 
+  /* The menu becomes a full-screen panel. It is a sibling of the brand and
+     the toggle inside the header, and comes after them in the DOM, so both
+     need lifting above it or the panel paints over them and there is no way
+     to close the menu. */
+  .brand,
+  .nav-toggle {
+    position: relative;
+    z-index: 31;
+  }
+
   .nav {
     display: none;
-    order: 3;
-    width: 100%;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: var(--paper);
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
     gap: 0;
-    padding-bottom: 8px;
+    padding: 116px var(--gutter) calc(48px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    font-size: 15px;
+    animation: nav-in 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
   }
   .nav.is-open { display: flex; }
+
   .nav__link {
-    padding: 18px 0;
+    padding: 24px 0;
     border-top: 1px solid var(--blue);
+    font-size: 15px;
+    letter-spacing: 0.16em;
   }
+  .nav__link:last-of-type { border-bottom: 1px solid var(--blue); }
   .nav__link::after { display: none; }
-  .nav__link[aria-current="page"] { color: var(--muted); }
+  .nav__link[aria-current="page"] { color: var(--wine); }
   .nav__cta {
-    margin-top: 16px;
+    margin-top: 32px;
     text-align: center;
-    padding: 18px 26px;
+    padding: 22px 26px;
   }
 
   .step { grid-template-columns: 80px 1fr; gap: 20px 32px; padding: 40px 0; }
@@ -1097,10 +1115,51 @@ img { max-width: 100%; display: block; }
   font-family: var(--mono);
   font-size: 15px;
   cursor: pointer;
-  transition: background-color 120ms linear;
+  transition: background-color 180ms ease;
 }
 .slideshow__arrows button:hover { background: #FFFFFF; }
 
 @media (prefers-reduced-motion: reduce) {
   .slideshow__slide { transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* While the full-screen menu is open the page behind it must not scroll. */
+body.nav-open { overflow: hidden; }
+
+/* Sections ease in as they are scrolled to. The class is added by
+   RevealOnScroll, so with JavaScript off — or with reduced motion asked for —
+   nothing is ever hidden. The first section is exempt: it is the largest
+   paint on the page and should not wait on an observer. */
+html.js-reveal main > section:not(:first-child) {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 750ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 750ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+html.js-reveal main > section.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Photographs lift very slightly on hover — enough to feel alive, not enough
+   to distract from the architecture in the frame. */
+.slot > img { transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+.coverage__slot:hover > img { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav { animation: none; }
+  .slot > img { transition: none; }
+  .coverage__slot:hover > img { transform: none; }
 }

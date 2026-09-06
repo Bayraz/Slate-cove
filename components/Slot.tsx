@@ -7,9 +7,7 @@ type Props = {
 };
 
 /**
- * A photographic frame. The design calls for black and white throughout, which
- * the `.slot > img` rule applies as a grayscale filter, so a colour source can
- * be dropped in without editing it first.
+ * A photographic frame: the image fills the box and is cropped to it.
  *
  * A plain <img> rather than next/image: the build is a static export with
  * image optimisation off, so next/image would emit the same tag with extra

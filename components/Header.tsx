@@ -21,6 +21,18 @@ export default function Header() {
   // Any navigation closes it.
   useEffect(() => setOpen(false), [pathname]);
 
+  // The full-screen panel covers the page, so stop the page scrolling behind
+  // it, and let Escape close it the way a dialog would.
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", open);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useEffect(() => () => document.body.classList.remove("nav-open"), []);
+
   const isCurrent = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 

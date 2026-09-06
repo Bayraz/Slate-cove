@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Serif, Jost } from "next/font/google";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/Footer";
-import { SITE, organisationSchema, websiteSchema } from "@/lib/seo";
+import { OG_IMAGE, SITE, organisationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 
 // Self-hosted at build time, so the rendered page makes no request to a font
@@ -47,11 +48,13 @@ export const metadata: Metadata = {
     url: SITE.url,
     title: "Airbnb & Short-Let Management in London | Slate & Cove",
     description: SITE.description,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Airbnb & Short-Let Management in London | Slate & Cove",
     description: SITE.description,
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
@@ -82,6 +85,7 @@ export default function RootLayout({
           <a className="skip-link" href="#main">
             Skip to content
           </a>
+          <RevealOnScroll />
           <Header />
           <main className="main" id="main">
             {children}

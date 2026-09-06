@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Slot from "@/components/Slot";
 import { LOCATIONS_IMAGE } from "@/lib/images";
 import { AREAS } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Areas We Cover — London & the Home Counties",
   description:
     "Short-let management across Kensington, Chelsea, Notting Hill, Chiswick, Ealing, Canary Wharf and the Home Counties including Windsor, Reading, Watford and Slough.",
-  alternates: { canonical: "/locations" },
-};
+  path: "/locations",
+});
 
 export default function LocationsPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Locations", path: "/locations" },
+        ])}
+      />
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">

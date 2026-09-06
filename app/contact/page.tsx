@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import ContactForm from "@/components/ContactForm";
 import { CONTACT } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Get a Free Rental Income Estimate",
   description:
     "Tell us about your London property and a property manager will be in touch within 24 hours with a free short-let income estimate. No obligation.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">

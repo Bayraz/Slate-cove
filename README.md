@@ -130,6 +130,15 @@ crawlers read can't drift apart.
   - `FAQPage` on How it works — the eight Q&As, already paired. This is the
     highest-value block for AI assistants, which quote question/answer pairs.
   - `WebSite`.
+- **Share cards.** `public/og.png` (1200x630) is referenced by every page.
+  `pageMetadata()` in `lib/seo.ts` gives each page its own `og:title`,
+  `og:description` and `og:url` — without it every page inherited the home
+  page's, so sharing an inner page announced it as the homepage. Regenerate
+  the card by rerunning the sharp script noted in the commit history.
+- **Icons.** `app/icon.png` and `app/apple-icon.png` are the monogram on the
+  paper ground, squared off. Next picks these up by filename.
+- **`app/not-found.tsx`** is a branded 404, set `noindex`.
+- **`BreadcrumbList`** on each inner page.
 - **`public/llms.txt`** — a plain-language summary of the service, pricing,
   coverage and contact details for AI crawlers. Unlike the rest, this one is
   hand-written, so update it when pricing or coverage changes.

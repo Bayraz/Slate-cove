@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
   EXCLUSIONS,
@@ -7,16 +9,22 @@ import {
   PLAN_FULL_TIME,
 } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Airbnb Management Fees — 15% Full-time, 18% Flexible",
   description:
     "Transparent short-let management pricing in London: 15% of net revenue full-time, 18% flexible. No setup fees, no hidden costs, no lock-in.",
-  alternates: { canonical: "/pricing" },
-};
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ])}
+      />
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
