@@ -16,7 +16,7 @@ export const CONTACT = {
   telephone: "+44 7484 646008",
   telephoneHref: "+447484646008",
   addressLines: ["124 City Road", "London EC1V 2NX"],
-  hoursLines: ["Office, weekdays 9–6", "Guest line, always"],
+  hoursLines: ["Office, weekdays 9am–10pm", "Guest line, always"],
 } as const;
 
 export const STATS = [
