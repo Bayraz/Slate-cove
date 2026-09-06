@@ -26,7 +26,23 @@ export const HERO_IMAGES: SiteImage[] = [
   {
     src: "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "The open-plan living room of an A-frame house, with tall angled windows looking out into trees",
-    brief: "Hero 1 — living space, black and white",
+    brief: "Hero 1 — living space",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1728825445493-1a6e89164511?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "The cobbled street of Kynance Mews in London, lined with period houses",
+    brief: "Hero 2 — exterior or street",
+  },
+  {
+    // Raised from the supplied w=500, which is narrower than the hero renders.
+    src: "https://images.unsplash.com/photo-1520986606214-8b456906c813?w=1600&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bG9uZG9ufGVufDB8fDB8fHww",
+    alt: "A London street scene",
+    brief: "Hero 3",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1448906654166-444d494666b3?w=1600&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvbmRvbnxlbnwwfHwwfHx8MA%3D%3D",
+    alt: "A London street scene",
+    brief: "Hero 4",
   },
 ];
 
