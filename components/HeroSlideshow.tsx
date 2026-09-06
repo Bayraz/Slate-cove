@@ -7,37 +7,44 @@ const INTERVAL = 5200;
 const FADE = 900;
 
 /**
- * The home hero. Slides cross-fade on a timer, with dots and arrows to move
- * between them; interacting restarts the timer so a slide never changes out
- * from under the visitor mid-look.
+ * The home hero. Slides cross-fade on a timer that runs continuously; moving
+ * by dot or arrow restarts it, so a slide never changes immediately after the
+ * visitor has chosen one.
+ *
+ * Autoplay stops for anyone who prefers reduced motion — they can still move
+ * through the slides by hand.
  *
  * With a single image it renders as a plain static hero and no controls
  * appear, so the images list in lib/images.ts can grow or shrink freely.
  */
 export default function HeroSlideshow({ images }: { images: SiteImage[] }) {
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const count = images.length;
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(query.matches);
+    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  // `current` is a dependency on purpose: choosing a slide by hand rebuilds
+  // the interval, giving that slide a full turn before the next advance.
+  useEffect(() => {
+    if (count < 2 || reducedMotion) return;
+    const timer = setInterval(() => setCurrent((c) => (c + 1) % count), INTERVAL);
+    return () => clearInterval(timer);
+  }, [count, reducedMotion, current]);
 
   const goTo = useCallback(
     (next: number) => setCurrent(((next % count) + count) % count),
     [count],
   );
 
-  useEffect(() => {
-    if (count < 2 || paused) return;
-    const timer = setInterval(() => setCurrent((c) => (c + 1) % count), INTERVAL);
-    return () => clearInterval(timer);
-  }, [count, paused, current]);
-
   return (
-    <div
-      className="hero__slot slideshow"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-    >
+    <div className="hero__slot slideshow">
       {images.map((image, i) => (
         <div
           key={image.src}
