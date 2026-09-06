@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Link from "next/link";
-import Slot from "@/components/Slot";
-import { HERO_IMAGE } from "@/lib/images";
+import HeroSlideshow from "@/components/HeroSlideshow";
+import { HERO_IMAGES } from "@/lib/images";
 import {
   COMPARISON_COLUMNS,
   COMPARISON_ROWS,
@@ -40,7 +40,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <Slot image={HERO_IMAGE} className="hero__slot" priority />
+          <HeroSlideshow images={HERO_IMAGES} />
         </div>
       </section>
 

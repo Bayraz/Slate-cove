@@ -92,8 +92,14 @@ image. `lib/images.ts` points them at the chosen Unsplash photographs:
 | Home hero | *Hero interior — black and white, natural light, straight verticals* | A-frame living room, angled windows |
 | Locations | *Coverage map or London exterior — black and white* | Stone cottage in a formal rose garden |
 
-Both render through `Slot.tsx`, which applies the `grayscale(1)` filter the
-design's black-and-white direction calls for, so a colour source needs no
+The home hero is a slideshow (`components/HeroSlideshow.tsx`) driven by the
+`HERO_IMAGES` array. It renders however many images are listed: one gives a
+plain static hero with no controls, more cross-fade on a 5.2s timer with dots
+and arrows, pausing while the visitor hovers or focuses it. Add or remove
+entries freely — no other change is needed.
+
+Both hero and locations images render through the same grayscale treatment
+the design's black-and-white direction calls for, so a colour source needs no
 editing first.
 
 **Before launch, download these into `public/` and serve them locally.**

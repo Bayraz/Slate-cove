@@ -28,8 +28,18 @@ export default function Header() {
     <header className="header">
       <div className="wrap header__inner">
         <Link className="brand" href="/">
-          <span className="brand__name">Slate &amp; Cove</span>
-          <span className="brand__tag">Corporate &amp; short-let management</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="brand__mark"
+            src="/sc-monogram.png"
+            alt=""
+            width={312}
+            height={508}
+          />
+          <span className="brand__words">
+            <span className="brand__name">Slate &amp; Cove</span>
+            <span className="brand__tag">Corporate &amp; short-let management</span>
+          </span>
         </Link>
 
         <button

@@ -14,11 +14,21 @@ export type SiteImage = {
   brief: string;
 };
 
-export const HERO_IMAGE: SiteImage = {
-  src: "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  alt: "The open-plan living room of an A-frame house, with tall angled windows looking out into trees",
-  brief: "Hero interior — black and white, natural light, straight verticals",
-};
+/**
+ * The home hero is a slideshow. It renders however many images are listed
+ * here: with one it is a plain static hero and no controls appear, with more
+ * it cross-fades between them. Add or remove entries freely.
+ *
+ * The design briefs these as: living space, bedroom, kitchen or detail, and
+ * exterior or street — all black and white, which Slot applies as a filter.
+ */
+export const HERO_IMAGES: SiteImage[] = [
+  {
+    src: "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "The open-plan living room of an A-frame house, with tall angled windows looking out into trees",
+    brief: "Hero 1 — living space, black and white",
+  },
+];
 
 export const LOCATIONS_IMAGE: SiteImage = {
   src: "https://images.unsplash.com/photo-1547638599-d4bf222cf5d1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
