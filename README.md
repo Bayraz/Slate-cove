@@ -139,9 +139,10 @@ crawlers read can't drift apart.
   paper ground, squared off. Next picks these up by filename.
 - **`app/not-found.tsx`** is a branded 404, set `noindex`.
 - **`BreadcrumbList`** on each inner page.
-- **`public/llms.txt`** — a plain-language summary of the service, pricing,
-  coverage and contact details for AI crawlers. Unlike the rest, this one is
-  hand-written, so update it when pricing or coverage changes.
+- **`app/llms.txt/route.ts`** — a plain-language brief for AI crawlers:
+  service, pricing, what's included, the five steps, all coverage areas, the
+  eight FAQs and contact details. Generated from `lib/content.ts` like
+  everything else, so it cannot go stale when pricing or coverage changes.
 
 Both `robots.ts` and `sitemap.ts` set `export const dynamic = "force-static"`,
 which `output: "export"` requires.
