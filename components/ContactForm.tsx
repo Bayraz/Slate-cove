@@ -55,8 +55,8 @@ export default function ContactForm() {
           <input type="text" name="first-name" autoComplete="given-name" required />
         </label>
         <label className="field">
-          <span>Last name</span>
-          <input type="text" name="last-name" autoComplete="family-name" required />
+          <span>Last name (optional)</span>
+          <input type="text" name="last-name" autoComplete="family-name" />
         </label>
         <label className="field">
           <span>Email</span>
@@ -70,8 +70,8 @@ export default function ContactForm() {
 
       <div className="form__row form__row--address">
         <label className="field">
-          <span>Property address</span>
-          <input type="text" name="address" autoComplete="street-address" required />
+          <span>Property address (optional)</span>
+          <input type="text" name="address" autoComplete="street-address" />
         </label>
         <label className="field">
           <span>Postcode</span>

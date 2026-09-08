@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Serif, Jost } from "next/font/google";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
+import MobileContactBar from "@/components/MobileContactBar";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/Footer";
 import { OG_IMAGE, SITE, organisationSchema, websiteSchema } from "@/lib/seo";
@@ -91,6 +92,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <MobileContactBar />
         </div>
       </body>
     </html>

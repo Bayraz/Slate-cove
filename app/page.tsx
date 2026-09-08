@@ -8,7 +8,6 @@ import {
   HOME_CTA_POINTS,
   SERVICES,
   STATS,
-  TESTIMONIALS,
 } from "@/lib/content";
 
 export default function HomePage() {
@@ -138,26 +137,6 @@ export default function HomePage() {
           <p className="note">
             Listed on Airbnb, Booking.com, Vrbo, Expedia and Blueground.
           </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
-            <p className="eyebrow">Testimonials</p>
-            <h2 className="d5">What landlords say</h2>
-          </div>
-          <div className="quotes">
-            {TESTIMONIALS.map(({ quote, name, role }) => (
-              <figure className="quote" key={name}>
-                <p>{quote}</p>
-                <figcaption>
-                  <span>{name}</span>
-                  <span>{role}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
         </div>
       </section>
 
