@@ -179,7 +179,7 @@ export default function Explainer() {
           onKeyDown={takeOver}
         >
 
-          <section className={cls(0)} data-bg="cool">
+          <section className={cls(0)} data-bg="ink">
               <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>If any of this sounds familiar</span>
             <div className="xp-stack xp-situations" style={delay(60)}>
@@ -190,7 +190,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(1)} data-bg="cool">
+          <section className={cls(1)} data-bg="ink">
               <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>A short let earns more, but someone has to</span>
             <div className="xp-stack" style={delay(120)}>
@@ -224,7 +224,7 @@ export default function Explainer() {
             <p className="xp-sub" style={delay(300)}>Priced against local demand every single day.</p>
           </section>
 
-          <section className={cls(4)} data-bg="warm">
+          <section className={cls(4)} data-bg="ink">
               <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>And every month, in writing</span>
             <div className="xp-ledger" style={delay(140)}>
@@ -236,7 +236,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(5)} data-bg="cool">
+          <section className={cls(5)} data-bg="warm">
               <Bg m="orbit" />
             <span className="xp-eyebrow" style={delay(0)}>Why we price it this way</span>
             <p className="xp-line" style={delay(140)}>We take a percentage. So we only earn when you do.</p>
@@ -245,7 +245,7 @@ export default function Explainer() {
             </p>
           </section>
 
-          <section className={cls(6)} data-bg="warm">
+          <section className={cls(6)} data-bg="ink">
               <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>The difference</span>
             <p className="xp-line" style={delay(140)}>Thirty to forty per cent more than a long tenancy.</p>
@@ -325,7 +325,11 @@ export default function Explainer() {
               aria-label={`Scene ${n + 1}`}
               className={index === n ? "is-on" : undefined}
               onClick={() => { takeOver(); goTo(n); }}
-            />
+            >
+              {index === n && onScreen && !steering && n < HOLD.length - 1 ? (
+                <span className="xp-fill" style={{ animationDuration: `${HOLD[n]}ms` }} />
+              ) : null}
+            </button>
           ))}
         </div>
       </div>

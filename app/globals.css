@@ -16,6 +16,7 @@
   --wine:       #7A1F2B;  /* primary accent: buttons, eyebrows, CTA bands */
   --wine-deep:  #5E1721;  /* wine hover */
   --near-black: #100F0E;  /* navigation links */
+  --wine-lift:  #C9727E;  /* wine accent on the dark explainer panels */
 
   /* Type */
   --serif: var(--font-instrument-serif), Georgia, serif;
@@ -1268,6 +1269,32 @@ html.js-reveal main > section.is-visible {
     radial-gradient(62% 76% at 92% 90%, rgba(185, 198, 206, 0.38), transparent 70%),
     linear-gradient(155deg, #F5F2ED 0%, #E8E4DD 100%);
 }
+.xp-scene[data-bg="ink"] {
+  background:
+    radial-gradient(70% 84% at 78% 20%, rgba(122, 31, 43, 0.34), transparent 66%),
+    radial-gradient(62% 72% at 8% 94%, rgba(185, 198, 206, 0.11), transparent 70%),
+    linear-gradient(155deg, #1B1A17 0%, #0A0A09 100%);
+  color: #F6F4F1;
+}
+.xp-scene[data-bg="ink"] .xp-eyebrow,
+.xp-scene[data-bg="ink"] .xp-ico { color: var(--wine-lift); }
+.xp-scene[data-bg="ink"] .xp-sub { color: rgba(246, 244, 241, 0.72); }
+.xp-scene[data-bg="ink"] .xp-ledger div {
+  color: rgba(246, 244, 241, 0.66);
+  border-top-color: rgba(185, 198, 206, 0.26);
+}
+.xp-scene[data-bg="ink"] .xp-ledger div i { background: rgba(246, 244, 241, 0.3); }
+.xp-scene[data-bg="ink"] .xp-ledger .net {
+  color: var(--wine-lift);
+  border-top-color: var(--wine-lift);
+}
+.xp-scene[data-bg="ink"] .xp-ledger .net i { background: var(--wine-lift); }
+.xp-scene[data-bg="ink"] .xp-bar { background: rgba(185, 198, 206, 0.42); }
+.xp-scene[data-bg="ink"] .xp-bar.tall { background: var(--wine-lift); }
+.xp-scene[data-bg="ink"] .xp-barlab { color: rgba(246, 244, 241, 0.62); }
+.xp-scene[data-bg="ink"] .xp-bg,
+.xp-scene[data-bg="ink"] > .xp-bg { color: #FFFFFF; opacity: 0.13; }
+
 .xp-scene[data-bg="wine"] {
   background:
     radial-gradient(74% 84% at 50% 24%, rgba(255, 255, 255, 0.11), transparent 62%),
@@ -1298,7 +1325,16 @@ html.js-reveal main > section.is-visible {
   -webkit-mask-image: radial-gradient(closest-side, #000 48%, transparent 100%);
   mask-image: radial-gradient(closest-side, #000 48%, transparent 100%);
 }
-.xp-bg svg { display: block; width: 100%; height: 100%; }
+.xp-bg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: xp-drift 28s ease-in-out infinite;
+}
+@keyframes xp-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-2.6%, 2%) scale(1.06); }
+}
 /* Hairlines whatever the panel is scaled to, so it stays texture. */
 .xp-bg svg * { vector-effect: non-scaling-stroke; }
 .xp-bg[data-motif="arcs"]  { right: -16%; bottom: -42%; width: 58%; aspect-ratio: 1; }
@@ -1561,6 +1597,7 @@ html.js-reveal main > section.is-visible {
 }
 .xp-dots { display: flex; gap: 8px; }
 .xp-dots button {
+  position: relative;
   width: 26px;
   height: 22px;
   padding: 10px 0;
@@ -1577,7 +1614,29 @@ html.js-reveal main > section.is-visible {
   opacity: 0.45;
   transition: opacity 220ms ease, background-color 220ms ease;
 }
-.xp-dots button.is-on::after { background: var(--wine); opacity: 1; }
+.xp-dots button.is-on::after { background: var(--blue); opacity: 1; }
+
+/* The live dot fills as its scene runs, so the rail always reads as playing
+   rather than parked. It is only rendered while it is actually advancing. */
+.xp-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 2px;
+  background: var(--wine);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation-name: xp-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes xp-fill { to { transform: scaleX(1); } }
+.xp-dots button.is-on:not(:has(.xp-fill))::after { background: var(--wine); }
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-fill { animation: none; transform: scaleX(1); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .xp-scene,
@@ -1588,4 +1647,5 @@ html.js-reveal main > section.is-visible {
   .xp-ledger div i,
   .xp-figure [data-draw],
   .xp-figure [data-pop] { transition-duration: 1ms !important; }
+  .xp-bg svg { animation: none; }
 }
