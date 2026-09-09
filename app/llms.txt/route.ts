@@ -3,6 +3,7 @@ import {
   CONTACT,
   FAQ,
   MANAGEMENT_FEES,
+  FOOTER_EXTRA,
   NAV,
   SERVICES,
   STEPS,
@@ -61,7 +62,7 @@ ${FAQ.map((f) => `### ${f.q}\n${f.a}`).join("\n\n")}
 
 ## Pages
 
-${NAV.map((n) => `- [${n.label}](${url(n.href)})`).join("\n")}
+${[...NAV, ...FOOTER_EXTRA].map((n) => `- [${n.label}](${url(n.href)})`).join("\n")}
 
 ## Area pages
 

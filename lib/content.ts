@@ -237,6 +237,11 @@ export const AREAS = [
   },
 ] as const;
 
+/** Extra footer links that are not in the main navigation. */
+export const FOOTER_EXTRA = [
+  { href: "/submit-property", label: "Submit your property" },
+] as const;
+
 export const FOOTER_SERVICES = [
   "Listing optimisation",
   "Photography",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import ContactForm from "@/components/ContactForm";
@@ -30,6 +31,10 @@ export default function ContactPage() {
             Fill in the form and one of our property managers will be in touch
             within 24 hours. No obligation, just a conversation about what your
             property could earn.
+          </p>
+          <p className="note">
+            Ready to send full details, including photographs?{" "}
+            <Link href="/submit-property">Use the property submission form</Link>.
           </p>
         </div>
       </section>

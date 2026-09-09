@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FOOTER_AREAS } from "@/lib/areas";
-import { CONTACT, FOOTER_SERVICES, NAV } from "@/lib/content";
+import { CONTACT, FOOTER_EXTRA, FOOTER_SERVICES, NAV } from "@/lib/content";
 
 export default function Footer() {
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
         <div>
           <div className="footer__heading">Pages</div>
           <ul className="footer__col">
-            {NAV.map(({ href, label }) => (
+            {[...NAV, ...FOOTER_EXTRA].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href}>{label}</Link>
               </li>
