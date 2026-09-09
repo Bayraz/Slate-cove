@@ -28,7 +28,7 @@ export default function ContactPage() {
           </div>
           <p className="lead">
             Fill in the form and one of our property managers will be in touch
-            within 24 hours. No obligation — just a conversation about what your
+            within 24 hours. No obligation, just a conversation about what your
             property could earn.
           </p>
         </div>

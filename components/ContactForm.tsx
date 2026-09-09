@@ -11,7 +11,7 @@ type Status = "idle" | "sending" | "sent" | "error";
  * our own backend.
  *
  * The <form> keeps a real `action` and `method`, so without JavaScript it
- * still submits the ordinary way — the browser just lands on Formspree's own
+ * still submits the ordinary way, and the browser just lands on Formspree's own
  * confirmation page. With JavaScript, the submit is intercepted and posted in
  * the background, which keeps the visitor on the page.
  */
@@ -127,7 +127,7 @@ export default function ContactForm() {
         aria-live="polite"
       >
         {status === "sent" &&
-          "Thank you — your property details are with us. We will be in touch within 24 hours."}
+          "Thank you. Your property details are with us. We will be in touch within 24 hours."}
         {status === "error" &&
           "Something went wrong sending that. Please email info@slateandcove.com or call +44 7484 646008."}
       </p>

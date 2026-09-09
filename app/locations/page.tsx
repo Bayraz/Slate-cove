@@ -7,7 +7,7 @@ import { LOCATIONS_IMAGE } from "@/lib/images";
 import { AREA_PAGES } from "@/lib/areas";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Areas We Cover — London & the Home Counties",
+  title: "Areas We Cover: London & the Home Counties",
   description:
     "Short-let management across Kensington, Chelsea, Notting Hill, Chiswick, Ealing, Canary Wharf and the Home Counties including Windsor, Reading, Watford and Slough.",
   path: "/locations",

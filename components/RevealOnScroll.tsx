@@ -7,7 +7,7 @@ import { useEffect } from "react";
  * Eases sections in as they are scrolled to.
  *
  * The hiding is done by CSS gated on `html.js-reveal`, which only this
- * component adds — so without JavaScript, or when reduced motion is asked
+ * component adds, so without JavaScript, or when reduced motion is asked
  * for, every section renders plainly visible and nothing can be stranded
  * invisible.
  */
@@ -33,8 +33,8 @@ export default function RevealOnScroll() {
     };
 
     // Reveal anything at or above the fold, not only what is intersecting
-    // right now. Jumping down the page — an anchor link, end key, a flick on
-    // a phone — leaves sections that were scrolled clean past without ever
+    // right now. Jumping down the page, whether an anchor link, end key or a flick on
+    // a phone, leaves sections that were scrolled clean past without ever
     // intersecting; without this sweep they stay invisible on the way back up.
     const sweep = () => {
       for (const section of sections) {

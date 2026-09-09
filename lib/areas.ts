@@ -2,7 +2,7 @@
 //
 // Each area carries its own copy. That is the whole point: 38 near-identical
 // pages would be thin content and would rank for nothing, so `intro`, `stock`
-// and `guests` are written for the specific place — the property it actually
+// and `guests` are written for the specific place: the property it actually
 // has, and who actually stays there. No invented figures anywhere; the claims
 // here are the sort a local manager would make from knowing the area.
 
@@ -35,9 +35,9 @@ export const AREA_PAGES: Area[] = [
     name: "Kensington",
     group: "Central London",
     intro:
-      "Kensington draws a steady, year-round audience — the museums, Kensington Gardens and the Royal Albert Hall keep demand from collapsing out of season the way it does in more purely business districts.",
+      "Kensington draws a steady, year-round audience. The museums, Kensington Gardens and the Royal Albert Hall keep demand from collapsing out of season the way it does in more purely business districts.",
     stock:
-      "Stucco-fronted terraces divided into flats, red-brick mansion blocks, and garden-square apartments. Period features are the selling point and the maintenance burden in equal measure — sash windows, high ceilings, older heating systems.",
+      "Stucco-fronted terraces divided into flats, red-brick mansion blocks, and garden-square apartments. Period features are the selling point and the maintenance burden in equal measure: sash windows, high ceilings, older heating systems.",
     guests:
       "Families visiting the V&A and Natural History Museum, longer corporate stays, and international visitors who expect a certain standard of finish. Stays skew longer than the London average, which suits owners who would rather have fewer changeovers.",
   },
@@ -61,14 +61,14 @@ export const AREA_PAGES: Area[] = [
     stock:
       "Georgian and Victorian terraces converted into flats around the station and Sussex Gardens, plus newer apartments in the basin developments. Compact units are the norm and they let well.",
     guests:
-      "Business travellers, people connecting through Heathrow, and visitors who want to drop bags and get moving. Self check-in is close to essential — arrivals land at every hour.",
+      "Business travellers, people connecting through Heathrow, and visitors who want to drop bags and get moving. Self check-in is close to essential, because arrivals land at every hour.",
   },
   {
     slug: "little-venice-maida-vale",
     name: "Little Venice & Maida Vale",
     group: "Central London",
     intro:
-      "Quieter than the postcodes around it, and priced accordingly — guests choose here when they want central access without central noise. That makes it a reliable rather than spectacular short-let market, which many owners prefer.",
+      "Quieter than the postcodes around it, and priced accordingly, so guests choose here when they want central access without central noise. That makes it a reliable rather than spectacular short-let market, which many owners prefer.",
     stock:
       "Large mansion-block flats with generous room sizes, plus canal-side apartments around the basin. Ceiling heights and floor plates are better than most of central London, so these listings photograph well.",
     guests:
@@ -79,7 +79,7 @@ export const AREA_PAGES: Area[] = [
     name: "Earls Court",
     group: "Central London",
     intro:
-      "Earls Court has long been a landing point for people arriving in London, and the short-let demand reflects that — a lot of medium-length stays from people who have not yet found somewhere permanent.",
+      "Earls Court has long been a landing point for people arriving in London, and the short-let demand reflects that, with a lot of medium-length stays from people who have not yet found somewhere permanent.",
     stock:
       "Dense period conversions, studios and one-beds, with a good supply of purpose-built blocks. Units are small, turn over quickly, and reward efficient furnishing over statement pieces.",
     guests:
@@ -125,7 +125,7 @@ export const AREA_PAGES: Area[] = [
     intro:
       "Elephant & Castle offers genuine Zone 1 access at a lower entry price than the postcodes across the river, and the regeneration has brought a lot of new stock to market. Competition is rising, so pricing discipline matters.",
     stock:
-      "Predominantly new-build apartments with lifts, concierge and modern services — straightforward to run, and guests know what they are getting. Some period conversions towards Kennington and Walworth.",
+      "Predominantly new-build apartments with lifts, concierge and modern services, so they are straightforward to run, and guests know what they are getting. Some period conversions towards Kennington and Walworth.",
     guests:
       "Value-conscious visitors who want central access, contractors on medium-length assignments, and people visiting nearby hospitals and universities. Length of stay is longer than the central average.",
   },
@@ -160,7 +160,7 @@ export const AREA_PAGES: Area[] = [
     stock:
       "Rows of Victorian terraces, many split into upper and lower maisonettes, plus riverside apartments towards Imperial Wharf. Gardens and outside space are a real differentiator in listings.",
     guests:
-      "Families, longer corporate lets, and match-day demand around Craven Cottage and Stamford Bridge. Fixture lists are worth pricing against — they move nightly rates sharply.",
+      "Families, longer corporate lets, and match-day demand around Craven Cottage and Stamford Bridge. Fixture lists are worth pricing against, because they move nightly rates sharply.",
   },
   {
     slug: "shepherds-bush",
@@ -211,7 +211,7 @@ export const AREA_PAGES: Area[] = [
     name: "Acton",
     group: "London zones 2–4",
     intro:
-      "Acton is exceptionally well connected — Central, District, Piccadilly, Overground and now the Elizabeth line — while remaining cheaper to buy into than the areas either side. That combination works well for short lets.",
+      "Acton is exceptionally well connected, with the Central, District, Piccadilly, Overground and now the Elizabeth line, while remaining cheaper to buy into than the areas either side. That combination works well for short lets.",
     stock:
       "Victorian terraces divided into flats, ex-local-authority stock offering strong space per pound, and new development around the Elizabeth line stations.",
     guests:
@@ -222,7 +222,7 @@ export const AREA_PAGES: Area[] = [
     name: "Ealing",
     group: "London zones 2–4",
     intro:
-      "Ealing has always been a family suburb, and the Elizabeth line has made it a viable base for visitors too — Bond Street is a short ride, Heathrow shorter still.",
+      "Ealing has always been a family suburb, and the Elizabeth line has made it a viable base for visitors too. Bond Street is a short ride, Heathrow shorter still.",
     stock:
       "Large Edwardian and Victorian houses, many converted into good-sized flats, plus mansion blocks near the common. Space is the advantage over anything closer to the centre.",
     guests:
@@ -235,7 +235,7 @@ export const AREA_PAGES: Area[] = [
     intro:
       "Wembley is the clearest event-driven short-let market in London. Stadium and Arena dates transform nightly rates, and a calendar priced without reference to the fixture list leaves a great deal on the table.",
     stock:
-      "Overwhelmingly new-build apartments in the Park development — modern, low-maintenance, well suited to short stays. Some older terraces towards Alperton and Sudbury.",
+      "Overwhelmingly new-build apartments in the Park development: modern, low-maintenance, well suited to short stays. Some older terraces towards Alperton and Sudbury.",
     guests:
       "Concert and match audiences booking in bursts, plus outlet shoppers and business visitors midweek. Demand is spiky, which makes daily repricing the single most valuable thing we do here.",
   },
@@ -255,7 +255,7 @@ export const AREA_PAGES: Area[] = [
     name: "Canary Wharf",
     group: "London zones 2–4",
     intro:
-      "Canary Wharf is a corporate market with a weekday rhythm. Rates hold up well Monday to Thursday and soften at weekends — close to the inverse of most of London, which makes it a useful thing to own alongside a central property.",
+      "Canary Wharf is a corporate market with a weekday rhythm. Rates hold up well Monday to Thursday and soften at weekends, close to the inverse of most of London, which makes it a useful thing to own alongside a central property.",
     stock:
       "High-specification tower apartments with concierge, gyms and river views. Building management handles much of the fabric, so the operational work is concentrated in guest experience.",
     guests:
@@ -299,7 +299,7 @@ export const AREA_PAGES: Area[] = [
     name: "Harrow",
     group: "Greater London",
     intro:
-      "Harrow generates its own demand rather than borrowing central London's — the school, the hospital and a substantial local business base all bring visitors who need somewhere to stay nearby.",
+      "Harrow generates its own demand rather than borrowing central London's. The school, the hospital and a substantial local business base all bring visitors who need somewhere to stay nearby.",
     stock:
       "Semi-detached and detached houses with driveways and gardens, plus flats near the station. Parking is standard here, which is a genuine advantage in listings.",
     guests:
@@ -321,7 +321,7 @@ export const AREA_PAGES: Area[] = [
     name: "Yeading",
     group: "Greater London",
     intro:
-      "Yeading is a quiet residential area with very little hotel provision, which is precisely why short lets do well — visitors to the area often have no real alternative.",
+      "Yeading is a quiet residential area with very little hotel provision, which is precisely why short lets do well. Visitors to the area often have no real alternative.",
     stock:
       "Post-war semis and terraces, typically with gardens and off-street parking, offering considerably more space than anything at a comparable price closer in.",
     guests:
@@ -453,7 +453,7 @@ export function nearbyAreas(area: Area, count = 4): Area[] {
 }
 
 /**
- * The areas worth linking from the footer — highest search demand, so they
+ * The areas worth linking from the footer: highest search demand, so they
  * appear on every page rather than only on /locations.
  */
 export const FOOTER_AREAS = [

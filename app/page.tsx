@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import Explainer from "@/components/Explainer";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import { HERO_IMAGES } from "@/lib/images";
 import {
@@ -16,7 +17,7 @@ export default function HomePage() {
       <section className="section">
         <div className="wrap hero">
           <div className="hero__body">
-            <p className="eyebrow">Short-let &amp; Airbnb management — London</p>
+            <p className="eyebrow">Short-let &amp; Airbnb management in London</p>
             <h1 className="d1">Your property, managed properly</h1>
             <p className="lead-lg">
               We list it, price it, host it and clean it. You hand over the keys
@@ -44,6 +45,16 @@ export default function HomePage() {
       </section>
 
       <section className="section">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">The short version</p>
+            <h2 className="d5">How this works for you</h2>
+          </div>
+          <Explainer />
+        </div>
+      </section>
+
+      <section className="section">
         <div className="wrap railed">
           <p className="eyebrow">What we do</p>
           <div className="railed__body">
@@ -59,7 +70,7 @@ export default function HomePage() {
               involvement and a clear income report every month.
             </p>
             <p className="body-lg">
-              We manage across Central and West London and the Home Counties —
+              We manage across Central and West London and the Home Counties:
               Kensington, Chelsea, Notting Hill, Chiswick, Ealing and Canary
               Wharf, as well as Windsor, Reading, Watford and Slough. One flat or
               a small portfolio, the arrangement is the same.

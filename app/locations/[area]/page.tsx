@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!area) return {};
   return pageMetadata({
     title: `Airbnb & Short-Let Management in ${area.name}`,
-    description: `Full-service Airbnb and short-let management in ${area.name}. We list, price, host and clean your property — ${MANAGEMENT_FEES.fullTime} of net revenue, no lock-in, one report a month.`,
+    description: `Full-service Airbnb and short-let management in ${area.name}. We list, price, host and clean your property. ${MANAGEMENT_FEES.fullTime} of net revenue, no lock-in, one report a month.`,
     path: `/locations/${area.slug}`,
   });
 }

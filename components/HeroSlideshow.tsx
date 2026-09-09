@@ -11,7 +11,7 @@ const FADE = 900;
  * by dot or arrow restarts it, so a slide never changes immediately after the
  * visitor has chosen one.
  *
- * Autoplay stops for anyone who prefers reduced motion — they can still move
+ * Autoplay stops for anyone who prefers reduced motion, who can still move
  * through the slides by hand.
  *
  * With a single image it renders as a plain static hero and no controls

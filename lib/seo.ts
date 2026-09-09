@@ -1,7 +1,7 @@
 // Structured data and shared SEO constants.
 //
 // Everything here is derived from lib/content.ts so the markup and the schema
-// can never drift apart — if the copy changes, so does what search engines and
+// can never drift apart. If the copy changes, so does what search engines and
 // AI assistants read.
 
 import { AREAS, CONTACT, FAQ, MANAGEMENT_FEES } from "./content";
@@ -11,7 +11,7 @@ export const SITE = {
   url: "https://www.slateandcove.com",
   tagline: "Corporate & short-let management",
   description:
-    "Full-service short-let and Airbnb management in London. We list, price, host and clean your property — you read one report a month.",
+    "Full-service short-let and Airbnb management in London. We list, price, host and clean your property, and you read one report a month.",
   locale: "en_GB",
 } as const;
 
@@ -122,7 +122,7 @@ export const OG_IMAGE = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: "Slate & Cove — short-let and Airbnb management in London",
+  alt: "Slate & Cove, short-let and Airbnb management in London",
 };
 
 /**

@@ -48,7 +48,7 @@ compliance, including the 90-night rule, is tracked.
 
 ## How it works
 
-${STEPS.map((s) => `${s.num}. ${s.title} — ${s.copy}`).join("\n\n")}
+${STEPS.map((s) => `${s.num}. ${s.title}: ${s.copy}`).join("\n\n")}
 
 ## Areas covered
 

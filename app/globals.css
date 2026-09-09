@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Slate & Cove — global styles
+   Slate & Cove global styles
    Ported from the Claude Design prototype "Slate and Cove Website.dc.html".
    All colour, type and spacing values are taken directly from that file.
    ========================================================================== */
@@ -294,7 +294,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* --------------------------------------------------------------------------
-   Home — hero
+   Home: hero
    -------------------------------------------------------------------------- */
 
 .hero {
@@ -391,7 +391,7 @@ img { max-width: 100%; display: block; }
 .page-head__title { display: flex; flex-direction: column; gap: 32px; }
 
 /* --------------------------------------------------------------------------
-   Home — service grid
+   Home: service grid
    -------------------------------------------------------------------------- */
 
 .services {
@@ -410,7 +410,7 @@ img { max-width: 100%; display: block; }
 .service p { margin: 0; font-size: 17px; line-height: 1.6; font-weight: 300; color: var(--muted); }
 
 /* --------------------------------------------------------------------------
-   Home — comparison table
+   Home: comparison table
    -------------------------------------------------------------------------- */
 
 .compare-scroll { overflow-x: auto; }
@@ -452,7 +452,7 @@ img { max-width: 100%; display: block; }
 .compare .is-center { text-align: center; }
 
 /* --------------------------------------------------------------------------
-   Home — testimonials
+   Home: testimonials
    -------------------------------------------------------------------------- */
 
 .quotes {
@@ -528,7 +528,7 @@ img { max-width: 100%; display: block; }
 .on-dark { color: var(--paper-alt); }
 
 /* --------------------------------------------------------------------------
-   How it works — numbered steps
+   How it works: numbered steps
    -------------------------------------------------------------------------- */
 
 .steps { padding: 0; }
@@ -559,7 +559,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* --------------------------------------------------------------------------
-   How it works — FAQ
+   How it works: FAQ
    -------------------------------------------------------------------------- */
 
 .faq {
@@ -1051,7 +1051,7 @@ img { max-width: 100%; display: block; }
 .form__status--error { color: var(--ink); }
 .btn:disabled { opacity: 0.6; cursor: default; }
 
-/* The footer wordmark stays stacked — no monogram there. */
+/* The footer wordmark stays stacked, with no monogram there. */
 .footer__mark {
   display: flex;
   flex-direction: column;
@@ -1136,7 +1136,7 @@ img { max-width: 100%; display: block; }
 body.nav-open { overflow: hidden; }
 
 /* Sections ease in as they are scrolled to. The class is added by
-   RevealOnScroll, so with JavaScript off — or with reduced motion asked for —
+   RevealOnScroll, so with JavaScript off, or with reduced motion asked for,
    nothing is ever hidden. The first section is exempt: it is the largest
    paint on the page and should not wait on an observer. */
 html.js-reveal main > section:not(:first-child) {
@@ -1153,7 +1153,7 @@ html.js-reveal main > section.is-visible {
   will-change: auto;
 }
 
-/* Photographs lift very slightly on hover — enough to feel alive, not enough
+/* Photographs lift very slightly on hover: enough to feel alive, not enough
    to distract from the architecture in the frame. */
 .slot > img { transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1); }
 .coverage__slot:hover > img { transform: scale(1.03); }
@@ -1205,4 +1205,292 @@ html.js-reveal main > section.is-visible {
 
   /* It must not sit over the full-screen menu. */
   body.nav-open .contact-bar { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Homepage explainer
+   Drawn live rather than played from a video file. Silent by design, because most
+   people watch muted and the type has to carry it.
+   -------------------------------------------------------------------------- */
+
+/* The track is tall; the stage inside pins itself to the viewport, so the
+   scroll position through the track is what moves the sequence along. */
+.xp-track { position: relative; height: calc(100vh + 9 * 62vh); }
+.xp-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding-top: 94px; /* clears the sticky header */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: min(100%, calc((100vh - 94px - 120px) * 16 / 9));
+  margin-inline: auto;
+}
+
+.xp-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  overflow: hidden;
+}
+.xp-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 50% 45%, rgba(185, 198, 206, 0.28), transparent 70%);
+  pointer-events: none;
+}
+
+.xp-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 clamp(24px, 6%, 80px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 520ms ease;
+}
+.xp-scene.is-live { opacity: 1; visibility: visible; }
+.xp-scene.xp-end { align-items: center; text-align: center; }
+
+.xp-eyebrow {
+  font-family: var(--mono);
+  font-size: clamp(9px, 1.05vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.xp-line {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(22px, 4.2vw, 52px);
+  line-height: 1.12;
+  max-width: 19ch;
+  text-wrap: pretty;
+}
+.xp-sub {
+  margin: 0;
+  font-size: clamp(12px, 1.55vw, 19px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 44ch;
+}
+
+/* Children rise in on their own delay. */
+.xp-scene > * {
+  transform: translateY(14px);
+  opacity: 0;
+  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 620ms ease;
+}
+.xp-scene.is-live > * { transform: none; opacity: 1; transition-delay: var(--d, 0ms); }
+
+.xp-stack { display: flex; flex-direction: column; gap: 10px; }
+.xp-stack span {
+  display: flex;
+  align-items: center;
+  gap: 0.62em;
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.9vw, 38px);
+  line-height: 1.25;
+  opacity: 0.28;
+  transform: translateY(6px);
+  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.xp-stack em { font-style: normal; }
+.xp-scene.is-live .xp-stack span { opacity: 1; transform: none; }
+.xp-stack span:nth-child(1) { transition-delay: 120ms; }
+.xp-stack span:nth-child(2) { transition-delay: 320ms; }
+.xp-stack span:nth-child(3) { transition-delay: 520ms; }
+.xp-stack span:nth-child(4) { transition-delay: 720ms; }
+
+/* One line icon per step, so the eye lands on the shape before the sentence. */
+.xp-ico {
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  color: var(--wine);
+}
+
+/* The situations are sentences, not two-word tasks: wider measure, smaller. */
+.xp-situations { gap: 14px; width: 100%; }
+.xp-situations span {
+  align-items: flex-start;
+  line-height: 1.28;
+  font-size: clamp(12px, 1.95vw, 25px);
+}
+.xp-situations .xp-ico { width: 1.25em; height: 1.25em; margin-top: 0.02em; }
+
+.xp-figure {
+  position: absolute;
+  right: clamp(24px, 7%, 90px);
+  top: 14%;
+  bottom: 14%;
+  width: min(34%, 300px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.xp-figure svg { width: 100%; height: auto; overflow: visible; }
+.xp-figure [data-draw] {
+  stroke-dasharray: var(--len, 240);
+  stroke-dashoffset: var(--len, 240);
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.xp-scene.is-live .xp-figure [data-draw] { stroke-dashoffset: 0; }
+.xp-figure [data-pop] {
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: center;
+  transition: opacity 500ms ease 700ms, transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1) 700ms;
+}
+.xp-scene.is-live .xp-figure [data-pop] { opacity: 1; transform: none; }
+
+.xp-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  font-family: var(--serif);
+  font-size: clamp(18px, 3.1vw, 40px);
+  line-height: 1.15;
+}
+.xp-platforms span {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.xp-scene.is-live .xp-platforms span { opacity: 1; transform: none; }
+.xp-platforms span:nth-child(1) { transition-delay: 180ms; }
+.xp-platforms span:nth-child(2) { transition-delay: 400ms; }
+.xp-platforms span:nth-child(3) { transition-delay: 620ms; }
+.xp-platforms span:nth-child(4) { transition-delay: 840ms; }
+
+.xp-ledger { display: flex; flex-direction: column; width: min(100%, 540px); }
+.xp-ledger div {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(6px, 1.4vh, 13px) 0;
+  border-top: 1px solid var(--blue);
+  font-family: var(--mono);
+  font-size: clamp(9px, 1.35vw, 15px);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.xp-ledger div i {
+  flex: 1;
+  height: 2px;
+  background: var(--paper-alt);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.xp-scene.is-live .xp-ledger div i { transform: none; }
+.xp-ledger div:nth-child(1) i { transition-delay: 240ms; }
+.xp-ledger div:nth-child(2) i { transition-delay: 440ms; }
+.xp-ledger div:nth-child(3) i { transition-delay: 640ms; }
+.xp-ledger div:nth-child(4) i { transition-delay: 840ms; }
+.xp-ledger .net { color: var(--wine); border-top: 2px solid var(--wine); }
+.xp-ledger .net i { background: var(--wine); transition-delay: 1060ms; }
+
+.xp-bars { display: flex; align-items: flex-end; gap: 22px; height: clamp(80px, 15vw, 150px); }
+.xp-barcol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  height: 100%;
+}
+.xp-bar {
+  width: clamp(30px, 5vw, 58px);
+  background: var(--blue);
+  height: 38%;
+  transition: height 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 260ms;
+}
+.xp-bar.tall { background: var(--wine); height: 38%; }
+.xp-scene.is-live .xp-bar.tall { height: 100%; }
+.xp-barlab {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.xp-endmark { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.xp-endmark img { height: clamp(46px, 7vw, 80px); width: auto; }
+.xp-endline { font-family: var(--serif); font-size: clamp(24px, 4.2vw, 50px); line-height: 1; }
+.xp-endsub { font-size: clamp(12px, 1.6vw, 19px); line-height: 1.5; color: var(--muted); max-width: 34ch; }
+.xp-cta { margin-top: 6px; }
+
+/* On a phone the stage goes portrait, so the type is not left swimming in a
+   letterbox. The side figures are dropped: there is no room beside the words. */
+@media (max-width: 760px) {
+  .xp { width: 100%; }
+  .xp-stage {
+    aspect-ratio: auto;
+    height: min(calc(100vh - 210px), 132vw);
+  }
+  .xp-scene { gap: 14px; padding: 0 22px; }
+  .xp-figure { display: none; }
+  .xp-line { font-size: clamp(26px, 7.4vw, 40px); max-width: 15ch; }
+  .xp-sub { font-size: clamp(14px, 3.7vw, 18px); }
+  .xp-stack span { font-size: clamp(19px, 5.4vw, 30px); }
+  .xp-situations span { font-size: clamp(15px, 4.2vw, 22px); }
+  .xp-endline { font-size: clamp(28px, 7.6vw, 42px); }
+  .xp-endsub { font-size: 14px; }
+}
+
+.xp-controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.xp-hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.xp-dots { display: flex; gap: 8px; }
+.xp-dots button {
+  width: 26px;
+  height: 22px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+.xp-dots button::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--blue);
+  opacity: 0.45;
+  transition: opacity 220ms ease, background-color 220ms ease;
+}
+.xp-dots button.is-on::after { background: var(--wine); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-scene,
+  .xp-scene > *,
+  .xp-stack span,
+  .xp-platforms span,
+  .xp-bar,
+  .xp-ledger div i,
+  .xp-figure [data-draw],
+  .xp-figure [data-pop] { transition-duration: 1ms !important; }
 }

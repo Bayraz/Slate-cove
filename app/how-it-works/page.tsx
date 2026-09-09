@@ -6,7 +6,7 @@ import { FAQ, STEPS } from "@/lib/content";
 import { faqSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "How Airbnb Management Works — From Enquiry to Payout",
+  title: "How Airbnb Management Works: From Enquiry to Payout",
   description:
     "From first enquiry to first payout: consultation, onboarding, go live, ongoing management and your monthly payout. Plus answers to the eight questions landlords ask most.",
   path: "/how-it-works",

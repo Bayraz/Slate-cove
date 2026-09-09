@@ -81,7 +81,7 @@ export const TESTIMONIALS = [
   },
   {
     quote:
-      "“The team handled everything — photography, listings, guests, cleaning. I genuinely don't have to do a thing.”",
+      "“The team handled everything: photography, listings, guests, cleaning. I genuinely don't have to do a thing.”",
     name: "Sarah Okafor",
     role: "Property owner, London",
   },
@@ -95,7 +95,7 @@ export const TESTIMONIALS = [
 
 export const HOME_CTA_POINTS = [
   "Free income estimate for your property",
-  "No lock-in contracts — cancel any time",
+  "No lock-in contracts, cancel any time",
   "Onboarding in as little as 7 days",
   "A dedicated local property manager",
 ] as const;
@@ -124,7 +124,7 @@ export const STEPS = [
   {
     num: "05",
     title: "Monthly payout",
-    copy: "At month end you receive a detailed performance report along with your payout — occupancy, revenue, expenses and our fee, set out in full.",
+    copy: "At month end you receive a detailed performance report along with your payout: occupancy, revenue, expenses and our fee, set out in full.",
   },
 ] as const;
 
