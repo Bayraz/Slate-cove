@@ -4,7 +4,7 @@ import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Slot from "@/components/Slot";
 import { LOCATIONS_IMAGE } from "@/lib/images";
-import { AREAS } from "@/lib/content";
+import { AREA_PAGES } from "@/lib/areas";
 
 export const metadata: Metadata = pageMetadata({
   title: "Areas We Cover — London & the Home Counties",
@@ -38,12 +38,14 @@ export default function LocationsPage() {
 
       <section className="section">
         <div className="wrap">
-          {AREAS.map(({ title, places }) => (
-            <div className="area" key={title}>
-              <h2>{title}</h2>
+          {[...new Set(AREA_PAGES.map((a) => a.group))].map((group) => (
+            <div className="area" key={group}>
+              <h2>{group}</h2>
               <ul className="area__list">
-                {places.map((place) => (
-                  <li key={place}>{place}</li>
+                {AREA_PAGES.filter((a) => a.group === group).map((area) => (
+                  <li key={area.slug}>
+                    <Link href={`/locations/${area.slug}`}>{area.name}</Link>
+                  </li>
                 ))}
               </ul>
             </div>

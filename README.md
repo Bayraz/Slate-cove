@@ -24,7 +24,8 @@ app/
 ├── page.tsx             Home
 ├── how-it-works/
 ├── pricing/
-├── locations/
+├── locations/          Coverage overview
+│   └── [area]/         38 per-area landing pages
 └── contact/
 components/
 ├── Header.tsx           Client — nav state, active-route marking
@@ -32,6 +33,7 @@ components/
 ├── ContactForm.tsx      Client — form state
 └── Slot.tsx             Photographic frame
 lib/
+├── areas.ts             The 38 areas and their individual copy
 ├── content.ts           All site copy
 └── images.ts            Unsplash photo references
 ```
@@ -167,6 +169,12 @@ genuine reviews to point at.
 3. **Testimonial attributions** cite Manchester and Birmingham, while the rest
    of the copy is London and Home Counties only. Carried over from the design
    as-is — worth checking whether that is intentional.
+
+- **Area page copy.** Each of the 38 areas in `lib/areas.ts` carries its own
+  `intro`, `stock` and `guests` text. Rewrite any of them freely — that is
+  what makes the pages rank rather than read as duplicates. Add an area by
+  appending to the array; the route, sitemap entry, schema and internal links
+  all follow automatically.
 
 ## Note on `_ds/`
 

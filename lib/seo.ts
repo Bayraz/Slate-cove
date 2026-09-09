@@ -162,3 +162,17 @@ export function pageMetadata({
     },
   };
 }
+
+/** Service schema for a single area landing page. */
+export function areaServiceSchema(areaName: string, path: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE.url}${path}#service`,
+    name: `Airbnb and short-let management in ${areaName}`,
+    serviceType: "Short-let and Airbnb property management",
+    provider: { "@id": `${SITE.url}/#organisation` },
+    areaServed: { "@type": "Place", name: areaName },
+    url: `${SITE.url}${path}`,
+  };
+}
