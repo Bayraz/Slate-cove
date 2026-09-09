@@ -36,13 +36,13 @@ export const HERO_IMAGES: SiteImage[] = [
   {
     // Raised from the supplied w=500, which is narrower than the hero renders.
     src: "https://images.unsplash.com/photo-1520986606214-8b456906c813?w=1600&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bG9uZG9ufGVufDB8fDB8fHww",
-    alt: "A London street scene",
-    brief: "Hero 3",
+    alt: "A red London double-decker bus passing in front of Big Ben and the Houses of Parliament",
+    brief: "Hero 3, London landmark",
   },
   {
     src: "https://images.unsplash.com/photo-1448906654166-444d494666b3?w=1600&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvbmRvbnxlbnwwfHwwfHx8MA%3D%3D",
-    alt: "A London street scene",
-    brief: "Hero 4",
+    alt: "People crossing a footbridge over the Thames, with the City of London School on the bank behind them",
+    brief: "Hero 4, riverside",
   },
 ];
 
