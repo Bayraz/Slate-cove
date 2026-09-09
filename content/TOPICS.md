@@ -24,30 +24,84 @@ Check that first, and never write a second post on a subject already covered.
 
 ## Queue
 
-1. **Do you pay tax on Airbnb income in the UK?** What is declarable, the
-   property allowance, allowable expenses, and when self assessment applies.
-   Tax rules change: verify anything specific against GOV.UK before writing it,
-   and if it cannot be verified, describe the shape of the rule rather than
-   stating figures.
-2. **Airbnb versus a long tenancy on a London flat: which earns more?** The
-   honest version, including the cases where a tenancy wins: void periods,
-   management cost, the 90-night cap, seasonality.
-3. **Can you short-let a leasehold flat?** What leases typically say, why the
-   freeholder matters more than the council, and what to look for in the deed
-   before listing.
-4. **Can you short-let on a buy-to-let mortgage?** Lender consent, why the
-   product matters, and what usually happens if you do not ask.
-5. **What insurance does a short let actually need?** Why standard landlord
-   cover usually does not apply, what platform host protection does and does
+Each entry is one question with one complete answer. Length follows the
+question: some of these are honestly 600 words, some are 1,400. Do not pad a
+small question, and do not split a large one across several posts.
+
+### Rules, tax and money
+
+1. **Airbnb versus a long tenancy on a London flat: which earns more?** The
+   honest version, including where a tenancy wins: voids, management cost, the
+   90-night cap, seasonality.
+2. **Can you short-let a leasehold flat?** What leases typically say, why the
+   freeholder matters more than the council, what to look for before listing.
+3. **Can you short-let on a buy-to-let mortgage?** Lender consent, why the
+   product matters, what usually happens if you do not ask.
+4. **What insurance does a short let actually need?** Why standard landlord
+   cover usually will not apply, what platform host protection does and does
    not include.
-6. **What does a short-let management company actually do?** The unglamorous
+5. **Council tax or business rates on a London short let?** Which applies, when
+   it switches, what that does to the numbers.
+6. **What does short-let management cost in London?** Fee structures across the
+   market, what is and is not included, how to compare them.
+7. **Do you need a licence to run a short let in London?** Licensing, planning
+   and the difference between them.
+8. **Who pays when a guest damages something?** Deposits, platform cover, and
+   what actually happens in practice.
+
+### Running the property
+
+9. **What does a short-let management company actually do?** The unglamorous
    version, hour by hour, so an owner can judge whether to do it themselves.
-7. **Council tax or business rates on a London short let?** Which applies,
-   when it switches, and what that does to the numbers.
-8. **Setting up a London flat for short lets: the checklist.** Safety
-   certificates, the practical fit-out, what guests complain about.
-9. **How much does short-let management cost in London?** Fee structures
-   across the market, what is and is not included, and how to compare them.
+10. **Setting up a London flat for short lets: the checklist.** Safety
+    certificates, the practical fit-out, what guests complain about.
+11. **What safety certificates does a short let need?** Gas, electrical, fire,
+    and who is responsible for each.
+12. **Self check-in: smart locks, key safes, and what guests expect.**
+13. **How cleaning between stays actually works,** and why the turnaround
+    window decides how many nights you can sell.
+14. **Furnishing a short let: what earns its money and what does not.**
+15. **What to do about a neighbour complaint.** How to handle it before it
+    becomes a council matter.
+16. **Noise, parties and how house rules are actually enforced.**
+
+### Earning more
+
+17. **How dynamic pricing works,** and why a fixed nightly rate leaves money on
+    the table.
+18. **Airbnb, Booking.com, Vrbo or all three?** What each platform brings and
+    what it costs.
+19. **How to get consistent five-star reviews,** and why the first ten matter
+    more than the next hundred.
+20. **What photography actually changes about a listing.**
+21. **London seasonality: when the money is made, and the months to plan for.**
+22. **Corporate and medium-term lets:** who books them, and why they suit a
+    property that has used its 90 nights.
+23. **Serviced accommodation versus short let:** the same thing, or not?
+24. **Why a listing gets views but no bookings.**
+
+### For a specific property
+
+25. **What does a one-bed flat in Kensington earn on a short let?** Written
+    against the area page, without inventing figures: describe what drives the
+    number rather than asserting one.
+26. **The same, for Canary Wharf,** where the weekday corporate rhythm makes
+    the pattern different.
+27. **The same, for a property near Heathrow,** where the demand is arrivals
+    rather than tourism.
+28. **Is your property suited to short lets at all?** The honest checklist,
+    including the cases where the answer is no.
+
+### Notes on this list
+
+When the queue runs low, the better move is almost always to **update an
+existing post** rather than write a near-duplicate. Revise the facts, add what
+has changed, and set an `updated:` date in the frontmatter. Google treats a
+refreshed page on a proven URL far better than a second page on the same
+subject, and near-duplicates risk both pages being ignored.
+
+Real search data beats this list. When Search Console has query data, reorder
+this queue against what people are actually typing.
 
 ## Written
 
