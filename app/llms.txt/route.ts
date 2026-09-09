@@ -69,7 +69,7 @@ Each area has its own page covering the local property stock and who books it:
 
 ${AREA_PAGES.map((a) => `- ${a.name}: ${url(`/locations/${a.slug}`)}`).join("\n")}
 
-## Guides
+## For landlords
 
 Longer answers to the questions landlords ask before signing anything:
 

@@ -226,7 +226,7 @@ export function blogSchema(posts: { title: string; description: string; slug: st
     "@context": "https://schema.org",
     "@type": "Blog",
     "@id": `${SITE.url}/blog/#blog`,
-    name: `${SITE.name} journal`,
+    name: `${SITE.name}: for landlords`,
     description:
       "Guides for London landlords on short-let rules, tax, running costs and what a property can realistically earn.",
     url: `${SITE.url}/blog/`,

@@ -18,14 +18,14 @@ export default function BlogIndexPage() {
       <JsonLd
         schema={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Guides", path: "/blog" },
+          { name: "For Landlords", path: "/blog" },
         ])}
       />
 
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
-            <p className="eyebrow">Guides</p>
+            <p className="eyebrow">Rules, tax and earnings</p>
             <h1 className="d2">Written for London landlords</h1>
           </div>
           <p className="lead">

@@ -43,7 +43,7 @@ export default async function PostPage({ params }: Props) {
       <JsonLd
         schema={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Guides", path: "/blog" },
+          { name: "For Landlords", path: "/blog" },
           { name: post.title, path: `/blog/${post.slug}` },
         ])}
       />
