@@ -24,18 +24,22 @@ export default function ContactPage() {
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
-            <p className="eyebrow">Get started</p>
+            <p className="eyebrow">Questions and enquiries</p>
             <h1 className="d2">Contact us</h1>
           </div>
-          <p className="lead">
-            Fill in the form and one of our property managers will be in touch
-            within 24 hours. No obligation, just a conversation about what your
-            property could earn.
-          </p>
-          <p className="note">
-            Ready to send full details, including photographs?{" "}
-            <Link href="/submit-property">Use the property submission form</Link>.
-          </p>
+          <div className="page-head__body">
+            <p className="lead">
+              Ask us anything, or send a postcode and we will come back with a
+              rough figure. A few fields is all we need, and there is no
+              obligation at the end of it.
+            </p>
+            <p className="note">
+              Decided already, and want the property priced properly?{" "}
+              <Link href="/submit-property">Submit it here</Link> instead. That
+              form asks for what we need to give a real number rather than an
+              estimate.
+            </p>
+          </div>
         </div>
       </section>
 

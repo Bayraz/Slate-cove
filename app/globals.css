@@ -389,6 +389,9 @@ img { max-width: 100%; display: block; }
   align-items: end;
 }
 .page-head__title { display: flex; flex-direction: column; gap: 32px; }
+/* Keeps a standfirst and its follow-on note together in the right column,
+   rather than the note falling through to a second grid row. */
+.page-head__body { display: flex; flex-direction: column; gap: 20px; }
 
 /* --------------------------------------------------------------------------
    Home: service grid

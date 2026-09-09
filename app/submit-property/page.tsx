@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import PropertySubmissionForm from "@/components/PropertySubmissionForm";
 import { MANAGEMENT_FEES } from "@/lib/content";
@@ -64,9 +65,15 @@ export default function SubmitPropertyPage() {
             <p className="eyebrow">Get started</p>
             <h1 className="d2">Property submission form</h1>
             <p className="lead">
-              Fill in the form and one of our property managers will be in touch
-              within 24 hours. No obligation, just a conversation about what
-              your property could earn.
+              This is the formal step. Send us the property and one of our
+              managers will come back within 24 hours with what it can
+              realistically earn. Still no obligation, and no lock-in if you
+              go ahead.
+            </p>
+            <p className="note">
+              Only after a rough figure, or want to ask something first?{" "}
+              <Link href="/contact">The contact form</Link> takes a few
+              seconds.
             </p>
 
             <ul className="perks">

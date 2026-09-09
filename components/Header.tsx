@@ -79,8 +79,8 @@ export default function Header() {
               {label}
             </Link>
           ))}
-          <Link className="nav__cta" href="/contact">
-            Book a viewing
+          <Link className="nav__cta" href="/submit-property">
+            Submit your property
           </Link>
         </nav>
       </div>
