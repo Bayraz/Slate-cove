@@ -3,7 +3,14 @@
 This file is the queue, not a post. It lives outside `content/blog/` so the
 site never tries to publish it.
 
-The weekly drafting job reads this file, takes the **highest unwritten topic**
+It is read by `.github/workflows/weekly-post.yml`, which runs every Monday
+inside GitHub Actions. That job needs one repository secret, `ANTHROPIC_API_KEY`,
+set under Settings > Secrets and variables > Actions. By default it opens a
+pull request so the post can be read before it goes live; set
+`PUBLISH_DIRECTLY` to `true` in that workflow to publish straight to the site
+instead.
+
+The job reads this file, takes the **highest unwritten topic**
 from the list below, writes it, and pushes it to a draft branch for review.
 
 To steer what gets written next, reorder this list. To kill a topic, delete the

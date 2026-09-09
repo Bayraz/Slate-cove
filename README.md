@@ -181,3 +181,27 @@ genuine reviews to point at.
 The handoff bundle included a "Modernist" design system (red on white,
 Archivo). `Slate and Cove Website.dc.html` does not reference it — the website
 carries its own palette and typography, which is what is implemented here.
+
+
+## Weekly blog post
+
+`.github/workflows/weekly-post.yml` runs every Monday at 08:00 UTC. It takes the
+next unwritten topic from `content/TOPICS.md`, asks the Anthropic API for the
+post, checks it builds, and opens a pull request. Vercel adds a preview link to
+that pull request; merging it publishes the post.
+
+It runs inside GitHub Actions, so it already holds permission to push and there
+is nothing to connect.
+
+Setup is one repository secret:
+
+- `ANTHROPIC_API_KEY`, from console.anthropic.com, under
+  Settings > Secrets and variables > Actions. It is billed per use and is
+  separate from a Claude subscription, so the account needs credit.
+
+Run it on demand from the Actions tab (Weekly blog post > Run workflow) rather
+than waiting for Monday. To publish straight to the live site instead of opening
+a pull request, set `PUBLISH_DIRECTLY` to `true` in the workflow.
+
+The job writes nothing when every queued topic is already covered. An empty
+queue is a prompt to add topics, not a reason to generate filler.

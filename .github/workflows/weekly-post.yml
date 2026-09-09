@@ -1,0 +1,94 @@
+# Writes the next queued blog post and opens a pull request for it.
+#
+# This runs inside GitHub Actions, which already holds permission to push to
+# this repository, so there is nothing to connect and no access to arrange.
+#
+# WHAT YOU NEED: one repository secret named ANTHROPIC_API_KEY.
+#   Settings > Secrets and variables > Actions > New repository secret.
+#   Get the key from console.anthropic.com. It is billed separately from a
+#   Claude subscription, so the account needs credit on it.
+#
+# TO PUBLISH STRAIGHT TO THE LIVE SITE instead of opening a pull request,
+# change PUBLISH_DIRECTLY below from "false" to "true". Everything else stays
+# the same. Read the note in content/TOPICS.md before you do: these posts make
+# claims about tax and planning law under the company's name.
+
+name: Weekly blog post
+
+on:
+  schedule:
+    # 08:00 UTC every Monday. GitHub runs scheduled jobs on UTC, so this is
+    # 9am through British Summer Time and 8am through the winter.
+    - cron: "0 8 * * 1"
+  # Lets you run it on demand from the Actions tab, without waiting for Monday.
+  workflow_dispatch:
+
+env:
+  PUBLISH_DIRECTLY: "false"
+  # Swap for another model if you want. Sonnet is the sensible default here.
+  POST_MODEL: "claude-sonnet-5"
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write the next queued post
+        id: write
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          POST_MODEL: ${{ env.POST_MODEL }}
+        run: node scripts/write-post.mjs
+
+      # The build fails deliberately on missing or malformed frontmatter, so
+      # this is the check that stops a broken post reaching the site.
+      - name: Build the site
+        if: steps.write.outputs.wrote == 'true'
+        run: npm run build
+
+      - name: Commit
+        if: steps.write.outputs.wrote == 'true'
+        run: |
+          git config user.name "Slate & Cove bot"
+          git config user.email "noreply@anthropic.com"
+          git add content/blog content/TOPICS.md
+          git commit -m "Add post: ${{ steps.write.outputs.title }}"
+
+      - name: Publish directly
+        if: steps.write.outputs.wrote == 'true' && env.PUBLISH_DIRECTLY == 'true'
+        run: git push origin HEAD:${{ github.ref_name }}
+
+      - name: Open a pull request
+        if: steps.write.outputs.wrote == 'true' && env.PUBLISH_DIRECTLY != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="blog/${{ steps.write.outputs.slug }}"
+          git push -u origin "HEAD:${BRANCH}"
+          gh pr create \
+            --base "${{ github.ref_name }}" \
+            --head "${BRANCH}" \
+            --title "Post: ${{ steps.write.outputs.title }}" \
+            --body "Written by the weekly job from the queue in \`content/TOPICS.md\`.
+
+          Vercel will add a preview link to this pull request. Read the post there, then merge to publish it.
+
+          Worth checking before you merge:
+          - any figure, date or threshold it states
+          - that it does not repeat a post already published
+          - that it reads like the rest of the site
+
+          To stop it opening pull requests and publish straight to the live site instead, set \`PUBLISH_DIRECTLY\` to \`true\` in \`.github/workflows/weekly-post.yml\`."
