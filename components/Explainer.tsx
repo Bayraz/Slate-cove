@@ -179,7 +179,7 @@ export default function Explainer() {
           onKeyDown={takeOver}
         >
 
-          <section className={cls(0)} data-bg="ink">
+          <section className={cls(0)} data-bg="paper">
               <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>If any of this sounds familiar</span>
             <div className="xp-stack xp-situations" style={delay(60)}>
@@ -190,7 +190,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(1)} data-bg="ink">
+          <section className={cls(1)} data-bg="alt">
               <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>A short let earns more, but someone has to</span>
             <div className="xp-stack" style={delay(120)}>
@@ -201,7 +201,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(2)} data-bg="warm">
+          <section className={cls(2)} data-bg="paper">
               <Bg m="orbit" at="left" />
             <span className="xp-eyebrow" style={delay(0)}>This is where we come in</span>
             <p className="xp-line" style={delay(140)}>We list it, price it, host it and clean it.</p>
@@ -215,7 +215,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(3)} data-bg="cool">
+          <section className={cls(3)} data-bg="alt">
               <Bg m="grid" />
             <span className="xp-eyebrow" style={delay(0)}>Listed everywhere that matters</span>
             <div className="xp-platforms" style={delay(140)}>
@@ -224,7 +224,7 @@ export default function Explainer() {
             <p className="xp-sub" style={delay(300)}>Priced against local demand every single day.</p>
           </section>
 
-          <section className={cls(4)} data-bg="ink">
+          <section className={cls(4)} data-bg="paper">
               <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>And every month, in writing</span>
             <div className="xp-ledger" style={delay(140)}>
@@ -236,7 +236,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(5)} data-bg="warm">
+          <section className={cls(5)} data-bg="alt">
               <Bg m="orbit" />
             <span className="xp-eyebrow" style={delay(0)}>Why we price it this way</span>
             <p className="xp-line" style={delay(140)}>We take a percentage. So we only earn when you do.</p>
@@ -245,7 +245,7 @@ export default function Explainer() {
             </p>
           </section>
 
-          <section className={cls(6)} data-bg="ink">
+          <section className={cls(6)} data-bg="paper">
               <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>The difference</span>
             <p className="xp-line" style={delay(140)}>Thirty to forty per cent more than a long tenancy.</p>
@@ -255,7 +255,7 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(7)} data-bg="cool">
+          <section className={cls(7)} data-bg="alt">
               <Bg m="grid" at="left" />
             <span className="xp-eyebrow" style={delay(0)}>Your part</span>
             <p className="xp-line" style={delay(140)}>Hand over the keys.</p>

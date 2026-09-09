@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { SiteImage } from "@/lib/images";
 
-const INTERVAL = 5200;
+const INTERVAL = 5000;
 const FADE = 900;
 
 /**

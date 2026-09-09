@@ -16,7 +16,6 @@
   --wine:       #7A1F2B;  /* primary accent: buttons, eyebrows, CTA bands */
   --wine-deep:  #5E1721;  /* wine hover */
   --near-black: #100F0E;  /* navigation links */
-  --wine-lift:  #C9727E;  /* wine accent on the dark explainer panels */
 
   /* Type */
   --serif: var(--font-instrument-serif), Georgia, serif;
@@ -1257,48 +1256,20 @@ html.js-reveal main > section.is-visible {
 /* Grounds. Two light washes alternate down the rail so the colour shifts as
    it moves, and the closing scene lands on full wine: the one panel asking
    for something is the one that looks different. */
-.xp-scene[data-bg="cool"] {
+.xp-scene[data-bg="paper"] {
   background:
-    radial-gradient(72% 88% at 84% 20%, rgba(185, 198, 206, 0.44), transparent 68%),
-    radial-gradient(58% 72% at 6% 94%, rgba(122, 31, 43, 0.055), transparent 70%),
-    linear-gradient(155deg, #F8F6F3 0%, #EDEBE7 100%);
+    radial-gradient(72% 88% at 84% 18%, rgba(185, 198, 206, 0.40), transparent 68%),
+    radial-gradient(58% 72% at 6% 94%, rgba(122, 31, 43, 0.05), transparent 70%),
+    var(--paper);
 }
-.xp-scene[data-bg="warm"] {
+.xp-scene[data-bg="alt"] {
   background:
-    radial-gradient(68% 82% at 16% 18%, rgba(122, 31, 43, 0.10), transparent 66%),
-    radial-gradient(62% 76% at 92% 90%, rgba(185, 198, 206, 0.38), transparent 70%),
-    linear-gradient(155deg, #F5F2ED 0%, #E8E4DD 100%);
+    radial-gradient(68% 82% at 16% 18%, rgba(122, 31, 43, 0.085), transparent 66%),
+    radial-gradient(62% 76% at 92% 90%, rgba(185, 198, 206, 0.34), transparent 70%),
+    var(--paper-alt);
 }
-.xp-scene[data-bg="ink"] {
-  background:
-    radial-gradient(70% 84% at 78% 20%, rgba(122, 31, 43, 0.34), transparent 66%),
-    radial-gradient(62% 72% at 8% 94%, rgba(185, 198, 206, 0.11), transparent 70%),
-    linear-gradient(155deg, #1B1A17 0%, #0A0A09 100%);
-  color: #F6F4F1;
-}
-.xp-scene[data-bg="ink"] .xp-eyebrow,
-.xp-scene[data-bg="ink"] .xp-ico { color: var(--wine-lift); }
-.xp-scene[data-bg="ink"] .xp-sub { color: rgba(246, 244, 241, 0.72); }
-.xp-scene[data-bg="ink"] .xp-ledger div {
-  color: rgba(246, 244, 241, 0.66);
-  border-top-color: rgba(185, 198, 206, 0.26);
-}
-.xp-scene[data-bg="ink"] .xp-ledger div i { background: rgba(246, 244, 241, 0.3); }
-.xp-scene[data-bg="ink"] .xp-ledger .net {
-  color: var(--wine-lift);
-  border-top-color: var(--wine-lift);
-}
-.xp-scene[data-bg="ink"] .xp-ledger .net i { background: var(--wine-lift); }
-.xp-scene[data-bg="ink"] .xp-bar { background: rgba(185, 198, 206, 0.42); }
-.xp-scene[data-bg="ink"] .xp-bar.tall { background: var(--wine-lift); }
-.xp-scene[data-bg="ink"] .xp-barlab { color: rgba(246, 244, 241, 0.62); }
-.xp-scene[data-bg="ink"] .xp-bg,
-.xp-scene[data-bg="ink"] > .xp-bg { color: #FFFFFF; opacity: 0.13; }
-
 .xp-scene[data-bg="wine"] {
-  background:
-    radial-gradient(74% 84% at 50% 24%, rgba(255, 255, 255, 0.11), transparent 62%),
-    linear-gradient(155deg, var(--wine) 0%, var(--wine-deep) 100%);
+  background: var(--wine);
   color: #FFFFFF;
 }
 .xp-scene[data-bg="wine"] .xp-endsub { color: rgba(255, 255, 255, 0.78); }
