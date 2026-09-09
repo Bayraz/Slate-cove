@@ -133,10 +133,13 @@ export default function Explainer() {
     return () => io.disconnect();
   }, []);
 
-  const goTo = useCallback((n: number, smooth = true) => {
+  // Reduced motion takes away the sliding, not the sequence: the rail jumps
+  // straight to the scene instead of gliding to it.
+  const goTo = useCallback((n: number) => {
     const el = rail.current;
     if (!el) return;
-    el.scrollTo({ left: n * el.clientWidth, behavior: smooth ? "smooth" : "auto" });
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({ left: n * el.clientWidth, behavior: still ? "auto" : "smooth" });
   }, []);
 
   // Moves itself along, so nothing has to be pressed. Stops for good once the
@@ -145,7 +148,6 @@ export default function Explainer() {
   useEffect(() => {
     if (!onScreen || steering) return;
     if (index >= HOLD.length - 1) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     timer.current = setTimeout(() => goTo(index + 1), HOLD[index]);
     return () => {
       if (timer.current) clearTimeout(timer.current);

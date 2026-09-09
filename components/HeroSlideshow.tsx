@@ -11,8 +11,9 @@ const FADE = 900;
  * by dot or arrow restarts it, so a slide never changes immediately after the
  * visitor has chosen one.
  *
- * Autoplay stops for anyone who prefers reduced motion, who can still move
- * through the slides by hand.
+ * Reduced motion removes the cross-fade rather than the rotation. The setting
+ * asks for no animation, not for the page to stop showing what it has: the
+ * slides swap instantly instead, and the controls work either way.
  *
  * With a single image it renders as a plain static hero and no controls
  * appear, so the images list in lib/images.ts can grow or shrink freely.
@@ -33,10 +34,10 @@ export default function HeroSlideshow({ images }: { images: SiteImage[] }) {
   // `current` is a dependency on purpose: choosing a slide by hand rebuilds
   // the interval, giving that slide a full turn before the next advance.
   useEffect(() => {
-    if (count < 2 || reducedMotion) return;
+    if (count < 2) return;
     const timer = setInterval(() => setCurrent((c) => (c + 1) % count), INTERVAL);
     return () => clearInterval(timer);
-  }, [count, reducedMotion, current]);
+  }, [count, current]);
 
   const goTo = useCallback(
     (next: number) => setCurrent(((next % count) + count) % count),
@@ -49,7 +50,10 @@ export default function HeroSlideshow({ images }: { images: SiteImage[] }) {
         <div
           key={image.src}
           className="slideshow__slide"
-          style={{ opacity: i === current ? 1 : 0, transitionDuration: `${FADE}ms` }}
+          style={{
+            opacity: i === current ? 1 : 0,
+            transitionDuration: reducedMotion ? "0ms" : `${FADE}ms`,
+          }}
           aria-hidden={i !== current}
         >
           <div className="slot">
