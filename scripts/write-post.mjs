@@ -48,6 +48,13 @@ const existing = fs
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Posts sitting in an unmerged pull request are not on this branch, so without
+// this the job would happily write the same topic a second time.
+const pending = (process.env.PENDING_SLUGS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 const prompt = `You write for Slate & Cove, a London short-let and Airbnb management company. Your readers are landlords who own property in London and the Home Counties and are deciding whether to let it short-term.
 
 Below is the topic queue with the house rules, then every post already published. Write the next post.
@@ -57,6 +64,11 @@ ${topics}
 
 === POSTS ALREADY PUBLISHED (${existing.length}) ===
 ${existing.map((p) => `--- ${p.file} ---\n${p.body}`).join("\n\n")}
+${
+  pending.length
+    ? `\n=== ALSO ALREADY WRITTEN, WAITING TO BE PUBLISHED ===\nThese are written and sitting in open pull requests. Treat them as covered and do not write any of them again:\n${pending.map((s) => `- ${s}`).join("\n")}`
+    : ""
+}
 
 === YOUR TASK ===
 Take the HIGHEST topic in the queue that is not already covered by a published post. Write it as a complete markdown file.
@@ -132,6 +144,9 @@ const [, filename, body] = match;
 const target = path.join(BLOG_DIR, filename);
 
 if (fs.existsSync(target)) fail(`${filename} already exists. Refusing to overwrite a published post.`);
+if (pending.includes(filename.replace(/\.md$/, ""))) {
+  fail(`${filename} is already written and waiting in an open pull request.`);
+}
 
 // The build enforces these too, but failing here gives a clearer message.
 for (const field of ["title:", "description:", "date:", "topic:"]) {

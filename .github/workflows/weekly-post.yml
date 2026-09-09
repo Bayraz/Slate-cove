@@ -17,9 +17,11 @@ name: Weekly blog post
 
 on:
   schedule:
-    # 08:00 UTC every Monday. GitHub runs scheduled jobs on UTC, so this is
+    # 08:00 UTC every third day. GitHub runs scheduled jobs on UTC, so this is
     # 9am through British Summer Time and 8am through the winter.
-    - cron: "0 8 * * 1"
+    # Day-of-month stepping restarts each month, so the gap across a month
+    # boundary is sometimes one or two days rather than three.
+    - cron: "0 8 */3 * *"
   # Lets you run it on demand from the Actions tab, without waiting for Monday.
   workflow_dispatch:
 
@@ -46,11 +48,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Posts waiting in an unmerged pull request are not on this branch, so
+      # they have to be named explicitly or the job repeats a topic.
+      - name: Find posts already waiting in open branches
+        id: pending
+        run: |
+          SLUGS=$(git ls-remote --heads origin 'refs/heads/blog/*' \
+            | sed 's#.*refs/heads/blog/##' | paste -sd, -)
+          echo "slugs=${SLUGS}" >> "$GITHUB_OUTPUT"
+          echo "Already waiting: ${SLUGS:-none}"
+
       - name: Write the next queued post
         id: write
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           POST_MODEL: ${{ env.POST_MODEL }}
+          PENDING_SLUGS: ${{ steps.pending.outputs.slugs }}
         run: node scripts/write-post.mjs
 
       # The build fails deliberately on missing or malformed frontmatter, so
