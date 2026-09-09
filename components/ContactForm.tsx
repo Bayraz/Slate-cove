@@ -71,66 +71,61 @@ export default function ContactForm() {
       {/* Formspree's honeypot: bots fill it in, people never see it. */}
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" hidden />
 
-      <div className="form__row">
-        <label className="field">
-          <span>First name</span>
-          <input type="text" name="first-name" autoComplete="given-name" required />
-        </label>
-        <label className="field">
-          <span>Last name (optional)</span>
-          <input type="text" name="last-name" autoComplete="family-name" />
-        </label>
+      <label className="field">
+        <span>Name</span>
+        <input type="text" name="name" autoComplete="name" required />
+      </label>
+
+      <div className="form__row form__row--pair">
         <label className="field">
           <span>Email</span>
           <input type="email" name="email" autoComplete="email" required />
         </label>
         <label className="field">
-          <span>Telephone</span>
+          <span>Telephone (optional)</span>
           <input type="tel" name="telephone" autoComplete="tel" />
         </label>
       </div>
 
-      <div className="form__row form__row--address">
-        <label className="field">
-          <span>Property address (optional)</span>
-          <input type="text" name="address" autoComplete="street-address" />
-        </label>
-        <label className="field">
-          <span>Postcode</span>
-          <input type="text" name="postcode" autoComplete="postal-code" required />
-        </label>
-      </div>
-
-      <div className="form__row form__row--detail">
-        <label className="field">
-          <span>Property type</span>
-          <select name="property-type" defaultValue="Flat">
-            <option>Flat</option>
-            <option>House</option>
-            <option>Apartment</option>
-            <option>Studio</option>
-            <option>HMO</option>
-            <option>Other</option>
-          </select>
-        </label>
-        <label className="field">
-          <span>Bedrooms</span>
-          <input type="number" name="bedrooms" min={0} step={1} />
-        </label>
-        <label className="field">
-          <span>Available from</span>
-          <input type="date" name="available-from" />
-        </label>
-      </div>
+      {/* Routing, and it tells us who is writing before we open the message. */}
+      <label className="field">
+        <span>What is this about?</span>
+        <select name="enquiry-type" defaultValue="I have a property to let" required>
+          <option>I have a property to let</option>
+          <option>I am already a client</option>
+          <option>I am a guest with a booking question</option>
+          <option>Press or partnership</option>
+          <option>Something else</option>
+        </select>
+      </label>
 
       <label className="field">
-        <span>Anything else we should know</span>
-        <textarea name="message" rows={4} />
+        <span>Property postcode (optional)</span>
+        <input
+          type="text"
+          name="postcode"
+          autoComplete="postal-code"
+          placeholder="SW1A 1AA"
+        />
+        <span className="field__hint">
+          If your enquiry is about a particular property, this is enough for us
+          to give you a rough figure.
+        </span>
+      </label>
+
+      <label className="field">
+        <span>Message</span>
+        <textarea
+          name="message"
+          rows={7}
+          placeholder="Tell us what you would like to know"
+          required
+        />
       </label>
 
       <div className="form__submit">
         <button className="btn btn--solid btn--lg" type="submit" disabled={sending}>
-          {sending ? "Sending…" : "Submit property"}
+          {sending ? "Sending…" : "Send enquiry"}
         </button>
         {status === "idle" || status === "sending" ? (
           <span className="form__note">

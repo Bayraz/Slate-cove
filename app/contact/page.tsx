@@ -29,9 +29,10 @@ export default function ContactPage() {
           </div>
           <div className="page-head__body">
             <p className="lead">
-              Ask us anything, or send a postcode and we will come back with a
-              rough figure. A few fields is all we need, and there is no
-              obligation at the end of it.
+              Ask us anything. Tell us what you would like to know and one of
+              our managers will reply within 24 hours. Add a postcode if your
+              question is about a particular property and we will include a
+              rough figure.
             </p>
             <p className="note">
               Decided already, and want the property priced properly?{" "}
