@@ -312,6 +312,10 @@ export default function Explainer() {
       </div>
 
       <div className="xp-controls">
+        <span className="xp-count">
+          Scene {String(index + 1).padStart(2, "0")}
+          <em> of {String(HOLD.length).padStart(2, "0")}</em>
+        </span>
         <span className="xp-hint">
           {index === HOLD.length - 1 ? "That is the whole of it" : "Take it at your own pace"}
         </span>

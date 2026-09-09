@@ -1213,7 +1213,7 @@ html.js-reveal main > section.is-visible {
    people watch muted and the type has to carry it.
    -------------------------------------------------------------------------- */
 
-.xp { display: flex; flex-direction: column; gap: 18px; }
+.xp { display: flex; flex-direction: column; }
 
 /* The scenes sit side by side on a rail that scrolls sideways. The page's own
    scrolling is left alone: a visitor passes it by as normal, or swipes
@@ -1222,7 +1222,8 @@ html.js-reveal main > section.is-visible {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--paper);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--near-black);
+  border-bottom: 0;
 }
 
 .xp-rail {
@@ -1343,23 +1344,33 @@ html.js-reveal main > section.is-visible {
   place-items: center;
   background: var(--paper);
   color: var(--ink);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--near-black);
   cursor: pointer;
   transition: background-color 180ms ease, opacity 180ms ease;
 }
 .xp-arrow svg { width: 20px; height: 20px; }
 .xp-arrow:hover { background: var(--wine); border-color: var(--wine); color: #FFFFFF; }
 .xp-arrow:disabled { opacity: 0.25; cursor: default; }
-.xp-arrow:disabled:hover { background: var(--paper); border-color: var(--ink); color: var(--ink); }
+.xp-arrow:disabled:hover { background: var(--paper); border-color: var(--near-black); color: var(--ink); }
 .xp-arrow--prev { left: 14px; }
 .xp-arrow--next { right: 14px; }
 
 .xp-eyebrow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   font-family: var(--mono);
   font-size: clamp(9px, 1.05vw, 12px);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--wine);
+}
+.xp-eyebrow::before {
+  content: "";
+  width: 46px;
+  height: 3px;
+  background: var(--near-black);
 }
 .xp-line {
   margin: 0;
@@ -1536,6 +1547,12 @@ html.js-reveal main > section.is-visible {
   }
   .xp-arrow { display: none; } /* a phone swipes */
 
+  /* Nine dots plus the scene count do not fit a phone at full size. */
+  .xp-controls { padding: 10px 12px; gap: 12px; }
+  .xp-controls .xp-dots { gap: 5px; }
+  .xp-controls .xp-dots button { width: 14px; }
+  .xp-controls .xp-count { white-space: nowrap; }
+
   /* A portrait panel is far narrower. The motifs are blown up well past its
      edges so only a few widely spaced lines cross it, and dropped back to a
      watermark, since here they sit behind the words rather than beside them. */
@@ -1558,14 +1575,25 @@ html.js-reveal main > section.is-visible {
   .xp-endsub { font-size: 14px; }
 }
 
-.xp-controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.xp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 16px;
+  background: var(--near-black);
+  color: var(--paper);
+}
+.xp-count,
 .xp-hint {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
 }
+.xp-count em { font-style: normal; color: rgba(246, 244, 241, 0.5); }
+.xp-hint { color: rgba(246, 244, 241, 0.45); }
+@media (max-width: 720px) { .xp-hint { display: none; } }
 .xp-dots { display: flex; gap: 8px; }
 .xp-dots button {
   position: relative;
@@ -1581,11 +1609,10 @@ html.js-reveal main > section.is-visible {
   content: "";
   display: block;
   height: 2px;
-  background: var(--blue);
-  opacity: 0.45;
-  transition: opacity 220ms ease, background-color 220ms ease;
+  background: rgba(246, 244, 241, 0.32);
+  transition: background-color 220ms ease;
 }
-.xp-dots button.is-on::after { background: var(--blue); opacity: 1; }
+.xp-dots button.is-on::after { background: rgba(246, 244, 241, 0.32); }
 
 /* The live dot fills as its scene runs, so the rail always reads as playing
    rather than parked. It is only rendered while it is actually advancing. */
@@ -1593,9 +1620,9 @@ html.js-reveal main > section.is-visible {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 10px;
+  top: 10px;
   height: 2px;
-  background: var(--wine);
+  background: #FFFFFF;
   transform: scaleX(0);
   transform-origin: left;
   animation-name: xp-fill;
@@ -1603,7 +1630,7 @@ html.js-reveal main > section.is-visible {
   animation-fill-mode: forwards;
 }
 @keyframes xp-fill { to { transform: scaleX(1); } }
-.xp-dots button.is-on:not(:has(.xp-fill))::after { background: var(--wine); }
+.xp-dots button.is-on:not(:has(.xp-fill))::after { background: #FFFFFF; }
 
 @media (prefers-reduced-motion: reduce) {
   .xp-fill { animation: none; transform: scaleX(1); }
