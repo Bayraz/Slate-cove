@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FOOTER_AREAS } from "@/lib/areas";
 import { CONTACT, FOOTER_SERVICES, NAV } from "@/lib/content";
 
 export default function Footer() {
@@ -33,6 +34,20 @@ export default function Footer() {
             {FOOTER_SERVICES.map((service) => (
               <li key={service}>{service}</li>
             ))}
+          </ul>
+        </div>
+
+        <div>
+          <div className="footer__heading">Areas</div>
+          <ul className="footer__col">
+            {FOOTER_AREAS.map((area) => (
+              <li key={area.slug}>
+                <Link href={`/locations/${area.slug}`}>{area.name}</Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/locations">All areas</Link>
+            </li>
           </ul>
         </div>
 

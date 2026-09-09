@@ -880,8 +880,8 @@ img { max-width: 100%; display: block; }
   padding-top: 80px;
   padding-bottom: 40px;
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+  gap: 48px;
 }
 .footer__brand { display: flex; flex-direction: column; gap: 24px; }
 .footer__brand p {

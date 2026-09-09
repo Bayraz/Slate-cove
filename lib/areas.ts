@@ -451,3 +451,18 @@ export function nearbyAreas(area: Area, count = 4): Area[] {
   );
   return [...sameGroup, ...others].slice(0, count);
 }
+
+/**
+ * The areas worth linking from the footer — highest search demand, so they
+ * appear on every page rather than only on /locations.
+ */
+export const FOOTER_AREAS = [
+  "kensington",
+  "chelsea",
+  "notting-hill",
+  "chiswick",
+  "ealing",
+  "canary-wharf",
+  "windsor",
+  "reading",
+].map((slug) => AREA_BY_SLUG.get(slug)!);

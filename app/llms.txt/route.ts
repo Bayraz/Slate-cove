@@ -7,6 +7,7 @@ import {
   SERVICES,
   STEPS,
 } from "@/lib/content";
+import { AREA_PAGES } from "@/lib/areas";
 import { SITE } from "@/lib/seo";
 
 // Served as a static file by `output: "export"`, the same way robots.txt is.
@@ -60,6 +61,12 @@ ${FAQ.map((f) => `### ${f.q}\n${f.a}`).join("\n\n")}
 ## Pages
 
 ${NAV.map((n) => `- [${n.label}](${url(n.href)})`).join("\n")}
+
+## Area pages
+
+Each area has its own page covering the local property stock and who books it:
+
+${AREA_PAGES.map((a) => `- ${a.name}: ${url(`/locations/${a.slug}`)}`).join("\n")}
 
 ## Contact
 
