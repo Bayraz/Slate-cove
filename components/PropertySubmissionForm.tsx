@@ -7,7 +7,7 @@ const ENDPOINT = "https://formspree.io/f/meaqvpjb";
 /** Formspree rejects oversized posts, so catch it here with a clear message. */
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
-type Status = "idle" | "sending" | "sent" | "error" | "toobig";
+type Status = "idle" | "sending" | "sent" | "sent-no-images" | "error" | "toobig";
 
 /**
  * The detailed property submission, posting to its own Formspree form so these
@@ -24,6 +24,13 @@ type Status = "idle" | "sending" | "sent" | "error" | "toobig";
  */
 export default function PropertySubmissionForm() {
   const [status, setStatus] = useState<Status>("idle");
+
+  const post = (data: FormData) =>
+    fetch(ENDPOINT, {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,17 +51,28 @@ export default function PropertySubmissionForm() {
 
     setStatus("sending");
     try {
-      const response = await fetch(ENDPOINT, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
+      const response = await post(data);
       if (response.ok) {
         form.reset();
         setStatus("sent");
-      } else {
-        setStatus("error");
+        return;
       }
+
+      // Uploads are a paid Formspree feature, so a submission carrying photos
+      // can be refused when the details on their own would have been accepted.
+      // Never lose the enquiry over an attachment: drop the images and send the
+      // rest, then say plainly that the photographs did not go with it.
+      if (chosen.length > 0) {
+        data.delete("property-images");
+        const retry = await post(data);
+        if (retry.ok) {
+          form.reset();
+          setStatus("sent-no-images");
+          return;
+        }
+      }
+
+      setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -177,7 +195,7 @@ export default function PropertySubmissionForm() {
 
       <p
         className={
-          status === "sent"
+          status === "sent" || status === "sent-no-images"
             ? "form__status form__status--ok"
             : status === "error" || status === "toobig"
               ? "form__status form__status--error"
@@ -188,6 +206,8 @@ export default function PropertySubmissionForm() {
       >
         {status === "sent" &&
           "Thank you. Your property details are with us. We will be in touch within 24 hours."}
+        {status === "sent-no-images" &&
+          "Thank you. Your property details are with us and we will be in touch within 24 hours. The photographs did not go through, so please email them to info@slateandcove.com and we will add them."}
         {status === "toobig" &&
           "Those images come to more than 8MB. Please remove a few and try again, or send them separately to info@slateandcove.com."}
         {status === "error" &&
