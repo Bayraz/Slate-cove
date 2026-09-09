@@ -8,7 +8,11 @@
 //
 // To add a post: drop a .md file into content/blog with the frontmatter below.
 // The filename becomes the URL. Nothing else needs changing; the index page,
-// sitemap and llms.txt all read from here.
+// sitemap and llms.txt all read from here. A filename starting with an
+// underscore is skipped, so an unfinished draft can sit in the directory.
+//
+// The queue of topics still to write lives in content/TOPICS.md, outside this
+// directory so it is never mistaken for a post.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -93,7 +97,8 @@ export const POSTS: Post[] = (() => {
   if (!fs.existsSync(DIR)) return [];
   return fs
     .readdirSync(DIR)
-    .filter((f) => f.endsWith(".md"))
+    // A leading underscore parks a draft in place without publishing it.
+    .filter((f) => f.endsWith(".md") && !f.startsWith("_"))
     .map(read)
     .sort((a, b) => b.date.localeCompare(a.date));
 })();
