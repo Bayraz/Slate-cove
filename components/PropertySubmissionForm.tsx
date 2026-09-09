@@ -78,6 +78,35 @@ export default function PropertySubmissionForm() {
     }
   }
 
+
+  // Once it has sent, the form has done its job. Replacing it outright with a
+  // confirmation is unmistakable in a way a line of text under a button is not.
+  if (status === "sent" || status === "sent-no-images") {
+    return (
+      <div className="sent" role="status" aria-live="polite">
+        <svg className="sent__tick" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="3" />
+          <path
+            d="M25 41.5 35.5 52 56 30"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <p className="sent__title">Thank you</p>
+        <p className="sent__line">Your property details are with us. One of our managers will be in touch within 24 hours.</p>
+        {status === "sent-no-images" ? (
+          <p className="sent__note">
+            The photographs did not send. Email them to{" "}
+            <a href="mailto:info@slateandcove.com">info@slateandcove.com</a> and
+            we will add them to your file.
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
   const sending = status === "sending";
 
   return (
@@ -188,26 +217,22 @@ export default function PropertySubmissionForm() {
         <button className="btn btn--solid btn--lg" type="submit" disabled={sending}>
           {sending ? "Sending…" : "Submit property"}
         </button>
-        <span className="form__note">
-          No spam, no obligation. We reply within 24 hours.
-        </span>
+        {status === "idle" || status === "sending" ? (
+          <span className="form__note">
+            No spam, no obligation. We reply within 24 hours.
+          </span>
+        ) : null}
       </div>
 
       <p
         className={
-          status === "sent" || status === "sent-no-images"
-            ? "form__status form__status--ok"
-            : status === "error" || status === "toobig"
-              ? "form__status form__status--error"
-              : "form__status"
+          status === "error" || status === "toobig"
+            ? "form__status form__status--error"
+            : "form__status"
         }
         role="status"
         aria-live="polite"
       >
-        {status === "sent" &&
-          "Thank you. Your property details are with us. We will be in touch within 24 hours."}
-        {status === "sent-no-images" &&
-          "Thank you. Your property details are with us and we will be in touch within 24 hours. The photographs did not go through, so please email them to info@slateandcove.com and we will add them."}
         {status === "toobig" &&
           "Those images come to more than 8MB. Please remove a few and try again, or send them separately to info@slateandcove.com."}
         {status === "error" &&

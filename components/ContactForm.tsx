@@ -40,6 +40,28 @@ export default function ContactForm() {
     }
   }
 
+
+  // Once it has sent, the form has done its job. Replacing it outright with a
+  // confirmation is unmistakable in a way a line of text under a button is not.
+  if (status === "sent") {
+    return (
+      <div className="sent" role="status" aria-live="polite">
+        <svg className="sent__tick" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="3" />
+          <path
+            d="M25 41.5 35.5 52 56 30"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <p className="sent__title">Thank you</p>
+        <p className="sent__line">Your enquiry is with us. One of our managers will be in touch within 24 hours.</p>
+      </div>
+    );
+  }
+
   const sending = status === "sending";
 
   return (
@@ -110,24 +132,20 @@ export default function ContactForm() {
         <button className="btn btn--solid btn--lg" type="submit" disabled={sending}>
           {sending ? "Sending…" : "Submit property"}
         </button>
-        <span className="form__note">
-          No spam, no obligation. We reply within 24 hours.
-        </span>
+        {status === "idle" || status === "sending" ? (
+          <span className="form__note">
+            No spam, no obligation. We reply within 24 hours.
+          </span>
+        ) : null}
       </div>
 
       <p
         className={
-          status === "sent"
-            ? "form__status form__status--ok"
-            : status === "error"
-              ? "form__status form__status--error"
-              : "form__status"
+          status === "error" ? "form__status form__status--error" : "form__status"
         }
         role="status"
         aria-live="polite"
       >
-        {status === "sent" &&
-          "Thank you. Your property details are with us. We will be in touch within 24 hours."}
         {status === "error" &&
           "Something went wrong sending that. Please email info@slateandcove.com or call +44 7484 646008."}
       </p>
