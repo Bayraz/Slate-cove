@@ -50,6 +50,50 @@ const I = {
   clean: ["M10 3 11.6 8 16.5 9.6 11.6 11.2 10 16.2 8.4 11.2 3.5 9.6 8.4 8Z", "M18 15v5", "M15.5 17.5h5"],
 } as const;
 
+/* Abstract backdrops. Four motifs, drawn large and faint so they read as
+   texture rather than illustration, anchored to a different edge each time so
+   the eye finds a new composition as the rail moves. */
+const MOTIFS = {
+  arcs: (
+    <>
+      <circle cx="400" cy="400" r="118" /><circle cx="400" cy="400" r="182" />
+      <circle cx="400" cy="400" r="246" /><circle cx="400" cy="400" r="310" />
+      <circle cx="400" cy="400" r="374" />
+    </>
+  ),
+  orbit: (
+    <>
+      <circle cx="150" cy="146" r="128" /><circle cx="258" cy="196" r="128" />
+      <circle cx="196" cy="290" r="128" /><circle cx="204" cy="212" r="196" />
+    </>
+  ),
+  grid: (
+    <>
+      {Array.from({ length: 9 }, (_, i) => (
+        <path key={`v${i}`} d={`M${i * 48 + 8} 0V400`} />
+      ))}
+      {Array.from({ length: 9 }, (_, i) => (
+        <path key={`h${i}`} d={`M0 ${i * 48 + 8}H400`} />
+      ))}
+    </>
+  ),
+  rays: (
+    <>
+      {Array.from({ length: 12 }, (_, i) => (
+        <path key={i} d={`M${i * 54 - 180} 400L${i * 54 + 220} 0`} />
+      ))}
+    </>
+  ),
+} as const;
+
+const Bg = ({ m, at }: { m: keyof typeof MOTIFS; at?: "left" }) => (
+  <span className="xp-bg" data-motif={m} data-at={at} aria-hidden="true">
+    <svg viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1.25">
+      {MOTIFS[m]}
+    </svg>
+  </span>
+);
+
 export default function Explainer() {
   const [index, setIndex] = useState(0);
   const [onScreen, setOnScreen] = useState(false);
@@ -135,7 +179,8 @@ export default function Explainer() {
           onKeyDown={takeOver}
         >
 
-          <section className={cls(0)}>
+          <section className={cls(0)} data-bg="cool">
+              <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>If any of this sounds familiar</span>
             <div className="xp-stack xp-situations" style={delay(60)}>
               <span><Ico d={[...I.person]} /><em>A tenant who is more trouble than the rent.</em></span>
@@ -145,7 +190,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(1)}>
+          <section className={cls(1)} data-bg="cool">
+              <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>A short let earns more, but someone has to</span>
             <div className="xp-stack" style={delay(120)}>
               <span><Ico d={[...I.doc]} /><em>Write the listing.</em></span>
@@ -155,7 +201,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(2)}>
+          <section className={cls(2)} data-bg="warm">
+              <Bg m="orbit" at="left" />
             <span className="xp-eyebrow" style={delay(0)}>This is where we come in</span>
             <p className="xp-line" style={delay(140)}>We list it, price it, host it and clean it.</p>
             <div className="xp-figure" style={delay(300)} aria-hidden="true">
@@ -168,7 +215,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(3)}>
+          <section className={cls(3)} data-bg="cool">
+              <Bg m="grid" />
             <span className="xp-eyebrow" style={delay(0)}>Listed everywhere that matters</span>
             <div className="xp-platforms" style={delay(140)}>
               <span>Airbnb</span><span>Booking.com</span><span>Vrbo</span><span>Expedia</span>
@@ -176,7 +224,8 @@ export default function Explainer() {
             <p className="xp-sub" style={delay(300)}>Priced against local demand every single day.</p>
           </section>
 
-          <section className={cls(4)}>
+          <section className={cls(4)} data-bg="warm">
+              <Bg m="arcs" />
             <span className="xp-eyebrow" style={delay(0)}>And every month, in writing</span>
             <div className="xp-ledger" style={delay(140)}>
               <div><span>Occupancy</span><i /></div>
@@ -187,7 +236,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(5)}>
+          <section className={cls(5)} data-bg="cool">
+              <Bg m="orbit" />
             <span className="xp-eyebrow" style={delay(0)}>Why we price it this way</span>
             <p className="xp-line" style={delay(140)}>We take a percentage. So we only earn when you do.</p>
             <p className="xp-sub" style={delay(320)}>
@@ -195,7 +245,8 @@ export default function Explainer() {
             </p>
           </section>
 
-          <section className={cls(6)}>
+          <section className={cls(6)} data-bg="warm">
+              <Bg m="rays" />
             <span className="xp-eyebrow" style={delay(0)}>The difference</span>
             <p className="xp-line" style={delay(140)}>Thirty to forty per cent more than a long tenancy.</p>
             <div className="xp-bars" style={delay(280)} aria-hidden="true">
@@ -204,7 +255,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={cls(7)}>
+          <section className={cls(7)} data-bg="cool">
+              <Bg m="grid" at="left" />
             <span className="xp-eyebrow" style={delay(0)}>Your part</span>
             <p className="xp-line" style={delay(140)}>Hand over the keys.</p>
             <div className="xp-figure" style={delay(300)} aria-hidden="true">
@@ -216,7 +268,8 @@ export default function Explainer() {
             </div>
           </section>
 
-          <section className={`${cls(8)} xp-end`}>
+          <section className={`${cls(8)} xp-end`} data-bg="wine">
+            <Bg m="orbit" />
             <div className="xp-endmark" style={delay(0)}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sc-monogram.png" alt="" width={312} height={508} />

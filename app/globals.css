@@ -1224,14 +1224,6 @@ html.js-reveal main > section.is-visible {
   background: var(--paper);
   border: 2px solid var(--ink);
 }
-.xp-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(60% 60% at 50% 45%, rgba(185, 198, 206, 0.28), transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-}
 
 .xp-rail {
   display: flex;
@@ -1256,8 +1248,81 @@ html.js-reveal main > section.is-visible {
   justify-content: center;
   gap: 18px;
   padding: 0 clamp(24px, 6%, 80px);
+  overflow: hidden;
+  background: var(--paper);
 }
 .xp-scene.xp-end { align-items: center; text-align: center; }
+
+/* Grounds. Two light washes alternate down the rail so the colour shifts as
+   it moves, and the closing scene lands on full wine: the one panel asking
+   for something is the one that looks different. */
+.xp-scene[data-bg="cool"] {
+  background:
+    radial-gradient(72% 88% at 84% 20%, rgba(185, 198, 206, 0.44), transparent 68%),
+    radial-gradient(58% 72% at 6% 94%, rgba(122, 31, 43, 0.055), transparent 70%),
+    linear-gradient(155deg, #F8F6F3 0%, #EDEBE7 100%);
+}
+.xp-scene[data-bg="warm"] {
+  background:
+    radial-gradient(68% 82% at 16% 18%, rgba(122, 31, 43, 0.10), transparent 66%),
+    radial-gradient(62% 76% at 92% 90%, rgba(185, 198, 206, 0.38), transparent 70%),
+    linear-gradient(155deg, #F5F2ED 0%, #E8E4DD 100%);
+}
+.xp-scene[data-bg="wine"] {
+  background:
+    radial-gradient(74% 84% at 50% 24%, rgba(255, 255, 255, 0.11), transparent 62%),
+    linear-gradient(155deg, var(--wine) 0%, var(--wine-deep) 100%);
+  color: #FFFFFF;
+}
+.xp-scene[data-bg="wine"] .xp-endsub { color: rgba(255, 255, 255, 0.78); }
+.xp-scene[data-bg="wine"] .xp-endmark img { filter: brightness(0) invert(1); }
+.xp-scene[data-bg="wine"] .xp-cta {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--wine);
+}
+.xp-scene[data-bg="wine"] .xp-cta:hover {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: var(--wine-deep);
+}
+
+/* The motif sits behind everything, sized well past the panel so it is only
+   ever seen as a fragment. */
+.xp-bg {
+  position: absolute;
+  pointer-events: none;
+  color: var(--wine);
+  opacity: 0.16;
+  /* Fades at its own edges, so a bounded motif never shows as a cropped box. */
+  -webkit-mask-image: radial-gradient(closest-side, #000 48%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 48%, transparent 100%);
+}
+.xp-bg svg { display: block; width: 100%; height: 100%; }
+/* Hairlines whatever the panel is scaled to, so it stays texture. */
+.xp-bg svg * { vector-effect: non-scaling-stroke; }
+.xp-bg[data-motif="arcs"]  { right: -16%; bottom: -42%; width: 58%; aspect-ratio: 1; }
+.xp-bg[data-motif="orbit"] { right: -4%; top: -16%; width: 46%; aspect-ratio: 1; }
+.xp-bg[data-motif="grid"]  { right: -4%; top: -14%; width: 52%; aspect-ratio: 1; opacity: 0.55; color: var(--blue); }
+.xp-bg[data-motif="rays"]  { right: -10%; top: -22%; width: 56%; aspect-ratio: 1; opacity: 0.10; }
+.xp-scene[data-bg="wine"] .xp-bg { color: #FFFFFF; opacity: 0.26; }
+
+/* Where a scene has a drawn figure on the right, the motif moves to the far
+   corner so the two are not fighting over the same space. */
+.xp-bg[data-at="left"] {
+  right: auto;
+  top: auto;
+  left: -14%;
+  bottom: -30%;
+  width: 42%;
+}
+
+/* The reveal below animates a scene's children in. The backdrop is not one of
+   them: it is part of the panel and is there the whole time. */
+.xp-scene > .xp-bg { transform: none; opacity: 0.16; transition: none; }
+.xp-scene > .xp-bg[data-motif="grid"] { opacity: 0.55; }
+.xp-scene > .xp-bg[data-motif="rays"] { opacity: 0.10; }
+.xp-scene[data-bg="wine"] > .xp-bg { opacity: 0.26; }
 
 /* Arrows for anyone on a mouse, who has nothing to swipe with. */
 .xp-arrow {
@@ -1463,6 +1528,19 @@ html.js-reveal main > section.is-visible {
     height: min(calc(100vh - 210px), 132vw);
   }
   .xp-arrow { display: none; } /* a phone swipes */
+
+  /* A portrait panel is far narrower. The motifs are blown up well past its
+     edges so only a few widely spaced lines cross it, and dropped back to a
+     watermark, since here they sit behind the words rather than beside them. */
+  .xp-bg,
+  .xp-scene > .xp-bg { opacity: 0.075; }
+  .xp-scene[data-bg="wine"] .xp-bg,
+  .xp-scene[data-bg="wine"] > .xp-bg { opacity: 0.18; }
+  .xp-bg[data-motif="arcs"]  { width: 190%; right: -70%; bottom: -30%; }
+  .xp-bg[data-motif="orbit"] { width: 150%; right: -45%; top: -14%; }
+  .xp-bg[data-motif="grid"]  { width: 130%; right: -20%; top: -8%; }
+  .xp-bg[data-motif="rays"]  { width: 175%; right: -50%; top: -18%; }
+  .xp-bg[data-at="left"]     { width: 150%; left: -60%; bottom: -22%; }
   .xp-scene { gap: 14px; padding: 0 22px; }
   .xp-figure { display: none; }
   .xp-line { font-size: clamp(26px, 7.4vw, 40px); max-width: 15ch; }
