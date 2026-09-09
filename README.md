@@ -185,10 +185,9 @@ carries its own palette and typography, which is what is implemented here.
 
 ## Weekly blog post
 
-`.github/workflows/weekly-post.yml` runs every Monday at 08:00 UTC. It takes the
-next unwritten topic from `content/TOPICS.md`, asks the Anthropic API for the
-post, checks it builds, and opens a pull request. Vercel adds a preview link to
-that pull request; merging it publishes the post.
+`.github/workflows/weekly-post.yml` runs every third day at 08:00 UTC. It takes
+the next unwritten topic from `content/TOPICS.md`, asks the Anthropic API for
+the post, checks it builds, and publishes it straight to the live site.
 
 It runs inside GitHub Actions, so it already holds permission to push and there
 is nothing to connect.
@@ -200,8 +199,15 @@ Setup is one repository secret:
   separate from a Claude subscription, so the account needs credit.
 
 Run it on demand from the Actions tab (Weekly blog post > Run workflow) rather
-than waiting for Monday. To publish straight to the live site instead of opening
-a pull request, set `PUBLISH_DIRECTLY` to `true` in the workflow.
+than waiting for the schedule. Set `PUBLISH_DIRECTLY` to `false` in the workflow
+to have it open a pull request with a Vercel preview instead, and publish only
+on merge.
+
+Because nothing is read before it goes live, `scripts/write-post.mjs` fails the
+run rather than publishing when it finds anything it cannot stand behind:
+missing frontmatter, an em dash, a topic already written or waiting, or a stated
+percentage or currency amount that is not one of the site's own. A failed run
+publishes nothing and emails the owner.
 
 The job writes nothing when every queued topic is already covered. An empty
 queue is a prompt to add topics, not a reason to generate filler.

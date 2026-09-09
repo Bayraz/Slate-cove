@@ -8,10 +8,14 @@
 #   Get the key from console.anthropic.com. It is billed separately from a
 #   Claude subscription, so the account needs credit on it.
 #
-# TO PUBLISH STRAIGHT TO THE LIVE SITE instead of opening a pull request,
-# change PUBLISH_DIRECTLY below from "false" to "true". Everything else stays
-# the same. Read the note in content/TOPICS.md before you do: these posts make
-# claims about tax and planning law under the company's name.
+# PUBLISH_DIRECTLY is "true", so posts go straight to the live site with
+# nobody reading them first. Set it back to "false" to have the job open a
+# pull request with a Vercel preview instead, and publish only on merge.
+#
+# Because nothing is read before it is published, the run fails rather than
+# publishes if scripts/write-post.mjs finds anything it cannot stand behind:
+# missing frontmatter, an em dash, a duplicate topic, or a stated figure that
+# is not one of the site's own. A failed run emails you and publishes nothing.
 
 name: Weekly blog post
 
@@ -26,7 +30,7 @@ on:
   workflow_dispatch:
 
 env:
-  PUBLISH_DIRECTLY: "false"
+  PUBLISH_DIRECTLY: "true"
   # Swap for another model if you want. Sonnet is the sensible default here.
   POST_MODEL: "claude-sonnet-5"
 
@@ -82,7 +86,11 @@ jobs:
 
       - name: Publish directly
         if: steps.write.outputs.wrote == 'true' && env.PUBLISH_DIRECTLY == 'true'
-        run: git push origin HEAD:${{ github.ref_name }}
+        run: |
+          # Someone may have committed to the branch since this run checked it
+          # out, which would otherwise reject the push.
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin HEAD:"${{ github.ref_name }}"
 
       - name: Open a pull request
         if: steps.write.outputs.wrote == 'true' && env.PUBLISH_DIRECTLY != 'true'

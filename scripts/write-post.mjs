@@ -154,6 +154,33 @@ for (const field of ["title:", "description:", "date:", "topic:"]) {
 }
 if (body.includes("—")) fail("the generated post contains an em dash, which the house rules forbid.");
 
+/**
+ * Posts publish without anyone reading them first, so the one failure that
+ * would actually cost the business something, a confidently invented figure
+ * about tax or earnings, is caught here rather than by a reader.
+ *
+ * Only the site's own numbers are allowed to be stated: the two management
+ * fees, and the 90-night London limit. Any other percentage or currency
+ * amount fails the run, which publishes nothing and emails the owner.
+ */
+const ALLOWED_PERCENTAGES = new Set(["15%", "18%"]);
+const percentages = body.match(/\d+(?:\.\d+)?%/g) ?? [];
+const invented = percentages.filter((p) => !ALLOWED_PERCENTAGES.has(p));
+if (invented.length) {
+  fail(
+    `the post states percentages that are not the site's own: ${[...new Set(invented)].join(", ")}. ` +
+      "Only 15% and 18% may be stated. Nothing has been published.",
+  );
+}
+
+const amounts = body.match(/£\s?[\d,]+(?:\.\d+)?/g) ?? [];
+if (amounts.length) {
+  fail(
+    `the post states currency amounts: ${[...new Set(amounts)].join(", ")}. ` +
+      "Figures like these cannot be verified, so nothing has been published.",
+  );
+}
+
 fs.writeFileSync(target, body.endsWith("\n") ? body : `${body}\n`);
 console.log(`weekly-post: wrote content/blog/${filename}`);
 
