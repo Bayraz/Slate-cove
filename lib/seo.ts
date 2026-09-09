@@ -15,6 +15,14 @@ export const SITE = {
   locale: "en_GB",
 } as const;
 
+/**
+ * The canonical absolute URL for a path. `trailingSlash: true` means Vercel
+ * serves /pricing/ and redirects /pricing to it, so schema and canonicals
+ * should both name the version that serves rather than the one that redirects.
+ */
+export const canonicalUrl = (path: string) =>
+  path === "/" ? `${SITE.url}/` : `${SITE.url}${path.replace(/\/$/, "")}/`;
+
 /** Every area from the Locations page, as a flat list of served places. */
 const servedPlaces = AREAS.flatMap((area) => area.places);
 
@@ -112,7 +120,7 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name,
-      item: `${SITE.url}${path}`,
+      item: canonicalUrl(path),
     })),
   };
 }
@@ -139,7 +147,7 @@ export function pageMetadata({
   description: string;
   path: string;
 }) {
-  const url = `${SITE.url}${path}`;
+  const url = canonicalUrl(path);
   const shareTitle = path === "/" ? title : `${title} | ${SITE.name}`;
   return {
     title,
@@ -168,11 +176,66 @@ export function areaServiceSchema(areaName: string, path: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${SITE.url}${path}#service`,
+    "@id": `${canonicalUrl(path)}#service`,
     name: `Airbnb and short-let management in ${areaName}`,
     serviceType: "Short-let and Airbnb property management",
     provider: { "@id": `${SITE.url}/#organisation` },
     areaServed: { "@type": "Place", name: areaName },
-    url: `${SITE.url}${path}`,
+    url: canonicalUrl(path),
+  };
+}
+
+/**
+ * A single blog post. `BlogPosting` is what Google and the AI assistants read
+ * to know this is an article, who wrote it and when it was last revised, which
+ * is the part that matters for a piece that gets updated as rules change.
+ */
+export function articleSchema({
+  title,
+  description,
+  path,
+  date,
+  updated,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  date: string;
+  updated?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${canonicalUrl(path)}#article`,
+    headline: title,
+    description,
+    url: canonicalUrl(path),
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl(path) },
+    datePublished: date,
+    dateModified: updated ?? date,
+    image: `${SITE.url}${OG_IMAGE.url}`,
+    author: { "@id": `${SITE.url}/#organisation` },
+    publisher: { "@id": `${SITE.url}/#organisation` },
+    inLanguage: "en-GB",
+  };
+}
+
+/** The blog itself, so the index reads as a collection rather than a page. */
+export function blogSchema(posts: { title: string; description: string; slug: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${SITE.url}/blog/#blog`,
+    name: `${SITE.name} journal`,
+    description:
+      "Guides for London landlords on short-let rules, tax, running costs and what a property can realistically earn.",
+    url: `${SITE.url}/blog/`,
+    publisher: { "@id": `${SITE.url}/#organisation` },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      description: p.description,
+      url: canonicalUrl(`/blog/${p.slug}`),
+    })),
   };
 }

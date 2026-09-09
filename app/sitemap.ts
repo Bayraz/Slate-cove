@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { AREA_PAGES } from "@/lib/areas";
+import { POSTS } from "@/lib/blog";
 import { NAV } from "@/lib/content";
 import { SITE } from "@/lib/seo";
 
@@ -25,5 +26,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...pages, ...areas];
+  // Posts carry their own dates, so search engines see a real revision
+  // history rather than every URL claiming to have changed at build time.
+  const posts: MetadataRoute.Sitemap = POSTS.map((post) => ({
+    url: `${SITE.url}/blog/${post.slug}/`,
+    lastModified: new Date(`${post.updated ?? post.date}T00:00:00Z`),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  return [...pages, ...areas, ...posts];
 }

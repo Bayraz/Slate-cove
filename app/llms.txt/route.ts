@@ -8,6 +8,7 @@ import {
   STEPS,
 } from "@/lib/content";
 import { AREA_PAGES } from "@/lib/areas";
+import { POSTS } from "@/lib/blog";
 import { SITE } from "@/lib/seo";
 
 // Served as a static file by `output: "export"`, the same way robots.txt is.
@@ -67,6 +68,14 @@ ${NAV.map((n) => `- [${n.label}](${url(n.href)})`).join("\n")}
 Each area has its own page covering the local property stock and who books it:
 
 ${AREA_PAGES.map((a) => `- ${a.name}: ${url(`/locations/${a.slug}`)}`).join("\n")}
+
+## Guides
+
+Longer answers to the questions landlords ask before signing anything:
+
+${POSTS.length
+    ? POSTS.map((p) => `- ${p.title} (${p.date}): ${url(`/blog/${p.slug}`)}\n  ${p.description}`).join("\n")
+    : "- None published yet."}
 
 ## Contact
 

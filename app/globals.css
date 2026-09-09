@@ -1647,3 +1647,114 @@ html.js-reveal main > section.is-visible {
   .xp-figure [data-pop] { transition-duration: 1ms !important; }
   .xp-bg svg { animation: none; }
 }
+
+/* --------------------------------------------------------------------------
+   Blog: index list and article body
+   -------------------------------------------------------------------------- */
+
+.postlist { list-style: none; margin: 0; padding: 96px 0; display: flex; flex-direction: column; }
+.postlist--compact { padding: 0; }
+
+.postlist__item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 44px 0;
+  border-top: 1px solid var(--blue);
+  max-width: 760px;
+}
+.postlist__item:first-child { border-top: 0; padding-top: 0; }
+.postlist__item:last-child { padding-bottom: 0; }
+.postlist__item h2 a { color: inherit; text-decoration: none; }
+.postlist__item h2 a:hover { color: var(--wine); }
+
+.postmeta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.post-head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 96px;
+  padding-bottom: 96px;
+  max-width: 860px;
+}
+.post-head .lead { max-width: 700px; }
+
+/* The article body. Everything below styles markdown output, so the selectors
+   are element-based and scoped to .prose rather than given classes. */
+.prose {
+  padding: 0 0 96px;
+  max-width: 680px; /* about 70 characters at this size */
+  font-size: 19px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--ink);
+}
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+
+.prose p { margin: 0 0 1.35em; text-wrap: pretty; }
+
+.prose h2 {
+  margin: 2.2em 0 0.7em;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1.15;
+  color: var(--ink-deep);
+  text-wrap: balance;
+}
+.prose h3 {
+  margin: 1.9em 0 0.6em;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(23px, 2.5vw, 28px);
+  line-height: 1.2;
+  color: var(--ink-deep);
+}
+
+.prose ul,
+.prose ol { margin: 0 0 1.35em; padding-left: 1.4em; display: flex; flex-direction: column; gap: 0.6em; }
+.prose li { padding-left: 0.2em; }
+.prose li::marker { color: var(--wine); }
+
+.prose strong { font-weight: 500; color: var(--ink-deep); }
+
+.prose a { color: var(--wine); text-decoration: underline; text-underline-offset: 3px; }
+.prose a:hover { color: var(--wine-deep); }
+
+.prose blockquote {
+  margin: 1.6em 0;
+  padding: 4px 0 4px 24px;
+  border-left: 2px solid var(--wine);
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.4;
+}
+.prose blockquote p { margin: 0; }
+
+/* A horizontal rule closes the piece, and what follows it is the standing
+   note about this being general information. */
+.prose hr { margin: 3em 0 1.6em; border: 0; border-top: 1px solid var(--blue); }
+.prose hr + p em { font-style: normal; }
+.prose hr ~ p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .postlist { padding: 64px 0; }
+  .post-head { padding-top: 64px; padding-bottom: 48px; }
+  .prose { font-size: 18px; padding-bottom: 64px; }
+}
