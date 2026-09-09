@@ -5,19 +5,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * The homepage explainer: a sequence drawn live rather than played from a
- * video file, so it stays sharp at any size and costs the page a few
- * kilobytes instead of several megabytes.
+ * video file, so it stays sharp at any size, costs the page a few kilobytes
+ * instead of several megabytes, and leaves every word of it readable by
+ * search engines and AI crawlers.
  *
- * It is driven by the scroll position. The stage pins itself to the viewport
- * and each scene is tied to a slice of the scroll through the section, so the
- * visitor moves through the story at their own pace and never has to press
- * anything. It follows the structure that converts on a landing page: open on
- * the viewer's problem, amplify it, show the answer, prove it twice, then one
+ * The scenes sit side by side on a rail that scrolls horizontally, so the
+ * page itself never gets taken over: a visitor scrolls past it as normal, or
+ * swipes through it if it catches them. It moves on its own while it is on
+ * screen and hands over the moment anyone touches it.
+ *
+ * It follows the structure that converts on a landing page: open on the
+ * viewer's problem, amplify it, show the answer, prove it twice, then one
  * call to action. It is silent by design, because most people watch muted and
  * the type has to carry it on its own.
  */
 
-const SCENE_COUNT = 9;
+/* How long each scene holds before the rail moves itself along. */
+const HOLD = [6600, 7000, 4800, 5000, 6000, 5800, 5400, 4400, 6200];
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 const len = (n: number) => ({ "--len": n }) as React.CSSProperties;
@@ -48,169 +52,228 @@ const I = {
 
 export default function Explainer() {
   const [index, setIndex] = useState(0);
-  const [live, setLive] = useState(false);
-  const track = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
+  const [steering, setSteering] = useState(false); // the visitor has taken over
+  const rail = useRef<HTMLDivElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // The scene is a function of how far the visitor has scrolled through the
-  // track. One listener, read inside a frame, so it stays cheap.
+  // The rail is the source of truth: whatever is snapped is the live scene.
   useEffect(() => {
+    const el = rail.current;
+    if (!el) return;
     let frame = 0;
     const read = () => {
       frame = 0;
-      const el = track.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const span = rect.height - window.innerHeight;
-      if (span <= 0) return;
-      const p = Math.min(Math.max(-rect.top / span, 0), 1);
-      setLive(rect.top <= 0 && rect.bottom >= window.innerHeight * 0.5);
-      setIndex(Math.min(Math.floor(p * SCENE_COUNT), SCENE_COUNT - 1));
+      const n = Math.round(el.scrollLeft / el.clientWidth);
+      setIndex(Math.min(Math.max(n, 0), HOLD.length - 1));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(read);
     };
-    read();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    el.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      el.removeEventListener("scroll", onScroll);
     };
   }, []);
 
-  // Dots jump the page to the middle of that scene's slice.
-  const jump = useCallback((n: number) => {
-    const el = track.current;
+  // Only run while it is actually being looked at.
+  useEffect(() => {
+    const el = rail.current;
     if (!el) return;
-    const span = el.offsetHeight - window.innerHeight;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((n + 0.5) / SCENE_COUNT) * span, behavior: "smooth" });
+    const io = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
+
+  const goTo = useCallback((n: number, smooth = true) => {
+    const el = rail.current;
+    if (!el) return;
+    el.scrollTo({ left: n * el.clientWidth, behavior: smooth ? "smooth" : "auto" });
+  }, []);
+
+  // Moves itself along, so nothing has to be pressed. Stops for good once the
+  // visitor swipes or uses the controls, and never starts if reduced motion
+  // has been asked for.
+  useEffect(() => {
+    if (!onScreen || steering) return;
+    if (index >= HOLD.length - 1) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    timer.current = setTimeout(() => goTo(index + 1), HOLD[index]);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [onScreen, steering, index, goTo]);
+
+  const takeOver = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+    setSteering(true);
+  }, []);
+
+  const step = useCallback((by: number) => {
+    takeOver();
+    goTo(Math.min(Math.max(index + by, 0), HOLD.length - 1));
+  }, [index, goTo, takeOver]);
 
   const cls = (n: number) => (index === n ? "xp-scene is-live" : "xp-scene");
 
   return (
-    <div className="xp-track" ref={track} data-live={live ? "" : undefined}>
-      <div className="xp-pin">
-        <div className="xp">
-          <div className="xp-stage">
+    <div className="xp">
+      <div className="xp-frame">
+        <div
+          className="xp-rail"
+          ref={rail}
+          tabIndex={0}
+          role="group"
+          aria-roledescription="carousel"
+          aria-label="How Slate and Cove works"
+          onPointerDown={takeOver}
+          onWheel={(e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) takeOver(); }}
+          onKeyDown={takeOver}
+        >
 
-            <section className={cls(0)}>
-              <span className="xp-eyebrow" style={delay(0)}>If any of this sounds familiar</span>
-              <div className="xp-stack xp-situations" style={delay(60)}>
-                <span><Ico d={[...I.person]} /><em>A tenant who is more trouble than the rent.</em></span>
-                <span><Ico d={[...I.calendar]} /><em>On the market for months, earning nothing while it waits.</em></span>
-                <span><Ico d={[...I.clock]} /><em>No time to run it yourself.</em></span>
-                <span><Ico d={[...I.down]} /><em>Rent that never quite covers what it should.</em></span>
-              </div>
-            </section>
-
-            <section className={cls(1)}>
-              <span className="xp-eyebrow" style={delay(0)}>A short let earns more, but someone has to</span>
-              <div className="xp-stack" style={delay(120)}>
-                <span><Ico d={[...I.doc]} /><em>Write the listing.</em></span>
-                <span><Ico d={[...I.up]} /><em>Move the price, daily.</em></span>
-                <span><Ico d={[...I.chat]} /><em>Answer guests at 2am.</em></span>
-                <span><Ico d={[...I.clean]} /><em>Clean between every stay.</em></span>
-              </div>
-            </section>
-
-            <section className={cls(2)}>
-              <span className="xp-eyebrow" style={delay(0)}>This is where we come in</span>
-              <p className="xp-line" style={delay(140)}>We list it, price it, host it and clean it.</p>
-              <div className="xp-figure" style={delay(300)} aria-hidden="true">
-                <svg viewBox="0 0 200 200" fill="none" stroke="var(--wine)" strokeWidth="2">
-                  <circle data-draw style={len(90)} cx="72" cy="78" r="14" />
-                  <path data-draw style={len(120)} d="M50 138c0-16 10-27 22-27s22 11 22 27" />
-                  <circle data-draw style={len(90)} cx="132" cy="78" r="14" />
-                  <path data-draw style={len(120)} d="M110 138c0-16 10-27 22-27s22 11 22 27" />
-                </svg>
-              </div>
-            </section>
-
-            <section className={cls(3)}>
-              <span className="xp-eyebrow" style={delay(0)}>Listed everywhere that matters</span>
-              <div className="xp-platforms" style={delay(140)}>
-                <span>Airbnb</span><span>Booking.com</span><span>Vrbo</span><span>Expedia</span>
-              </div>
-              <p className="xp-sub" style={delay(300)}>Priced against local demand every single day.</p>
-            </section>
-
-            <section className={cls(4)}>
-              <span className="xp-eyebrow" style={delay(0)}>And every month, in writing</span>
-              <div className="xp-ledger" style={delay(140)}>
-                <div><span>Occupancy</span><i /></div>
-                <div><span>Revenue</span><i /></div>
-                <div><span>Expenses</span><i /></div>
-                <div><span>Our fee</span><i /></div>
-                <div className="net"><span>Your payout</span><i /></div>
-              </div>
-            </section>
-
-            <section className={cls(5)}>
-              <span className="xp-eyebrow" style={delay(0)}>Why we price it this way</span>
-              <p className="xp-line" style={delay(140)}>We take a percentage. So we only earn when you do.</p>
-              <p className="xp-sub" style={delay(320)}>
-                No setup fee. No monthly retainer. An empty calendar costs us too.
-              </p>
-            </section>
-
-            <section className={cls(6)}>
-              <span className="xp-eyebrow" style={delay(0)}>The difference</span>
-              <p className="xp-line" style={delay(140)}>Thirty to forty per cent more than a long tenancy.</p>
-              <div className="xp-bars" style={delay(280)} aria-hidden="true">
-                <div className="xp-barcol"><div className="xp-bar" /><span className="xp-barlab">Tenancy</span></div>
-                <div className="xp-barcol"><div className="xp-bar tall" /><span className="xp-barlab">Short let</span></div>
-              </div>
-            </section>
-
-            <section className={cls(7)}>
-              <span className="xp-eyebrow" style={delay(0)}>Your part</span>
-              <p className="xp-line" style={delay(140)}>Hand over the keys.</p>
-              <div className="xp-figure" style={delay(300)} aria-hidden="true">
-                <svg viewBox="0 0 200 200" fill="none" stroke="var(--ink)" strokeWidth="2">
-                  <circle data-draw style={len(110)} cx="78" cy="96" r="17" />
-                  <path data-draw style={len(70)} d="M95 96h46" />
-                  <path data-pop d="M126 96v14M138 96v10" stroke="var(--wine)" />
-                </svg>
-              </div>
-            </section>
-
-            <section className={`${cls(8)} xp-end`}>
-              <div className="xp-endmark" style={delay(0)}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/sc-monogram.png" alt="" width={312} height={508} />
-                <span className="xp-endline">Send us your postcode.</span>
-                <span className="xp-endsub">
-                  We will tell you what it could earn. Free, and no lock-in contract.
-                </span>
-                <Link className="btn btn--solid xp-cta" href="/contact">
-                  Get a free estimate
-                </Link>
-              </div>
-            </section>
-
-          </div>
-
-          <div className="xp-controls">
-            <span className="xp-hint">
-              {index === SCENE_COUNT - 1 ? "That is the whole of it" : "Keep scrolling"}
-            </span>
-            <div className="xp-dots" role="tablist" aria-label="Scenes">
-              {Array.from({ length: SCENE_COUNT }, (_, n) => (
-                <button
-                  key={n}
-                  type="button"
-                  role="tab"
-                  aria-selected={index === n}
-                  aria-label={`Scene ${n + 1}`}
-                  className={index === n ? "is-on" : undefined}
-                  onClick={() => jump(n)}
-                />
-              ))}
+          <section className={cls(0)}>
+            <span className="xp-eyebrow" style={delay(0)}>If any of this sounds familiar</span>
+            <div className="xp-stack xp-situations" style={delay(60)}>
+              <span><Ico d={[...I.person]} /><em>A tenant who is more trouble than the rent.</em></span>
+              <span><Ico d={[...I.calendar]} /><em>On the market for months, earning nothing while it waits.</em></span>
+              <span><Ico d={[...I.clock]} /><em>No time to run it yourself.</em></span>
+              <span><Ico d={[...I.down]} /><em>Rent that never quite covers what it should.</em></span>
             </div>
-          </div>
+          </section>
+
+          <section className={cls(1)}>
+            <span className="xp-eyebrow" style={delay(0)}>A short let earns more, but someone has to</span>
+            <div className="xp-stack" style={delay(120)}>
+              <span><Ico d={[...I.doc]} /><em>Write the listing.</em></span>
+              <span><Ico d={[...I.up]} /><em>Move the price, daily.</em></span>
+              <span><Ico d={[...I.chat]} /><em>Answer guests at 2am.</em></span>
+              <span><Ico d={[...I.clean]} /><em>Clean between every stay.</em></span>
+            </div>
+          </section>
+
+          <section className={cls(2)}>
+            <span className="xp-eyebrow" style={delay(0)}>This is where we come in</span>
+            <p className="xp-line" style={delay(140)}>We list it, price it, host it and clean it.</p>
+            <div className="xp-figure" style={delay(300)} aria-hidden="true">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--wine)" strokeWidth="2">
+                <circle data-draw style={len(90)} cx="72" cy="78" r="14" />
+                <path data-draw style={len(120)} d="M50 138c0-16 10-27 22-27s22 11 22 27" />
+                <circle data-draw style={len(90)} cx="132" cy="78" r="14" />
+                <path data-draw style={len(120)} d="M110 138c0-16 10-27 22-27s22 11 22 27" />
+              </svg>
+            </div>
+          </section>
+
+          <section className={cls(3)}>
+            <span className="xp-eyebrow" style={delay(0)}>Listed everywhere that matters</span>
+            <div className="xp-platforms" style={delay(140)}>
+              <span>Airbnb</span><span>Booking.com</span><span>Vrbo</span><span>Expedia</span>
+            </div>
+            <p className="xp-sub" style={delay(300)}>Priced against local demand every single day.</p>
+          </section>
+
+          <section className={cls(4)}>
+            <span className="xp-eyebrow" style={delay(0)}>And every month, in writing</span>
+            <div className="xp-ledger" style={delay(140)}>
+              <div><span>Occupancy</span><i /></div>
+              <div><span>Revenue</span><i /></div>
+              <div><span>Expenses</span><i /></div>
+              <div><span>Our fee</span><i /></div>
+              <div className="net"><span>Your payout</span><i /></div>
+            </div>
+          </section>
+
+          <section className={cls(5)}>
+            <span className="xp-eyebrow" style={delay(0)}>Why we price it this way</span>
+            <p className="xp-line" style={delay(140)}>We take a percentage. So we only earn when you do.</p>
+            <p className="xp-sub" style={delay(320)}>
+              No setup fee. No monthly retainer. An empty calendar costs us too.
+            </p>
+          </section>
+
+          <section className={cls(6)}>
+            <span className="xp-eyebrow" style={delay(0)}>The difference</span>
+            <p className="xp-line" style={delay(140)}>Thirty to forty per cent more than a long tenancy.</p>
+            <div className="xp-bars" style={delay(280)} aria-hidden="true">
+              <div className="xp-barcol"><div className="xp-bar" /><span className="xp-barlab">Tenancy</span></div>
+              <div className="xp-barcol"><div className="xp-bar tall" /><span className="xp-barlab">Short let</span></div>
+            </div>
+          </section>
+
+          <section className={cls(7)}>
+            <span className="xp-eyebrow" style={delay(0)}>Your part</span>
+            <p className="xp-line" style={delay(140)}>Hand over the keys.</p>
+            <div className="xp-figure" style={delay(300)} aria-hidden="true">
+              <svg viewBox="0 0 200 200" fill="none" stroke="var(--ink)" strokeWidth="2">
+                <circle data-draw style={len(110)} cx="78" cy="96" r="17" />
+                <path data-draw style={len(70)} d="M95 96h46" />
+                <path data-pop d="M126 96v14M138 96v10" stroke="var(--wine)" />
+              </svg>
+            </div>
+          </section>
+
+          <section className={`${cls(8)} xp-end`}>
+            <div className="xp-endmark" style={delay(0)}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sc-monogram.png" alt="" width={312} height={508} />
+              <span className="xp-endline">Send us your postcode.</span>
+              <span className="xp-endsub">
+                We will tell you what it could earn. Free, and no lock-in contract.
+              </span>
+              <Link className="btn btn--solid xp-cta" href="/contact">
+                Get a free estimate
+              </Link>
+            </div>
+          </section>
+
+        </div>
+
+        <button
+          className="xp-arrow xp-arrow--prev"
+          type="button"
+          aria-label="Previous scene"
+          onClick={() => step(-1)}
+          disabled={index === 0}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+               strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M15 5 8 12l7 7" />
+          </svg>
+        </button>
+        <button
+          className="xp-arrow xp-arrow--next"
+          type="button"
+          aria-label="Next scene"
+          onClick={() => step(1)}
+          disabled={index === HOLD.length - 1}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+               strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="xp-controls">
+        <span className="xp-hint">
+          {index === HOLD.length - 1 ? "That is the whole of it" : "Take it at your own pace"}
+        </span>
+        <div className="xp-dots" role="tablist" aria-label="Scenes">
+          {HOLD.map((_, n) => (
+            <button
+              key={n}
+              type="button"
+              role="tab"
+              aria-selected={index === n}
+              aria-label={`Scene ${n + 1}`}
+              className={index === n ? "is-on" : undefined}
+              onClick={() => { takeOver(); goTo(n); }}
+            />
+          ))}
         </div>
       </div>
     </div>

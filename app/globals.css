@@ -1213,57 +1213,74 @@ html.js-reveal main > section.is-visible {
    people watch muted and the type has to carry it.
    -------------------------------------------------------------------------- */
 
-/* The track is tall; the stage inside pins itself to the viewport, so the
-   scroll position through the track is what moves the sequence along. */
-.xp-track { position: relative; height: calc(100vh + 9 * 62vh); }
-.xp-pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  padding-top: 94px; /* clears the sticky header */
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.xp { display: flex; flex-direction: column; gap: 18px; }
 
-.xp {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: min(100%, calc((100vh - 94px - 120px) * 16 / 9));
-  margin-inline: auto;
-}
-
-.xp-stage {
+/* The scenes sit side by side on a rail that scrolls sideways. The page's own
+   scrolling is left alone: a visitor passes it by as normal, or swipes
+   through it. It advances itself until someone takes hold of it. */
+.xp-frame {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--paper);
   border: 2px solid var(--ink);
-  overflow: hidden;
 }
-.xp-stage::before {
+.xp-frame::before {
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(60% 60% at 50% 45%, rgba(185, 198, 206, 0.28), transparent 70%);
   pointer-events: none;
+  z-index: 1;
 }
 
+.xp-rail {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.xp-rail::-webkit-scrollbar { display: none; }
+.xp-rail:focus-visible { outline: 2px solid var(--wine); outline-offset: -4px; }
+
 .xp-scene {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 18px;
   padding: 0 clamp(24px, 6%, 80px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 520ms ease;
 }
-.xp-scene.is-live { opacity: 1; visibility: visible; }
 .xp-scene.xp-end { align-items: center; text-align: center; }
+
+/* Arrows for anyone on a mouse, who has nothing to swipe with. */
+.xp-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  transition: background-color 180ms ease, opacity 180ms ease;
+}
+.xp-arrow svg { width: 20px; height: 20px; }
+.xp-arrow:hover { background: var(--wine); border-color: var(--wine); color: #FFFFFF; }
+.xp-arrow:disabled { opacity: 0.25; cursor: default; }
+.xp-arrow:disabled:hover { background: var(--paper); border-color: var(--ink); color: var(--ink); }
+.xp-arrow--prev { left: 14px; }
+.xp-arrow--next { right: 14px; }
 
 .xp-eyebrow {
   font-family: var(--mono);
@@ -1441,11 +1458,11 @@ html.js-reveal main > section.is-visible {
 /* On a phone the stage goes portrait, so the type is not left swimming in a
    letterbox. The side figures are dropped: there is no room beside the words. */
 @media (max-width: 760px) {
-  .xp { width: 100%; }
-  .xp-stage {
+  .xp-frame {
     aspect-ratio: auto;
     height: min(calc(100vh - 210px), 132vw);
   }
+  .xp-arrow { display: none; } /* a phone swipes */
   .xp-scene { gap: 14px; padding: 0 22px; }
   .xp-figure { display: none; }
   .xp-line { font-size: clamp(26px, 7.4vw, 40px); max-width: 15ch; }
