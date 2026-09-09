@@ -51,6 +51,7 @@ Check that first, and never write a second post on a subject already covered.
 
 ## Written
 
+- Do you pay tax on Airbnb income in the UK? (`do-you-pay-tax-on-airbnb-income-uk.md`)
 - The 90-night rule in London (`90-night-rule-london.md`)
 - Is short-let income halal (`is-airbnb-income-halal-london-landlords.md`)
 
