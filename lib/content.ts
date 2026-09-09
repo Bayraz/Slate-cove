@@ -155,6 +155,10 @@ export const FAQ = [
     a: "Platform verification, booking history and direct conversation. We can add requirements such as minimum age, verified ID or longer minimum stays if you prefer.",
   },
   {
+    q: "Can the property be run to my own house rules?",
+    a: "Yes. House rules are set by you and stated in the listing, so guests accept them before they book. That covers no parties or events, no smoking, no alcohol on the premises, minimum stay lengths and minimum age. We enforce breaches through the platform rather than overlooking them. Landlords who need the property run to a particular standard, including for religious reasons, should tell us at the outset and we will configure the listing to it.",
+  },
+  {
     q: "What about property damage?",
     a: "All major platforms provide host protection insurance and we make sure the listing is always covered. Condition is photographed before and after each stay, and we handle any claim on your behalf.",
   },
