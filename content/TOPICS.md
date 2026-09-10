@@ -134,4 +134,14 @@ pushed.
   short let is the wrong answer, or when a rule is genuinely contested. Do not
   resolve a real disagreement to make the sell easier.
 - **One call to action**, near the end, linking to `/contact/`. Not more.
-- **900 to 1,500 words.** Below that it is thin, above it nobody finishes.
+- **Answer the question in the first three sentences**, before any heading.
+  Someone who reads only the opening should have the answer; everything after
+  it is the detail behind that answer. This is also the part an AI assistant
+  lifts when it cites the page, so it has to stand on its own.
+- **700 to 1,100 words.** Most of these questions are answerable in under a
+  thousand. Length is not a measure of quality: if it is said in 700 words, stop
+  at 700. Never pad to reach a number, and never split one question across two
+  posts to reach a count.
+- **Cut anything that is not the answer.** No preamble about how important the
+  topic is, no summary of what the post will cover, no restating the question
+  back before answering it.

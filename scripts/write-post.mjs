@@ -77,6 +77,8 @@ Follow the house rules in TOPICS.md exactly. The one that matters most: never st
 
 Match the voice of the published posts above: plain, short sentences, British spelling, no marketing language, and willing to say when a short let is the wrong answer or when a rule is genuinely contested.
 
+On length: the published posts above run longer than they need to. Do not use them as the target. Answer the question in the first three sentences before any heading, then give the detail behind it, and stop when it is answered. Aim for 700 to 1,100 words and prefer the lower end. Cut preamble about why the topic matters, cut any summary of what the post will cover, and cut restating the question before answering it.
+
 Today's date is ${today}.
 
 Output ONLY the file, starting with the frontmatter, in this exact shape and nothing else. No preamble, no explanation, no code fences:
