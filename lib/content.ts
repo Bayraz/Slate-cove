@@ -106,6 +106,12 @@ export const TESTIMONIALS = [
   },
 ] as const;
 
+/** The tick used on feature lists. One definition, so they never diverge. */
+export const TICK = [
+  "M12 3.4 20.2 7v5.4c0 4.3-3.3 7.5-8.2 8.7-4.9-1.2-8.2-4.4-8.2-8.7V7Z",
+  "M8.6 12.2 11 14.6l4.6-4.8",
+] as const;
+
 export const HOME_CTA_POINTS = [
   "Free income estimate for your property",
   "No lock-in contracts, cancel any time",
@@ -117,26 +123,31 @@ export const STEPS = [
   {
     num: "01",
     title: "Consultation",
+    icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
     copy: "A free consultation to understand the property, your goals and your expectations. We assess its potential, discuss availability, and answer any questions about how we manage.",
   },
   {
     num: "02",
     title: "Onboarding",
+    icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
     copy: "We handle everything needed to get the property guest-ready: professional photography, listing creation, pricing setup, and coordinating any improvements worth making before launch.",
   },
   {
     num: "03",
     title: "Go live",
+    icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M12 8.5v7", "M8.5 12h7"],
     copy: "The listing goes live across Airbnb, Booking.com and Vrbo. Dynamic pricing starts working immediately to attract bookings at the best achievable rates.",
   },
   {
     num: "04",
     title: "Ongoing management",
+    icon: ["M12 15.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Z", "M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"],
     copy: "Guest communication, cleaning, maintenance and reviews run from our side. You can be as involved as you like; most owners simply read the monthly report.",
   },
   {
     num: "05",
     title: "Monthly payout",
+    icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
     copy: "At month end you receive a detailed performance report along with your payout: occupancy, revenue, expenses and our fee, set out in full.",
   },
 ] as const;

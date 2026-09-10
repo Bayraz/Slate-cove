@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import {
   MANAGEMENT_FEES,
   PLAN_FLEXIBLE,
   PLAN_FULL_TIME,
+  TICK,
 } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
@@ -60,7 +62,10 @@ export default function PricingPage() {
             </p>
             <ul className="plan__features">
               {PLAN_FULL_TIME.map((feature) => (
-                <li key={feature}>{feature}</li>
+                <li key={feature}>
+                  <Icon className="tick" d={TICK} />
+                  <span>{feature}</span>
+                </li>
               ))}
             </ul>
             <Link className="btn btn--light" href="/submit-property">
@@ -87,7 +92,10 @@ export default function PricingPage() {
             </p>
             <ul className="plan__features">
               {PLAN_FLEXIBLE.map((feature) => (
-                <li key={feature}>{feature}</li>
+                <li key={feature}>
+                  <Icon className="tick" d={TICK} />
+                  <span>{feature}</span>
+                </li>
               ))}
             </ul>
             <Link className="btn btn--solid" href="/submit-property">

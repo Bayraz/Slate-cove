@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { FAQ, STEPS } from "@/lib/content";
 import { faqSchema } from "@/lib/seo";
@@ -36,11 +37,12 @@ export default function HowItWorksPage() {
 
       <section className="section">
         <div className="wrap steps">
-          {STEPS.map(({ num, title, copy }) => (
+          {STEPS.map(({ num, title, copy, icon }) => (
             <div className="step" key={num}>
               <div className="step__num" aria-hidden="true">
                 {num}
               </div>
+              <Icon className="step__icon" d={icon} />
               <h2>{title}</h2>
               <p>{copy}</p>
             </div>
@@ -56,10 +58,16 @@ export default function HowItWorksPage() {
           </div>
           <div className="faq">
             {FAQ.map(({ q, a }) => (
-              <div className="faq__item" key={q}>
-                <h3>{q}</h3>
+              <details className="faq__item" key={q}>
+                <summary>
+                  <span>{q}</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+                       strokeLinecap="round" aria-hidden="true">
+                    <path d="M12 5.5v13M5.5 12h13" />
+                  </svg>
+                </summary>
                 <p>{a}</p>
-              </div>
+              </details>
             ))}
           </div>
         </div>
