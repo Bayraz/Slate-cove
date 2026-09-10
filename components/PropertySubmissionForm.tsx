@@ -5,7 +5,7 @@ import { useState } from "react";
 const ENDPOINT = "https://formspree.io/f/meaqvpjb";
 
 /** Formspree rejects oversized posts, so catch it here with a clear message. */
-const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
 
 type Status = "idle" | "sending" | "sent" | "sent-no-images" | "error" | "toobig";
 
@@ -199,7 +199,7 @@ export default function PropertySubmissionForm() {
           multiple
         />
         <span className="field__hint">
-          Up to 8MB in total. Photographs help us give a sharper estimate, but
+          Up to 15MB in total. Photographs help us give a sharper estimate, but
           they are not needed to get one.
         </span>
       </label>
@@ -234,7 +234,7 @@ export default function PropertySubmissionForm() {
         aria-live="polite"
       >
         {status === "toobig" &&
-          "Those images come to more than 8MB. Please remove a few and try again, or send them separately to info@slateandcove.com."}
+          "Those images come to more than 15MB. Please remove a few and try again, or send them separately to info@slateandcove.com."}
         {status === "error" &&
           "Something went wrong sending that. Please email info@slateandcove.com or call +44 7484 646008."}
       </p>
