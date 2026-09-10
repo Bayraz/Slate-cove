@@ -41,7 +41,12 @@ export const metadata: Metadata = {
     template: "%s | Slate & Cove",
   },
   description: SITE.description,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // Lets a browser, a feed reader or a scheduling tool find the feed without
+    // being told the URL.
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${SITE.name}: for landlords` }] },
+  },
   openGraph: {
     type: "website",
     siteName: SITE.name,
