@@ -4,10 +4,51 @@ import { useState } from "react";
 
 const ENDPOINT = "https://formspree.io/f/meaqvpjb";
 
-/** Formspree rejects oversized posts, so catch it here with a clear message. */
+const MAX_IMAGES = 15;
+
+/** Backstop after resizing. Formspree rejects oversized posts. */
 const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
 
-type Status = "idle" | "sending" | "sent" | "sent-no-images" | "error" | "toobig";
+/**
+ * Photographs are resized in the browser before they are sent.
+ *
+ * Ten photographs straight off a phone come to thirty or forty megabytes,
+ * which no form is going to accept. At 1600px on the longest edge they are
+ * still far better than we need to price a property, and ten of them comes to
+ * two or three megabytes rather than forty.
+ */
+const MAX_EDGE = 1600;
+const JPEG_QUALITY = 0.82;
+
+async function shrink(file: File): Promise<File> {
+  if (!file.type.startsWith("image/")) return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, MAX_EDGE / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/jpeg", JPEG_QUALITY),
+    );
+    // If it came out no smaller, the original was already fine.
+    if (!blob || blob.size >= file.size) return file;
+    return new File([blob], `${file.name.replace(/\.[^.]+$/, "")}.jpg`, {
+      type: "image/jpeg",
+    });
+  } catch {
+    // Older browsers, or a format the canvas cannot decode such as HEIC.
+    // Sending the original is better than sending nothing.
+    return file;
+  }
+}
+
+type Status = "idle" | "sending" | "sent" | "sent-no-images" | "error" | "toobig" | "toomany";
 
 /**
  * The detailed property submission, posting to its own Formspree form so these
@@ -39,17 +80,26 @@ export default function PropertySubmissionForm() {
 
     const picker = form.elements.namedItem("property-images") as HTMLInputElement | null;
     const chosen = picker?.files ? Array.from(picker.files) : [];
+
     if (chosen.length === 0) {
       data.delete("property-images");
-    } else {
-      const total = chosen.reduce((sum, file) => sum + file.size, 0);
+    } else if (chosen.length > MAX_IMAGES) {
+      setStatus("toomany");
+      return;
+    }
+
+    setStatus("sending");
+
+    if (chosen.length > 0) {
+      const shrunk = await Promise.all(chosen.map(shrink));
+      const total = shrunk.reduce((sum, file) => sum + file.size, 0);
       if (total > MAX_UPLOAD_BYTES) {
         setStatus("toobig");
         return;
       }
+      data.delete("property-images");
+      for (const file of shrunk) data.append("property-images", file);
     }
-
-    setStatus("sending");
     try {
       const response = await post(data);
       if (response.ok) {
@@ -199,8 +249,9 @@ export default function PropertySubmissionForm() {
           multiple
         />
         <span className="field__hint">
-          Up to 15MB in total. Photographs help us give a sharper estimate, but
-          they are not needed to get one.
+          Up to {MAX_IMAGES} photographs, resized automatically before sending.
+          They help us give a sharper estimate, but they are not needed to get
+          one.
         </span>
       </label>
 
@@ -233,8 +284,10 @@ export default function PropertySubmissionForm() {
         role="status"
         aria-live="polite"
       >
+        {status === "toomany" &&
+          `That is more than ${MAX_IMAGES} photographs. Please choose your best ${MAX_IMAGES} and send the rest to info@slateandcove.com.`}
         {status === "toobig" &&
-          "Those images come to more than 15MB. Please remove a few and try again, or send them separately to info@slateandcove.com."}
+          "Those images are still too large after resizing. Please send a few instead, or email them to info@slateandcove.com."}
         {status === "error" &&
           "Something went wrong sending that. Please email info@slateandcove.com or call +44 7484 646008."}
       </p>
