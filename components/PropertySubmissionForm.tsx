@@ -163,7 +163,7 @@ export default function PropertySubmissionForm() {
     <form className="form" action={ENDPOINT} method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
       <input type="hidden" name="_subject" value="New property submission from slateandcove.com" />
       {/* Formspree's honeypot: bots fill it in, people never see it. */}
-      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" hidden />
+      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" hidden />
 
       <div className="form__row">
         <label className="field">

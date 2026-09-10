@@ -69,7 +69,7 @@ export default function ContactForm() {
       {/* Gives the notification email a useful subject line. */}
       <input type="hidden" name="_subject" value="New enquiry from slateandcove.com" />
       {/* Formspree's honeypot: bots fill it in, people never see it. */}
-      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" hidden />
+      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" hidden />
 
       <label className="field">
         <span>Name</span>
