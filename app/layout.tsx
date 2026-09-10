@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import MobileContactBar from "@/components/MobileContactBar";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/Footer";
+import SubmitBand from "@/components/SubmitBand";
 import { OG_IMAGE, SITE, organisationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 
@@ -95,6 +96,7 @@ export default function RootLayout({
           <Header />
           <main className="main" id="main">
             {children}
+            <SubmitBand />
           </main>
           <Footer />
           <MobileContactBar />

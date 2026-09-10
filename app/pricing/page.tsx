@@ -117,20 +117,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="section section--dark">
-        <div className="wrap cta-bar">
-          <div className="cta-bar__body">
-            <h2 className="d5">Not sure which plan fits?</h2>
-            <p className="body-lg on-dark">
-              We will give you a free personalised estimate and recommend the
-              better option for your property.
-            </p>
-          </div>
-          <Link className="btn btn--light" href="/submit-property">
-            Get free estimate
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

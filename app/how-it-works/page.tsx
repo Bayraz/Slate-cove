@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
-import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { FAQ, STEPS } from "@/lib/content";
 import { faqSchema } from "@/lib/seo";
@@ -66,14 +65,6 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="section section--dark">
-        <div className="wrap cta-bar">
-          <h2 className="d4">Ready to see the numbers for your property?</h2>
-          <Link className="btn btn--light" href="/submit-property">
-            Book a consultation
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

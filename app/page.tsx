@@ -151,28 +151,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section--dark">
-        <div className="wrap cta-split">
-          <div className="cta-split__body">
-            <div className="rule" />
-            <h2 className="d3">Find out what your property earns</h2>
-            <p className="body-lg on-dark">
-              Send us the address and we will come back with a free income
-              estimate. No obligation, no lock-in contract.
-            </p>
-          </div>
-          <div className="cta-split__aside">
-            <Link className="btn btn--light" href="/submit-property">
-              Get a free estimate
-            </Link>
-            <div className="cta-points">
-              {HOME_CTA_POINTS.map((point) => (
-                <span key={point}>{point}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

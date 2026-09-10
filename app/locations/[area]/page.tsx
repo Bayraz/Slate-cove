@@ -105,22 +105,6 @@ export default async function AreaPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="section section--dark">
-        <div className="wrap cta-bar">
-          <div className="cta-bar__body">
-            <h2 className="d5">
-              What could your {area.name} property earn?
-            </h2>
-            <p className="body-lg on-dark">
-              Send us the postcode and we will come back with a free income
-              estimate. No obligation, no lock-in contract.
-            </p>
-          </div>
-          <Link className="btn btn--light" href="/submit-property">
-            Get a free estimate
-          </Link>
-        </div>
-      </section>
     </>
   );
 }
