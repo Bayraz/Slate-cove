@@ -77,6 +77,8 @@ Follow the house rules in TOPICS.md exactly. The one that matters most: never st
 
 Match the voice of the published posts above: plain, short sentences, British spelling, no marketing language, and willing to say when a short let is the wrong answer or when a rule is genuinely contested.
 
+The summary is three or four takeaways shown in a box above the article, for a reader who wants the answer without the detail. Each is one plain sentence that stands on its own, and together they should answer the question. Do not write them as a table of contents ("this post covers X"), and do not have the opening paragraph repeat them word for word.
+
 On length: the published posts above run longer than they need to. Do not use them as the target. Answer the question in the first three sentences before any heading, then give the detail behind it, and stop when it is answered. Aim for 700 to 1,100 words and prefer the lower end. Cut preamble about why the topic matters, cut any summary of what the post will cover, and cut restating the question before answering it.
 
 Today's date is ${today}.
@@ -88,6 +90,10 @@ title: "..."
 description: "One sentence. This becomes the Google result and the index blurb."
 date: ${today}
 topic: "..."
+summary:
+  - "First takeaway, one sentence."
+  - "Second takeaway."
+  - "Third takeaway."
 ---
 
 The post body in markdown.
@@ -151,7 +157,7 @@ if (pending.includes(filename.replace(/\.md$/, ""))) {
 }
 
 // The build enforces these too, but failing here gives a clearer message.
-for (const field of ["title:", "description:", "date:", "topic:"]) {
+for (const field of ["title:", "description:", "date:", "topic:", "summary:"]) {
   if (!body.includes(field)) fail(`the generated post has no ${field} in its frontmatter.`);
 }
 if (body.includes("—")) fail("the generated post contains an em dash, which the house rules forbid.");

@@ -3,6 +3,11 @@ title: "The 90-night rule in London, explained for landlords"
 description: "London properties can be short-let for 90 nights a year without planning permission. Here is where the limit comes from, what counts towards it, and the mistake that puts most landlords over it without noticing."
 date: 2026-09-09
 topic: "Rules and tax"
+summary:
+  - "A whole property in Greater London can be short-let for 90 nights in a calendar year without planning permission. The count resets on 1 January."
+  - "Airbnb applies the cap automatically, but only counts its own nights. List on two platforms and the property can pass the legal limit while both show you inside it."
+  - "Letting a room while you live there, and lets longer than 90 consecutive nights, are not caught by the cap."
+  - "Your lease, mortgage and insurance stop more landlords than planning does. Check all three before you list."
 ---
 
 If you are letting a whole flat or house in London on Airbnb, Booking.com or anywhere similar, there is a limit on how many nights a year you can do it for. It is 90. Go past that without permission and you are, in planning terms, using the property for something it is not approved for.

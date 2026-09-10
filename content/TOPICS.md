@@ -134,6 +134,10 @@ pushed.
   short let is the wrong answer, or when a rule is genuinely contested. Do not
   resolve a real disagreement to make the sell easier.
 - **One call to action**, near the end, linking to `/contact/`. Not more.
+- **Three or four summary points** in the frontmatter, shown in a box above the
+  article. One plain sentence each, standing on their own, together answering
+  the question. Not a table of contents, and not repeated word for word by the
+  opening paragraph.
 - **Answer the question in the first three sentences**, before any heading.
   Someone who reads only the opening should have the answer; everything after
   it is the detail behind that answer. This is also the part an AI assistant

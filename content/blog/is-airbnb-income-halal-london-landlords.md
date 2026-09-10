@@ -3,6 +3,11 @@ title: "Is short-let income halal? What Muslim landlords in London actually ask"
 description: "Rental income from property is widely held to be permissible, but the questions Muslim landlords ask are about financing, what happens inside the property, and zakat. Here is how each one plays out for a London short let."
 date: 2026-09-16
 topic: "Islamic finance"
+summary:
+  - "Rental income from a property you own is broadly held to be permissible. Short-letting does not change that in itself."
+  - "The question that usually decides things is how the property was financed, and it was settled at purchase rather than at listing."
+  - "Sharia-compliant purchase plans carry their own conditions on letting. Read the agreement and ring the provider before listing."
+  - "Scholars differ on responsibility for what guests do. House rules can be set and enforced, but no manager can promise certainty."
 ---
 
 We are asked this more often than any other question that has nothing to do with money, and it is rarely the question people expect. It is almost never "is renting out property allowed". It is the three that come after it.

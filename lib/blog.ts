@@ -30,6 +30,12 @@ export type Post = {
   updated?: string;
   /** Short label grouping the post on the index, e.g. "Rules and tax". */
   topic: string;
+  /**
+   * Three or four takeaways, shown in a box above the article. For a reader
+   * who wants the answer without the detail, and the part an AI assistant is
+   * most likely to quote. Optional, since the earliest posts predate it.
+   */
+  summary: string[];
   /** The rendered body, as HTML. */
   html: string;
   /** Reading time in whole minutes, rounded up, minimum one. */
@@ -42,6 +48,7 @@ type Frontmatter = {
   date?: unknown;
   updated?: unknown;
   topic?: unknown;
+  summary?: unknown;
 };
 
 const DIR = path.join(process.cwd(), "content", "blog");
@@ -78,6 +85,10 @@ function read(file: string): Post {
     throw new Error(`content/blog/${file} has date "${date}", expected YYYY-MM-DD`);
   }
 
+  const summary = Array.isArray(fm.summary)
+    ? fm.summary.map(asString).filter((v): v is string => Boolean(v))
+    : [];
+
   const words = content.split(/\s+/).filter(Boolean).length;
 
   return {
@@ -87,6 +98,7 @@ function read(file: string): Post {
     date: date!,
     updated: asString(fm.updated),
     topic: topic!,
+    summary,
     html: marked.parse(content, { async: false }) as string,
     minutes: Math.max(1, Math.round(words / 200)),
   };

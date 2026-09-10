@@ -3,6 +3,11 @@ title: "Do you pay tax on Airbnb income in the UK?"
 description: "Short-let income is taxable like any other rental income. Here is what counts as declarable, how the property allowance works, what you can offset, and when you need to file a return."
 date: 2026-09-09
 topic: "Rules and tax"
+summary:
+  - "Short-let income is taxable property income. Coming through a platform makes no difference."
+  - "Everything the guest pays counts, including cleaning fees. A management fee is an expense, not a reduction in income."
+  - "You can claim the property allowance or your actual expenses, not both. For most short lets with real costs, actual expenses are worth more."
+  - "Thresholds and the furnished holiday lettings rules change. Check current GOV.UK guidance rather than any figure you read elsewhere."
 ---
 
 Yes. There is no version of this where Airbnb income is exempt because it comes through a platform rather than a letting agent, or because it is paid in nights rather than months. HMRC treats it as property income, and property income is taxable.

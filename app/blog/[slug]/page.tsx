@@ -71,6 +71,17 @@ export default async function PostPage({ params }: Props) {
 
       <section className="section">
         <div className="wrap">
+          {post.summary.length > 0 && (
+            <aside className="summary" aria-label="In short">
+              <p className="summary__label">In short</p>
+              <ul>
+                {post.summary.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </aside>
+          )}
+
           {/* The body is our own markdown, compiled at build time and never
               from user input, so rendering it directly is safe. */}
           <article className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />

@@ -3,6 +3,11 @@ title: "Airbnb versus a long tenancy on a London flat: which earns more?"
 description: "The honest comparison between short-letting and a standard tenancy in London, including voids, management cost, the 90-night cap and seasonality, and where a tenancy actually wins."
 date: 2026-09-09
 topic: "Rules and tax"
+summary:
+  - "Nightly rate times 365 against monthly rent is the wrong comparison. A short let does not sell 365 nights."
+  - "The short let has to cover voids, cleaning, management, utilities and council tax, all of which a tenancy avoids."
+  - "London's 90-night cap means a property cannot be short-let full time and stay within the rules."
+  - "Short lets usually still win where demand supports them, but a tenancy genuinely wins in some cases. The comparison that matters is net income across a year."
 ---
 
 Every landlord asks this before they ask anything else, and most articles on the subject are written to arrive at one answer. This one is not. There are real cases where a long tenancy earns more than a short let, and we would rather tell you which ones than pretend the answer always points the same way.

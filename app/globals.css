@@ -1937,3 +1937,42 @@ html.js-reveal main > section.is-visible {
   .sent__tick circle,
   .sent__tick path { animation: none; stroke-dashoffset: 0; }
 }
+
+/* --------------------------------------------------------------------------
+   Blog: the takeaways box above an article
+   -------------------------------------------------------------------------- */
+
+.summary {
+  max-width: 680px;
+  margin: 0 0 48px;
+  padding: 28px 32px;
+  background: var(--paper-alt);
+  border-left: 3px solid var(--wine);
+}
+.summary__label {
+  margin: 0 0 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.summary ul {
+  margin: 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.summary li {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  padding-left: 0.2em;
+}
+.summary li::marker { color: var(--wine); }
+
+@media (max-width: 720px) {
+  .summary { padding: 22px 24px; margin-bottom: 36px; }
+  .summary li { font-size: 16px; }
+}
