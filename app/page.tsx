@@ -24,7 +24,7 @@ export default function HomePage() {
               and read one report a month.
             </p>
             <div className="hero__actions">
-              <Link className="btn btn--solid" href="/contact">
+              <Link className="btn btn--solid" href="/submit-property">
                 Get a free estimate
               </Link>
               <Link className="btn btn--outline" href="/how-it-works">
@@ -162,7 +162,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="cta-split__aside">
-            <Link className="btn btn--light" href="/contact">
+            <Link className="btn btn--light" href="/submit-property">
               Get a free estimate
             </Link>
             <div className="cta-points">

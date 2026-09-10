@@ -116,7 +116,7 @@ export default async function AreaPage({ params }: Props) {
               estimate. No obligation, no lock-in contract.
             </p>
           </div>
-          <Link className="btn btn--light" href="/contact">
+          <Link className="btn btn--light" href="/submit-property">
             Get a free estimate
           </Link>
         </div>

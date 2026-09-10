@@ -15,7 +15,7 @@ export default function MobileContactBar() {
       <a className="contact-bar__call" href={`tel:${CONTACT.telephoneHref}`}>
         Call us
       </a>
-      <Link className="contact-bar__cta" href="/contact">
+      <Link className="contact-bar__cta" href="/submit-property">
         Free estimate
       </Link>
     </div>

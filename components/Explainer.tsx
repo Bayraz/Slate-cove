@@ -279,7 +279,7 @@ export default function Explainer() {
               <span className="xp-endsub">
                 We will tell you what it could earn. Free, and no lock-in contract.
               </span>
-              <Link className="btn btn--solid xp-cta" href="/contact">
+              <Link className="btn btn--solid xp-cta" href="/submit-property">
                 Get a free estimate
               </Link>
             </div>

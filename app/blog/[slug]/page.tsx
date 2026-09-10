@@ -116,7 +116,7 @@ export default async function PostPage({ params }: Props) {
               figure. Free, and no lock-in contract.
             </p>
           </div>
-          <Link className="btn btn--light" href="/contact">
+          <Link className="btn btn--light" href="/submit-property">
             Get free estimate
           </Link>
         </div>

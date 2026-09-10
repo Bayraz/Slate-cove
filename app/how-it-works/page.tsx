@@ -69,7 +69,7 @@ export default function HowItWorksPage() {
       <section className="section section--dark">
         <div className="wrap cta-bar">
           <h2 className="d4">Ready to see the numbers for your property?</h2>
-          <Link className="btn btn--light" href="/contact">
+          <Link className="btn btn--light" href="/submit-property">
             Book a consultation
           </Link>
         </div>

@@ -25,7 +25,7 @@ export default function NotFound() {
             <Link className="btn btn--solid" href="/">
               Back to the homepage
             </Link>
-            <Link className="btn btn--outline" href="/contact">
+            <Link className="btn btn--outline" href="/submit-property">
               Get a free estimate
             </Link>
           </div>

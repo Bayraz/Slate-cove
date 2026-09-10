@@ -63,7 +63,7 @@ export default function PricingPage() {
                 <li key={feature}>{feature}</li>
               ))}
             </ul>
-            <Link className="btn btn--light" href="/contact">
+            <Link className="btn btn--light" href="/submit-property">
               Get started
             </Link>
           </div>
@@ -90,7 +90,7 @@ export default function PricingPage() {
                 <li key={feature}>{feature}</li>
               ))}
             </ul>
-            <Link className="btn btn--solid" href="/contact">
+            <Link className="btn btn--solid" href="/submit-property">
               Get started
             </Link>
           </div>
@@ -126,7 +126,7 @@ export default function PricingPage() {
               better option for your property.
             </p>
           </div>
-          <Link className="btn btn--light" href="/contact">
+          <Link className="btn btn--light" href="/submit-property">
             Get free estimate
           </Link>
         </div>
