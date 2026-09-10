@@ -23,9 +23,12 @@ on:
   schedule:
     # 08:00 UTC every third day. GitHub runs scheduled jobs on UTC, so this is
     # 9am through British Summer Time and 8am through the winter.
-    # Day-of-month stepping restarts each month, so the gap across a month
-    # boundary is sometimes one or two days rather than three.
-    - cron: "0 8 */3 * *"
+    #
+    # The days are listed rather than written as */3 because day-of-month
+    # stepping restarts each month, which would put a one-day gap across a
+    # month boundary. Listed this way every gap is three days, except the last
+    # of the month to the first of the next, which is four.
+    - cron: "0 8 2,5,8,11,14,17,20,23,26,29 * *"
   # Lets you run it on demand from the Actions tab, without waiting for Monday.
   workflow_dispatch:
 
