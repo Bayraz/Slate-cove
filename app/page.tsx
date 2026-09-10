@@ -3,6 +3,7 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import Explainer from "@/components/Explainer";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import { FOOTER_AREAS } from "@/lib/areas";
 import { HERO_IMAGES } from "@/lib/images";
 import {
   COMPARISON_COLUMNS,
@@ -63,19 +64,33 @@ export default function HomePage() {
               A short-let managed end to end, by one team
             </h2>
             <p className="body-lg">
-              We create and optimise the listing, set prices daily against local
-              demand, vet and message guests around the clock, clean and restock
-              between every stay, coordinate maintenance, and track short-let
-              compliance including the 90-night rule. Landlords typically earn
-              30–40% more than a standard long-term tenancy, with no day-to-day
-              involvement and a clear income report every month.
+              Listing, pricing, guests, cleaning, maintenance and short-let
+              compliance, all of it ours. You hand over the keys and read one
+              report a month.
             </p>
-            <p className="body-lg">
-              We manage across Central and West London and the Home Counties:
-              Kensington, Chelsea, Notting Hill, Chiswick, Ealing and Canary
-              Wharf, as well as Windsor, Reading, Watford and Slough. One flat or
-              a small portfolio, the arrangement is the same.
+
+            {/* The strongest claim on the page was buried mid-paragraph. */}
+            <p className="pullout">
+              Landlords typically earn{" "}
+              <strong>30&ndash;40% more than a standard long-term tenancy</strong>,
+              with no day-to-day involvement.
             </p>
+
+            <div className="coverage-note">
+              <p className="note">Where we manage</p>
+              <ul className="chips">
+                {FOOTER_AREAS.map((area) => (
+                  <li key={area.slug}>
+                    <Link href={`/locations/${area.slug}/`}>{area.name}</Link>
+                  </li>
+                ))}
+                <li>
+                  <Link className="chips__all" href="/locations/">
+                    All 38 areas
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

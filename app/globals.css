@@ -2024,3 +2024,46 @@ html.js-reveal main > section.is-visible {
   .summary { padding: 22px 24px; margin-bottom: 36px; }
   .summary li { font-size: 16px; }
 }
+
+/* --------------------------------------------------------------------------
+   Home: the pulled-out claim, and the coverage chips
+   -------------------------------------------------------------------------- */
+
+/* The earnings claim was a clause in the middle of a fifty-word paragraph.
+   It is the strongest thing on the page, so it gets its own line. */
+.pullout {
+  margin: 0;
+  padding: 24px 0 24px 28px;
+  border-left: 3px solid var(--wine);
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.3;
+  color: var(--ink-deep);
+  max-width: 24ch;
+}
+.pullout strong { font-weight: 400; color: var(--wine); }
+
+.coverage-note { display: flex; flex-direction: column; gap: 16px; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips a {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid var(--blue);
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+.chips a:hover { background: var(--wine); border-color: var(--wine); color: #FFFFFF; }
+.chips__all { border-color: var(--ink) !important; }
+
+/* A heading with a mark set into its left margin, so the mark does not push
+   the text off the measure the other headings share. */
+.marked { display: flex; align-items: center; gap: 14px; }
+.marked__icon { flex: none; width: 26px; height: 26px; color: var(--wine); }
+
+@media (max-width: 720px) {
+  .pullout { font-size: 21px; padding-left: 20px; }
+  .marked { gap: 10px; }
+  .marked__icon { width: 22px; height: 22px; }
+}
