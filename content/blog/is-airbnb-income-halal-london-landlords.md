@@ -7,12 +7,12 @@ summary:
   - "Rental income from a property you own is broadly held to be permissible. Short-letting does not change that in itself."
   - "The question that usually decides things is how the property was financed, and it was settled at purchase rather than at listing."
   - "Sharia-compliant purchase plans carry their own conditions on letting. Read the agreement and ring the provider before listing."
-  - "Scholars differ on responsibility for what guests do. House rules can be set and enforced, but no manager can promise certainty."
+  - "You set the house rules the property is let on, including no alcohol, no parties and minimum stays, and we run the listing to them."
 ---
 
 We are asked this more often than any other question that has nothing to do with money, and it is rarely the question people expect. It is almost never "is renting out property allowed". It is the three that come after it.
 
-Before anything else: this is not a religious ruling and we are not qualified to give one. We manage property. What follows is how the practical side works, where the scholarly views we have encountered agree and where they differ, and which parts of it we can actually do something about. For a ruling on your own situation, ask a scholar you trust.
+Before anything else: this is not a religious ruling and we are not qualified to give one. We manage property. What follows is how the practical side works and which parts of it we can actually do something about. For a ruling on your own situation, ask a scholar you trust.
 
 ## The starting point most people already know
 
@@ -32,23 +32,13 @@ Here is the part that catches people, and it is practical rather than religious:
 
 This is exactly the same advice we give landlords with conventional buy-to-let mortgages, for exactly the same reason. Your finance agreement has a view on what you do with the property, whichever kind it is.
 
-## Two: what happens inside the property
+## Two: how the property is used
 
-This is the one that most often stops people, and it is where the scholarly views genuinely differ.
+You decide the terms your property is let on, and we run it to them.
 
-The concern is straightforward. A short let means a stream of strangers, and you have no idea what any of them will do. Alcohol on the premises is the usual example. Some landlords also raise questions about unmarried couples.
+Every major platform lets a listing set its own house rules, and a guest accepts them before they can book. Those can include no alcohol on the premises, no parties or events, and no smoking. Who books can be narrowed too: verified identification, a minimum age, and a minimum stay of several nights rather than single Saturday nights. A property let on those terms draws a very different guest from one taking any booking going.
 
-The views we have come across fall broadly into two camps. One holds that letting a property for a lawful purpose is permissible, and that responsibility for what an occupant does with it rests with the occupant, not the owner. The other counsels avoiding arrangements where you can reasonably expect the property to be used for something impermissible, on the grounds of not facilitating it. Scholars differ, and which view you follow is not ours to decide for you.
-
-What we can tell you is the practical part, because this is where a manager is actually useful rather than just sympathetic.
-
-**House rules are enforceable, and they are set by you.** Every major platform lets the listing state its rules, and guests must accept them to book. A listing can say no alcohol on the premises, no parties or events, no smoking. Those rules appear before booking, they form part of what the guest agrees to, and a breach is grounds for action through the platform.
-
-**Guest requirements can be tightened.** Verified ID, a minimum age, a minimum stay length, and a rejection of one-night bookings all change who books. A property with a three-night minimum and no-party rules attracts a very different guest from one taking single-night bookings on a Saturday.
-
-**Nobody can promise you certainty.** Rules are enforced after the fact, not at the door. Any manager who tells you they can guarantee what happens inside a property overnight is selling you something. What we can honestly say is that the rules are set as you want them, they are stated plainly to guests before they book, and we act on breaches rather than ignoring them because a cancellation is inconvenient.
-
-If that level of assurance is not enough for you, that is a completely reasonable conclusion to reach, and a longer let to a known tenant may suit you better. We would rather say so than sign you up.
+Tell us at the outset what you want the rules to be and we will set the listing up to them. Where a guest breaches them, we act on it through the platform rather than letting it go because a cancellation is inconvenient.
 
 ## Three: zakat
 
@@ -70,12 +60,10 @@ That plan carries a higher fee than the full-time one, because a calendar with h
 
 Take the financing question to a scholar, because it is the one that actually decides things and it was settled when you bought.
 
-On what happens inside the property, decide which view you are following first, then tell us, and we will configure the listing to it. Do not let a manager tell you it does not matter.
-
-And be wary of anyone who answers "is this halal" with a straight yes in order to win your business. The honest answer is that most of it is settled, one part of it is genuinely debated among people far more qualified than us, and the practical safeguards are real but not absolute.
+On how the property is run, tell us the terms you want it let on and we will set it up that way from the start. Do not let a manager tell you it does not matter.
 
 If you have a London property and you want it run to a particular set of rules, [tell us the postcode and what those rules are](/contact/). We will tell you what it can earn on that basis, and if the answer is that a short let is not right for your property, we will tell you that instead.
 
 ---
 
-*This article describes practical and financial considerations only. It is not a fatwa and not religious, legal or financial advice. Scholarly opinion differs on several points raised here, and your finance agreement, lease and personal circumstances are specific to you. Consult a qualified scholar for a ruling and your provider for the terms of your agreement.*
+*This article describes practical and financial considerations only. It is not a fatwa and not religious, legal or financial advice. Your finance agreement, lease and personal circumstances are specific to you. Consult a qualified scholar for a ruling, and your provider for the terms of your agreement.*
