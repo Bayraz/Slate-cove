@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import Icon from "@/components/Icon";
 import Explainer from "@/components/Explainer";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import { HERO_IMAGES } from "@/lib/images";
@@ -92,8 +93,9 @@ export default function HomePage() {
             </p>
           </div>
           <div className="services">
-            {SERVICES.map(({ title, copy }) => (
+            {SERVICES.map(({ title, copy, icon }) => (
               <div className="service" key={title}>
+                <Icon className="service__icon" d={icon} />
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </div>

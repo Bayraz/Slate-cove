@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { AREA_BY_SLUG, AREA_PAGES, nearbyAreas } from "@/lib/areas";
 import { MANAGEMENT_FEES, SERVICES } from "@/lib/content";
@@ -76,8 +77,9 @@ export default async function AreaPage({ params }: Props) {
             </p>
           </div>
           <div className="services">
-            {SERVICES.map(({ title, copy }) => (
+            {SERVICES.map(({ title, copy, icon }) => (
               <div className="service" key={title}>
+                <Icon className="service__icon" d={icon} />
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </div>

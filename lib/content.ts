@@ -26,37 +26,49 @@ export const STATS = [
   { figure: "24/7", label: "Guest cover, every night" },
 ] as const;
 
+/**
+ * The eight services. `icon` is the path data for a 24x24 line mark, kept
+ * beside the copy so a service and its mark cannot drift apart.
+ */
 export const SERVICES = [
   {
     title: "Listing optimisation",
+    icon: ["M6 3.5h12v17H6z", "M9 8.5h6", "M9 12h7", "M9 15.5h4"],
     copy: "Titles, descriptions and keywords written for search, then tested and revised.",
   },
   {
     title: "Photography",
+    icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
     copy: "Professional shoots, staging advice, and refreshed images as the property changes.",
   },
   {
     title: "Dynamic pricing",
+    icon: ["M3.5 16.5 9 11l3.5 3.5L20.5 6", "M15.5 6h5v5"],
     copy: "Rates moved daily against local demand, events, competitors and season.",
   },
   {
     title: "Guest communication",
+    icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
     copy: "Screening, fast replies at any hour, and every message for the length of the stay.",
   },
   {
     title: "Cleaning & linen",
+    icon: ["M10 3 11.6 8 16.5 9.6 11.6 11.2 10 16.2 8.4 11.2 3.5 9.6 8.4 8Z", "M18 15v5", "M15.5 17.5h5"],
     copy: "Vetted teams, premium linen, photographed turnarounds and quality checks.",
   },
   {
     title: "Maintenance",
+    icon: ["M3.5 9.5h17v11h-17z", "M9 9.5V7A1.5 1.5 0 0 1 10.5 5.5h3A1.5 1.5 0 0 1 15 7v2.5", "M3.5 14.5h17"],
     copy: "Emergency response, trusted trades, and preventive work booked before it bites.",
   },
   {
     title: "Review management",
+    icon: ["M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.6-5.1-2.7-5.1 2.7 1-5.6-4.1-4 5.7-.8Z"],
     copy: "Reviews requested, answered properly, and the feedback acted on.",
   },
   {
     title: "Monthly reporting",
+    icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
     copy: "Occupancy, revenue, expenses and net payout, on one statement.",
   },
 ] as const;

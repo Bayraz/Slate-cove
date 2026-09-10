@@ -409,6 +409,9 @@ img { max-width: 100%; display: block; }
   border-top: 2px solid var(--blue);
   padding: 26px 0 34px;
 }
+/* The mark sits above the heading rather than beside it, so the headings stay
+   on one baseline whether they run to one line or two. */
+.service__icon { width: 28px; height: 28px; color: var(--wine); margin-bottom: -4px; }
 .service h3 { margin: 0; font-size: 24px; font-weight: 400; }
 .service p { margin: 0; font-size: 17px; line-height: 1.6; font-weight: 300; color: var(--muted); }
 
