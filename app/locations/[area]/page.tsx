@@ -7,6 +7,18 @@ import { AREA_BY_SLUG, AREA_PAGES, nearbyAreas } from "@/lib/areas";
 import { MANAGEMENT_FEES, SERVICES } from "@/lib/content";
 import { SITE, areaServiceSchema, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
+const PROPERTY_ICON = [
+  "M4 10.5 12 4l8 6.5V20H4Z",
+  "M9.5 20v-5.5h5V20",
+] as const;
+
+const GUESTS_ICON = [
+  "M9 10.4a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z",
+  "M2.8 20c0-3.4 2.8-5.8 6.2-5.8s6.2 2.4 6.2 5.8",
+  "M16 5.2a3 3 0 0 1 0 6",
+  "M17.2 14.6c2.4.5 4 2.6 4 5.4",
+] as const;
+
 type Props = { params: Promise<{ area: string }> };
 
 export function generateStaticParams() {
@@ -56,9 +68,15 @@ export default async function AreaPage({ params }: Props) {
         <div className="wrap railed">
           <p className="eyebrow">The property</p>
           <div className="railed__body">
-            <h2 className="d5 d5--tight">What we manage in {area.name}</h2>
+            <h2 className="d5 d5--tight marked">
+              <Icon className="marked__icon" d={PROPERTY_ICON} />
+              What we manage in {area.name}
+            </h2>
             <p className="body-lg">{area.stock}</p>
-            <h2 className="d5 d5--tight">Who stays in {area.name}</h2>
+            <h2 className="d5 d5--tight marked">
+              <Icon className="marked__icon" d={GUESTS_ICON} />
+              Who stays in {area.name}
+            </h2>
             <p className="body-lg">{area.guests}</p>
           </div>
         </div>
