@@ -3,7 +3,7 @@
 This file is the queue, not a post. It lives outside `content/blog/` so the
 site never tries to publish it.
 
-It is read by `.github/workflows/weekly-post.yml`, which runs every Monday
+It is read by `.github/workflows/weekly-post.yml`, which runs every third day
 inside GitHub Actions. That job needs one repository secret, `ANTHROPIC_API_KEY`,
 set under Settings > Secrets and variables > Actions. By default it opens a
 pull request so the post can be read before it goes live; set

@@ -21,15 +21,29 @@ name: Weekly blog post
 
 on:
   schedule:
-    # 08:00 UTC every third day. GitHub runs scheduled jobs on UTC, so this is
-    # 9am through British Summer Time and 8am through the winter.
+    # Every third day. GitHub runs scheduled jobs on UTC, so 08:23 UTC is
+    # 9:23am through British Summer Time and 8:23am through the winter.
     #
     # The days are listed rather than written as */3 because day-of-month
     # stepping restarts each month, which would put a one-day gap across a
     # month boundary. Listed this way every gap is three days, except the last
     # of the month to the first of the next, which is four.
-    - cron: "0 8 2,5,8,11,14,17,20,23,26,29 * *"
-  # Lets you run it on demand from the Actions tab, without waiting for Monday.
+    #
+    # Two things here are deliberate, and both exist because GitHub's scheduler
+    # is best effort rather than a guarantee:
+    #
+    #   The minute is 23, not 0. Almost every scheduled workflow on GitHub
+    #   fires on the hour, so runs asking for minute 0 queue behind the whole
+    #   platform and are the ones most often delayed or dropped outright. An
+    #   odd minute lands in a quiet part of the queue.
+    #
+    #   There are two times, six hours apart, not one. If the morning firing
+    #   is dropped, the afternoon one still delivers the post the same day.
+    #   This cannot double post: the script exits without writing if a post
+    #   dated today is already published.
+    - cron: "23 8 2,5,8,11,14,17,20,23,26,29 * *"
+    - cron: "23 14 2,5,8,11,14,17,20,23,26,29 * *"
+  # Lets you run it on demand from the Actions tab, without waiting for the schedule.
   workflow_dispatch:
 
 env:

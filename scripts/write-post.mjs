@@ -48,6 +48,28 @@ const existing = fs
 
 const today = new Date().toISOString().slice(0, 10);
 
+/**
+ * The schedule fires twice on a posting day, six hours apart, because GitHub's
+ * scheduler drops runs under load and a single firing is not reliable enough
+ * to leave alone. The second firing is only a catch-up for the first, so if
+ * the first one worked there is nothing to do.
+ *
+ * Checked against what is actually published rather than a marker file, so a
+ * post added by hand counts too.
+ */
+const publishedToday = existing.filter((p) => p.body.includes(`date: ${today}`));
+if (publishedToday.length) {
+  console.log(
+    `weekly-post: ${publishedToday[0].file} is already dated ${today}. ` +
+      "Nothing to do.",
+  );
+  fs.appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY || "/dev/null",
+    `A post is already published for ${today}. No second post written.\n`,
+  );
+  process.exit(0);
+}
+
 // Posts sitting in an unmerged pull request are not on this branch, so without
 // this the job would happily write the same topic a second time.
 const pending = (process.env.PENDING_SLUGS || "")
