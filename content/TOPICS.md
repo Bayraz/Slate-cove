@@ -105,6 +105,7 @@ this queue against what people are actually typing.
 
 ## Written
 
+- Can you short-let a leasehold flat in London? (`can-you-short-let-a-leasehold-flat.md`)
 - Airbnb versus a long tenancy on a London flat: which earns more? (`airbnb-versus-long-tenancy-london-which-earns-more.md`)
 - Do you pay tax on Airbnb income in the UK? (`do-you-pay-tax-on-airbnb-income-uk.md`)
 - The 90-night rule in London (`90-night-rule-london.md`)
