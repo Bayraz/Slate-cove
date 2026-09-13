@@ -423,6 +423,46 @@ img { max-width: 100%; display: block; }
 .plan--dark .tick { color: #FFFFFF; }
 .step__icon { width: 26px; height: 26px; color: var(--wine); }
 
+/* The two routes in, one per kind of agent. Two panels rather than cards in a
+   grid: there are only two, they are read as a pair, and each needs room for a
+   paragraph. The closing line is the promise, so it is set apart from the copy
+   above it rather than reading as its last sentence. */
+.routes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px 56px;
+}
+.route {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-top: 2px solid var(--blue);
+  padding: 30px 0 36px;
+}
+.route__kind {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.route__icon { flex: none; width: 24px; height: 24px; }
+.route__title { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.15; }
+.route__copy { margin: 0; font-size: 18px; line-height: 1.65; font-weight: 300; color: var(--muted); text-wrap: pretty; }
+.route__point {
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--blue);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink-deep);
+  text-wrap: pretty;
+}
+
 /* The partnership commitments. A two-column list of short promises: one
    column would run to a very long measure on a wide screen. */
 .terms {
@@ -1016,6 +1056,7 @@ img { max-width: 100%; display: block; }
 
   .services { grid-template-columns: repeat(2, 1fr); gap: 2px 48px; }
   .terms { gap: 4px 48px; }
+  .routes { gap: 2px 48px; }
   .quotes { grid-template-columns: 1fr; gap: 40px; }
   .cta-split { grid-template-columns: 1fr; gap: 48px; padding-top: 72px; padding-bottom: 72px; }
   .railed { grid-template-columns: 1fr; gap: 32px; padding-top: 72px; padding-bottom: 72px; }
@@ -1031,6 +1072,8 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 900px) {
+  .routes { grid-template-columns: 1fr; }
+  .route__title { font-size: 28px; }
   .nav-toggle { display: inline-flex; }
 
   /* The menu becomes a full-screen panel. It is a sibling of the brand and

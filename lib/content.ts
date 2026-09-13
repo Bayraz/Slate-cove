@@ -296,24 +296,35 @@ export const PARTNER = {
   referralShare: "20%",
 } as const;
 
-/** The three situations an agent recognises before they read anything else. */
-export const PARTNER_CASES = [
+/**
+ * The two routes in, one per kind of agent. A sales agent and a letting agent
+ * are not the same reader and do not want the same thing, and a page that
+ * blurs them speaks properly to neither.
+ */
+export const PARTNER_ROUTES = [
   {
-    title: "The sale has stalled",
+    kind: "If you sell",
+    title: "Let it while it sells",
     icon: ["M5.5 4.5h13v7h-13z", "M9 11.5v8", "M6 19.5h6"],
-    copy: "Four months on the market and two reductions, and the vendor is still paying a mortgage on an empty flat. A short let covers the carry while the property stays on the market, and it can still be viewed.",
+    copy: "Your vendor has been on the market four months and is still paying a mortgage on an empty flat. We run it as a short let while it stays listed with you. It can be viewed with reasonable notice, it shows better for being cleaned and maintained every few days, and the moment it sells the management ends.",
+    point: "The sale stays yours. We do not act on sales.",
   },
   {
-    title: "A void between tenancies",
+    kind: "If you let",
+    title: "We take the management",
     icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M9.5 15h5"],
-    copy: "A tenancy ends in three weeks and the next one starts in three months, or the landlord wants the property back next spring. A rolling short let earns through the gap without committing the property to anybody.",
-  },
-  {
-    title: "The landlord is close to selling",
-    icon: ["M3.5 7.5 9 13l3.5-3.5L20.5 18", "M15.5 18h5v-5"],
-    copy: "The yield has stopped working and they are talking about getting out. A property that earns again is a landlord who stays a landlord, and stays your client.",
+    copy: "A landlord who wants the property earning rather than sitting between tenancies, or who has decided a long tenancy is not working. They come to us on our standard management terms, the same ones any owner gets, and we run the property day to day. You keep the relationship and the instruction.",
+    point: "The landlord stays your client, and your landlord.",
   },
 ] as const;
+
+/**
+ * Why a small agency in particular. The corporates have their own short-let
+ * arm and will not refer anything; an independent has the same properties and
+ * nowhere to send them.
+ */
+export const PARTNER_WHO =
+  "This is built for independent agencies with one office or a handful. A corporate chain has its own short-let arm and an instruction to keep everything in house. An independent has the same stalled sales and the same voids, no short-let operation to hand them to, and no appetite for building one.";
 
 /** What the agent gets. The middle one is the objection, answered first. */
 export const PARTNER_OFFER = [
@@ -325,7 +336,7 @@ export const PARTNER_OFFER = [
   {
     title: "The client stays yours",
     icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M8.8 12.2 11 14.4l4.2-4.4"],
-    copy: "We put it in writing before you refer anybody: we do not pitch your client for the sale or for a long tenancy, and we do not market to them. Short lets are the whole of our business and we intend to keep it that way.",
+    copy: "We put it in writing before you refer anybody: we do not pitch your client for the sale or for a long tenancy, we do not market to them, and when they are ready for either we send them back to you. Short lets are the whole of our business and we intend to keep it that way.",
   },
   {
     title: "Nothing for you to administer",
@@ -364,18 +375,20 @@ export const PARTNER_STEPS = [
 
 /** The commitments, in the order an agent worries about them. */
 export const PARTNER_TERMS = [
-  "We will not approach your client about a sale or a long tenancy, and we will not add them to any marketing list.",
-  "If the property sells, management ends. No exit fee and no tie-in on the flexible plan, which is 30-day rolling.",
+  "We do not act on sales or on long tenancies, so there is no instruction of yours for us to compete for.",
+  "We will not approach your client about a sale or a tenancy, and we will not add them to any marketing list.",
+  "If the property sells or goes back to a tenancy, management ends. No exit fee, and no tie-in on the flexible plan.",
   "The property can still be marketed and viewed while it is let, with reasonable notice around bookings.",
   "Your referral fee, and its amount, are set out in writing so you can disclose the arrangement to your client.",
   "We check the lease, the mortgage terms and the freeholder position before anything is listed.",
   "If we think a short let is wrong for the property, we tell you before we tell the owner.",
+  "One property is enough to start. There is nothing to sign to send us the first one.",
 ] as const;
 
 export const PARTNER_FAQ = [
   {
     q: "Will you take my client off me?",
-    a: "No, and it is in the agreement rather than left to good faith. We do not act on sales or long tenancies at all, so there is nothing for us to take the client for. When they are ready to sell or to let long-term, that is your instruction and we will say so to them.",
+    a: "No, and it is in the agreement rather than left to good faith. We do not act on sales or long tenancies at all, so there is no instruction of yours for us to compete for. When the owner is ready to sell or to let long-term, we tell them to speak to you.",
   },
   {
     q: "Do I have to tell my client about the fee?",
@@ -392,6 +405,10 @@ export const PARTNER_FAQ = [
   {
     q: "What kind of property is worth referring?",
     a: "One or two bedroom flats in London and the Home Counties are the core of it, particularly anything near a station, a hospital or a business district. A large family house in a quiet suburb usually is not. Send it anyway and we will tell you either way.",
+  },
+  {
+    q: "I am a letting agent. Does this cost me my management fee?",
+    a: "It replaces a management fee on a property that is currently earning you nothing, and pays you on one that is earning. If the landlord is between tenancies, or has decided a long tenancy no longer works for them, the alternative is usually an empty property or a client who sells. Where a long tenancy is working, leave it alone. We are not trying to convert your managed book.",
   },
   {
     q: "What if the landlord wants to go back to a long tenancy?",

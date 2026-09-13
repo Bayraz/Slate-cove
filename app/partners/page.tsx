@@ -5,7 +5,8 @@ import JsonLd from "@/components/JsonLd";
 import {
   CONTACT,
   PARTNER,
-  PARTNER_CASES,
+  PARTNER_ROUTES,
+  PARTNER_WHO,
   PARTNER_FAQ,
   PARTNER_OFFER,
   PARTNER_STEPS,
@@ -35,7 +36,7 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
-            <p className="eyebrow">For estate and letting agents</p>
+            <p className="eyebrow">For independent estate and letting agents</p>
             <h1 className="d2">Refer a landlord, keep the client</h1>
           </div>
           <div className="page-head__body">
@@ -55,18 +56,23 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">When it is worth a call</p>
-            <h2 className="d5">Three properties you already have on your books</h2>
+            <p className="eyebrow">Two ways in</p>
+            <h2 className="d5">Whichever side of the business you are on</h2>
           </div>
-          <div className="services services--three">
-            {PARTNER_CASES.map(({ title, icon, copy }) => (
-              <div className="service" key={title}>
-                <Icon className="service__icon" d={icon} />
-                <h3>{title}</h3>
-                <p>{copy}</p>
+          <div className="routes">
+            {PARTNER_ROUTES.map(({ kind, title, icon, copy, point }) => (
+              <div className="route" key={kind}>
+                <p className="route__kind">
+                  <Icon className="route__icon" d={icon} />
+                  <span>{kind}</span>
+                </p>
+                <h3 className="route__title">{title}</h3>
+                <p className="route__copy">{copy}</p>
+                <p className="route__point">{point}</p>
               </div>
             ))}
           </div>
+          <p className="note">{PARTNER_WHO}</p>
         </div>
       </section>
 
