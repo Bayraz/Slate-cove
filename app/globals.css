@@ -403,6 +403,9 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(4, 1fr);
   gap: 2px 56px;
 }
+/* Three items in a four-column grid leave a hole, so the sets of three get
+   their own count. The breakpoints below still take it to two and then one. */
+.services--three { grid-template-columns: repeat(3, 1fr); }
 .service {
   display: flex;
   flex-direction: column;
@@ -419,6 +422,29 @@ img { max-width: 100%; display: block; }
 /* Wine on wine is invisible, so the tick reverses out on the dark plan. */
 .plan--dark .tick { color: #FFFFFF; }
 .step__icon { width: 26px; height: 26px; color: var(--wine); }
+
+/* The partnership commitments. A two-column list of short promises: one
+   column would run to a very long measure on a wide screen. */
+.terms {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 56px;
+}
+.terms > li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 22px 0;
+  border-top: 1px solid var(--blue);
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--muted);
+  text-wrap: pretty;
+}
 .service h3 { margin: 0; font-size: 24px; font-weight: 400; }
 .service p { margin: 0; font-size: 17px; line-height: 1.6; font-weight: 300; color: var(--muted); }
 
@@ -560,7 +586,9 @@ img { max-width: 100%; display: block; }
   line-height: 0.9;
   color: var(--blue);
 }
-.step h2 { margin: 0; font-size: 30px; font-weight: 400; line-height: 1.25; }
+/* h2 on the how-it-works page, h3 on the partners page, where the section
+   already carries the h2. Same look either way. */
+.step :is(h2, h3) { margin: 0; font-size: 30px; font-weight: 400; line-height: 1.25; }
 .step p {
   margin: 0;
   font-size: 20px;
@@ -987,6 +1015,7 @@ img { max-width: 100%; display: block; }
   .hero__slot { min-height: 420px; border-left: 0; border-top: 2px solid var(--paper-alt); }
 
   .services { grid-template-columns: repeat(2, 1fr); gap: 2px 48px; }
+  .terms { gap: 4px 48px; }
   .quotes { grid-template-columns: 1fr; gap: 40px; }
   .cta-split { grid-template-columns: 1fr; gap: 48px; padding-top: 72px; padding-bottom: 72px; }
   .railed { grid-template-columns: 1fr; gap: 32px; padding-top: 72px; padding-bottom: 72px; }
@@ -1057,7 +1086,7 @@ img { max-width: 100%; display: block; }
   }
   .step__num { grid-area: 1 / 1; font-size: 40px; }
   .step__icon { grid-area: 1 / 2; width: 24px; height: 24px; justify-self: start; }
-  .step h2 { grid-area: 2 / 1 / 3 / -1; font-size: 26px; }
+  .step :is(h2, h3) { grid-area: 2 / 1 / 3 / -1; font-size: 26px; }
   .step p { grid-area: 3 / 1 / 4 / -1; }
   .faq__item summary { font-size: 19px; gap: 16px; }
   .faq__item > p { padding-right: 8px; }
@@ -1075,6 +1104,7 @@ img { max-width: 100%; display: block; }
   :root { --gutter: 20px; }
 
   .services { grid-template-columns: 1fr; }
+  .terms { grid-template-columns: 1fr; }
   .stats { grid-template-columns: 1fr; gap: 24px; }
   .area__list { grid-template-columns: repeat(2, 1fr); }
   .footer__top { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; }

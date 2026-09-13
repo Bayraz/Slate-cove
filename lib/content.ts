@@ -9,6 +9,7 @@ export const NAV = [
   { href: "/pricing", label: "Pricing" },
   { href: "/locations", label: "Locations" },
   { href: "/blog", label: "For Landlords" },
+  { href: "/partners", label: "Partners" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -273,4 +274,127 @@ export const FOOTER_SERVICES = [
   "Cleaning & linen",
   "Maintenance",
   "Monthly reporting",
+] as const;
+
+/* --------------------------------------------------------------------------
+   Estate and letting agent partnership
+   -------------------------------------------------------------------------- */
+
+/**
+ * The commercial terms offered to a referring agent.
+ *
+ * `referralShare` is a share of OUR management commission, not of the rent, so
+ * it scales with what the property actually earns and costs nothing on a
+ * property that earns nothing. On the full-time plan, 20% of a 15% fee works
+ * out at 3% of net revenue.
+ *
+ * These are commercial terms rather than facts about the market, so they live
+ * in one place and the page reads them. Change the figure here and it changes
+ * everywhere it is stated, including the page's own structured data.
+ */
+export const PARTNER = {
+  referralShare: "20%",
+} as const;
+
+/** The three situations an agent recognises before they read anything else. */
+export const PARTNER_CASES = [
+  {
+    title: "The sale has stalled",
+    icon: ["M5.5 4.5h13v7h-13z", "M9 11.5v8", "M6 19.5h6"],
+    copy: "Four months on the market and two reductions, and the vendor is still paying a mortgage on an empty flat. A short let covers the carry while the property stays on the market, and it can still be viewed.",
+  },
+  {
+    title: "A void between tenancies",
+    icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M9.5 15h5"],
+    copy: "A tenancy ends in three weeks and the next one starts in three months, or the landlord wants the property back next spring. A rolling short let earns through the gap without committing the property to anybody.",
+  },
+  {
+    title: "The landlord is close to selling",
+    icon: ["M3.5 7.5 9 13l3.5-3.5L20.5 18", "M15.5 18h5v-5"],
+    copy: "The yield has stopped working and they are talking about getting out. A property that earns again is a landlord who stays a landlord, and stays your client.",
+  },
+] as const;
+
+/** What the agent gets. The middle one is the objection, answered first. */
+export const PARTNER_OFFER = [
+  {
+    title: "A share of our fee, every month",
+    icon: ["M2.5 7.5h19v9h-19z", "M12 14.2a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4", "M5.5 10v4", "M18.5 10v4"],
+    copy: `${PARTNER.referralShare} of our management commission on that property, paid monthly for as long as we manage it. Not a single payment at signing that stops the moment the work starts.`,
+  },
+  {
+    title: "The client stays yours",
+    icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M8.8 12.2 11 14.4l4.2-4.4"],
+    copy: "We put it in writing before you refer anybody: we do not pitch your client for the sale or for a long tenancy, and we do not market to them. Short lets are the whole of our business and we intend to keep it that way.",
+  },
+  {
+    title: "Nothing for you to administer",
+    icon: ["M6 3.5h12v17H6z", "M9.2 12.3 11 14.1l3.8-4", "M9 7.5h6"],
+    copy: "You make the introduction and we take it from there: the assessment, the lease and mortgage questions, photography, the listing and the landlord. You get a statement each month showing what the property earned and what you are owed.",
+  },
+] as const;
+
+/** How a referral actually runs, so nobody has to ask. */
+export const PARTNER_STEPS = [
+  {
+    num: "01",
+    title: "You introduce us",
+    icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
+    copy: "A phone call, an email, or the property straight through the form. The postcode, the property type and a contact for the owner is enough to start.",
+  },
+  {
+    num: "02",
+    title: "We assess it honestly",
+    icon: ["M11 18.5a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15", "M16.4 16.4 20.5 20.5"],
+    copy: "We look at the lease, the mortgage, the freeholder position and what the property can realistically earn. If a short let is the wrong answer we say so, to you and to the owner, rather than signing something that unravels in month three.",
+  },
+  {
+    num: "03",
+    title: "It goes live",
+    icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
+    copy: "Photography, listing, pricing and compliance, usually within one to two weeks of the owner signing. You are copied in when it goes live.",
+  },
+  {
+    num: "04",
+    title: "You are paid monthly",
+    icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
+    copy: "Your share goes out on the same cycle as the owner's payout, with a statement behind it. No chasing, and no waiting until the end of the year.",
+  },
+] as const;
+
+/** The commitments, in the order an agent worries about them. */
+export const PARTNER_TERMS = [
+  "We will not approach your client about a sale or a long tenancy, and we will not add them to any marketing list.",
+  "If the property sells, management ends. No exit fee and no tie-in on the flexible plan, which is 30-day rolling.",
+  "The property can still be marketed and viewed while it is let, with reasonable notice around bookings.",
+  "Your referral fee, and its amount, are set out in writing so you can disclose the arrangement to your client.",
+  "We check the lease, the mortgage terms and the freeholder position before anything is listed.",
+  "If we think a short let is wrong for the property, we tell you before we tell the owner.",
+] as const;
+
+export const PARTNER_FAQ = [
+  {
+    q: "Will you take my client off me?",
+    a: "No, and it is in the agreement rather than left to good faith. We do not act on sales or long tenancies at all, so there is nothing for us to take the client for. When they are ready to sell or to let long-term, that is your instruction and we will say so to them.",
+  },
+  {
+    q: "Do I have to tell my client about the fee?",
+    a: "Yes. Estate agents are expected to disclose referral arrangements to clients, in writing, including who the arrangement is with and what it is worth. We make that straightforward: you get the arrangement and the figures in writing before you refer anyone, in a form you can pass to your client. If you are unsure what your own obligations are, your redress scheme or Propertymark will tell you.",
+  },
+  {
+    q: "Can the property still be on the market while you manage it?",
+    a: "Yes, and for a stalled sale that is usually the point. Viewings are arranged around bookings with reasonable notice, and a property that is being cleaned and maintained every few days shows better than one that has been standing empty since February.",
+  },
+  {
+    q: "What about the 90-night rule?",
+    a: "In London a property let on short lets is generally limited to 90 nights a year without planning permission. We manage to that limit rather than around it, and where a property runs out of nights we look at medium-term and corporate lets, which fall outside it. Outside London the position depends on the local authority.",
+  },
+  {
+    q: "What kind of property is worth referring?",
+    a: "One or two bedroom flats in London and the Home Counties are the core of it, particularly anything near a station, a hospital or a business district. A large family house in a quiet suburb usually is not. Send it anyway and we will tell you either way.",
+  },
+  {
+    q: "What if the landlord wants to go back to a long tenancy?",
+    a: "Then they should, and we will hand the property back. On the flexible plan that takes 30 days. We would rather you got the tenancy than we kept a property on a listing the owner has stopped wanting.",
+  },
 ] as const;

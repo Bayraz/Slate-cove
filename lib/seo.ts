@@ -4,7 +4,7 @@
 // can never drift apart. If the copy changes, so does what search engines and
 // AI assistants read.
 
-import { AREAS, CONTACT, FAQ, MANAGEMENT_FEES } from "./content";
+import { AREAS, CONTACT, FAQ, MANAGEMENT_FEES, PARTNER_FAQ } from "./content";
 
 export const SITE = {
   name: "Slate & Cove",
@@ -106,6 +106,22 @@ export const faqSchema = {
   "@type": "FAQPage",
   "@id": `${SITE.url}/how-it-works/#faq`,
   mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+/**
+ * The agent questions, as their own FAQPage. Separate from the landlord FAQ
+ * because they sit on a different page and answer a different reader, and a
+ * FAQPage is tied to the URL it appears on.
+ */
+export const partnerFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE.url}/partners/#faq`,
+  mainEntity: PARTNER_FAQ.map(({ q, a }) => ({
     "@type": "Question",
     name: q,
     acceptedAnswer: { "@type": "Answer", text: a },
