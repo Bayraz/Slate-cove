@@ -283,18 +283,88 @@ export const FOOTER_SERVICES = [
 /**
  * The commercial terms offered to a referring agent.
  *
- * `referralShare` is a share of OUR management commission, not of the rent, so
- * it scales with what the property actually earns and costs nothing on a
- * property that earns nothing. On the full-time plan, 20% of a 15% fee works
- * out at 3% of net revenue.
- *
- * These are commercial terms rather than facts about the market, so they live
- * in one place and the page reads them. Change the figure here and it changes
- * everywhere it is stated, including the page's own structured data.
+ * Two options, and the agent picks per property rather than signing up to one
+ * of them. `crossover` is where the two come out level: three months of 3% is
+ * 9% of one month's revenue, and 250 divided by 0.09 is a shade under 2,800.
+ * Everything below is arithmetic on these four numbers, so changing one here
+ * changes the table, the examples and the calculator together.
  */
 export const PARTNER = {
-  referralShare: "20%",
+  flatFee: 250,
+  revenueShare: 0.03,
+  revenueMonths: 3,
+  crossover: 2800,
 } as const;
+
+const money = (n: number) => `£${Math.round(n).toLocaleString("en-GB")}`;
+
+/** Option B on a given monthly revenue, which is what the examples state. */
+export const partnerUpside = (monthlyRevenue: number) =>
+  monthlyRevenue * PARTNER.revenueShare * PARTNER.revenueMonths;
+
+export const PARTNER_OPTIONS = ["Option A", "Option B"] as const;
+
+export const PARTNER_HEADLINES = [
+  { figure: money(PARTNER.flatFee), note: "upfront, per property" },
+  { figure: "3%", note: "of revenue, for three months" },
+  { figure: "Each time", note: "you choose, whichever pays more" },
+  { figure: "None", note: "your workload, after the introduction" },
+] as const;
+
+export const PARTNER_TABLE = [
+  {
+    label: "What you get",
+    values: ["A flat fee per property", "3% of everything it earns"],
+  },
+  {
+    label: "When you are paid",
+    values: ["Within 14 days of go live", "Monthly, three payments"],
+  },
+  {
+    label: "Best for",
+    values: ["Studios and smaller units", `Anything over ${money(PARTNER.crossover)} a month`],
+  },
+  {
+    label: "On a £5,000 a month flat",
+    values: [money(PARTNER.flatFee), money(partnerUpside(5000))],
+  },
+  {
+    label: "On a ten unit block",
+    values: [money(PARTNER.flatFee * 10), money(partnerUpside(4000) * 10)],
+  },
+] as const;
+
+/**
+ * The properties an agent already has and has stopped thinking about. Each
+ * line says what we would actually do with it, and nothing claims a figure we
+ * cannot stand behind.
+ */
+export const PARTNER_SEND = [
+  {
+    title: "A vendor waiting on a sale",
+    copy: "It earns instead of sitting empty, and stays on the market with you.",
+  },
+  {
+    title: "A property that will not let",
+    copy: "Usually live and earning inside a fortnight of the owner signing.",
+  },
+  {
+    title: "A landlord unhappy with the yield",
+    copy: "We price the property properly and tell them what it can realistically do.",
+  },
+  {
+    title: "An accidental landlord",
+    copy: "Income from an inherited or unsold flat, without committing to a tenancy.",
+  },
+  {
+    title: "A landlord between tenancies",
+    copy: "The gap earns, and the property is theirs again on 30 days' notice.",
+  },
+  {
+    title: "A portfolio, or a whole block",
+    copy: "Pays you the most, because the fee is per unit either way.",
+  },
+] as const;
 
 /**
  * The two routes in, one per kind of agent. A sales agent and a letting agent
@@ -329,9 +399,9 @@ export const PARTNER_WHO =
 /** What the agent gets. The middle one is the objection, answered first. */
 export const PARTNER_OFFER = [
   {
-    title: "A share of our fee, every month",
-    icon: ["M2.5 7.5h19v9h-19z", "M12 14.2a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4", "M5.5 10v4", "M18.5 10v4"],
-    copy: `${PARTNER.referralShare} of our management commission on that property, paid monthly for as long as we manage it. Not a single payment at signing that stops the moment the work starts.`,
+    title: "We will tell you when it is a no",
+    icon: ["M11 18.5a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15", "M16.4 16.4 20.5 20.5", "M8.6 11h4.8"],
+    copy: "Some properties should not be short let, and a manager who takes them anyway costs you a client six months later. If the lease forbids it, the numbers do not work or the location is wrong, you hear that from us before the owner does.",
   },
   {
     title: "The client stays yours",

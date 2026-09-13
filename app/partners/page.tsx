@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
+import PartnerCalculator from "@/components/PartnerCalculator";
 import {
   CONTACT,
   PARTNER,
+  PARTNER_HEADLINES,
+  PARTNER_OPTIONS,
   PARTNER_ROUTES,
+  PARTNER_SEND,
+  PARTNER_TABLE,
   PARTNER_WHO,
   PARTNER_FAQ,
   PARTNER_OFFER,
@@ -18,7 +24,7 @@ import { breadcrumbSchema, pageMetadata, partnerFaqSchema } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Estate Agent Partnerships: Refer a Landlord, Keep the Client",
   description:
-    `Refer a London landlord to us and earn ${PARTNER.referralShare} of our management fee every month, for as long as we manage the property. We do not act on sales or long tenancies, so the client stays yours.`,
+    "Send us a London landlord and take £250 upfront, or 3% of everything the property earns for three months. Your choice, per property. We do not act on sales or long tenancies, so the client stays yours.",
   path: "/partners",
 });
 
@@ -41,9 +47,9 @@ export default function PartnersPage() {
           </div>
           <div className="page-head__body">
             <p className="lead">
-              When a property will not sell, or sits empty between tenancies, we
-              put it to work as a short let. You earn every month it is managed,
-              and the client is still yours when they are ready to sell or let.
+              Send us a landlord and take £250 upfront, or 3% of everything the
+              property earns for three months. Your choice, on each property.
+              The introduction is the only work you do.
             </p>
             <p className="note">
               We do not act on sales or long tenancies. Short lets are the whole
@@ -79,10 +85,74 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
+            <p className="eyebrow">Two ways to be paid</p>
+            <h2 className="d5">Certain money, or the upside</h2>
+          </div>
+
+          <div className="headlines">
+            {PARTNER_HEADLINES.map(({ figure, note }) => (
+              <div className="headline" key={note}>
+                <p className="headline__figure">{figure}</p>
+                <p className="headline__note">{note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="compare-scroll">
+            <div className="compare compare--two">
+              <div className="compare__head">The two options</div>
+              {PARTNER_OPTIONS.map((option, i) => (
+                <div
+                  className="compare__head is-center"
+                  key={option}
+                >
+                  {option}
+                </div>
+              ))}
+
+              {PARTNER_TABLE.map(({ label, values }, row) => {
+                const last = row === PARTNER_TABLE.length - 1 ? " is-last" : "";
+                return (
+                  <Fragment key={label}>
+                    <div className={`compare__label${last}`}>{label}</div>
+                    {values.map((value) => (
+                      <div
+                        className={["compare__cell", last.trim()].filter(Boolean).join(" ")}
+                        key={`${label}-${value}`}
+                      >
+                        {value}
+                      </div>
+                    ))}
+                  </Fragment>
+                );
+              })}
+            </div>
+          </div>
+
+          <p className="note">
+            You pick per property rather than signing up to one of them, so a
+            studio and a five bedroom house are each paid the way that suits
+            them. The crossover is about £2,800 a month: below it the flat fee
+            pays more, above it the 3% does.
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Work it out on a real one</p>
+            <h2 className="d5">What would your next referral pay?</h2>
+          </div>
+          <PartnerCalculator />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
             <p className="eyebrow">What you get</p>
-            <h2 className="d5">
-              {PARTNER.referralShare} of our fee, for as long as we manage it
-            </h2>
+            <h2 className="d5">Beyond the fee</h2>
           </div>
           <div className="services services--three">
             {PARTNER_OFFER.map(({ title, icon, copy }) => (
@@ -93,16 +163,27 @@ export default function PartnersPage() {
               </div>
             ))}
           </div>
-          <p className="note">
-            Our management commission is 15% of net revenue on the full-time
-            plan and 18% on the flexible one, so your share is a proportion of
-            that rather than of the rent. A property that earns nothing costs
-            you nothing and pays you nothing.
-          </p>
         </div>
       </section>
 
       <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Who to send</p>
+            <h2 className="d5">They are already on your books</h2>
+          </div>
+          <ul className="send">
+            {PARTNER_SEND.map(({ title, copy }) => (
+              <li key={title}>
+                <p className="send__title">{title}</p>
+                <p className="send__copy">{copy}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">How a referral runs</p>
@@ -123,7 +204,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">In writing, before you refer anybody</p>
@@ -140,7 +221,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">FAQ</p>
@@ -163,7 +244,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">Two ways to start</p>
