@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PARTNER, partnerUpside } from "@/lib/content";
+import { PARTNER, PARTNER_CROSSOVER, partnerUpside } from "@/lib/content";
 
 /**
  * Which of the two options pays more on a given property.
@@ -66,25 +66,25 @@ export default function PartnerCalculator() {
           than three fragments as each number changes. */}
       <div className="calc__out" aria-live="polite">
         <div className={shareWins ? "calc__opt" : "calc__opt is-best"}>
-          <p className="calc__label">Option A, flat fee</p>
+          <p className="calc__label">The flat fee</p>
           <p className="calc__figure">{money(flat)}</p>
-          <p className="calc__sub">Paid within 14 days of go live</p>
+          <p className="calc__sub">Within 14 days of the listing going live</p>
         </div>
         <div className={shareWins ? "calc__opt is-best" : "calc__opt"}>
-          <p className="calc__label">Option B, 3% for three months</p>
+          <p className="calc__label">The share, 3% for three months</p>
           <p className="calc__figure">{money(share)}</p>
-          <p className="calc__sub">Paid monthly, three payments</p>
+          <p className="calc__sub">Three monthly payments</p>
         </div>
       </div>
 
       <p className="calc__verdict">
         {monthly === 0
-          ? `Put in what the property earns a month and we will tell you which option pays more. The crossover is about ${money(PARTNER.crossover)}.`
+          ? `Put in what the property earns a month and we will tell you which option pays more. The two come level at about ${money(PARTNER_CROSSOVER)} a month.`
           : shareWins
-            ? `Take the 3%. It pays ${money(share - flat)} more than the flat fee on this one.`
+            ? `Take the share. It pays ${money(share - flat)} more than the flat fee on this one.`
             : flat === share
               ? "The two are level on this one, so take whichever you prefer."
-              : `Take the flat fee. It pays ${money(flat - share)} more than the 3% on this one.`}
+              : `Take the flat fee. It pays ${money(flat - share)} more than the share on this one.`}
       </p>
     </div>
   );

@@ -24,7 +24,7 @@ import { breadcrumbSchema, pageMetadata, partnerFaqSchema } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Estate Agent Partnerships: Refer a Landlord, Keep the Client",
   description:
-    "Send us a London landlord and take £250 upfront, or 3% of everything the property earns for three months. Your choice, per property. We do not act on sales or long tenancies, so the client stays yours.",
+    "Introduce a London landlord and take £275 when the property goes live, or 3% of what it earns across its first three months. You choose, per property. We do not act on sales or long tenancies, so the client stays yours.",
   path: "/partners",
 });
 
@@ -47,9 +47,9 @@ export default function PartnersPage() {
           </div>
           <div className="page-head__body">
             <p className="lead">
-              Send us a landlord and take £250 upfront, or 3% of everything the
-              property earns for three months. Your choice, on each property.
-              The introduction is the only work you do.
+              Introduce a landlord and take £275 when the property goes live,
+              or 3% of what it earns across its first three months. You choose,
+              property by property. After the email, the rest is ours.
             </p>
             <p className="note">
               We do not act on sales or long tenancies. Short lets are the whole
@@ -85,8 +85,8 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Two ways to be paid</p>
-            <h2 className="d5">Certain money, or the upside</h2>
+            <p className="eyebrow">The terms</p>
+            <h2 className="d5">Paid on the listing, or paid on what it earns</h2>
           </div>
 
           <div className="headlines">
@@ -100,7 +100,7 @@ export default function PartnersPage() {
 
           <div className="compare-scroll">
             <div className="compare compare--two">
-              <div className="compare__head">The two options</div>
+              <div className="compare__head">Take your pick</div>
               {PARTNER_OPTIONS.map((option, i) => (
                 <div
                   className="compare__head is-center"
@@ -130,10 +130,11 @@ export default function PartnersPage() {
           </div>
 
           <p className="note">
-            You pick per property rather than signing up to one of them, so a
-            studio and a five bedroom house are each paid the way that suits
-            them. The crossover is about £2,800 a month: below it the flat fee
-            pays more, above it the 3% does.
+            You choose per property rather than signing up to one option for
+            everything you send, so a studio and a Kensington two bedroom are
+            each paid the way that suits them. The two come level at about
+            £3,000 a month: below that the flat fee pays more, above it the
+            share does.
           </p>
         </div>
       </section>
@@ -141,8 +142,8 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Work it out on a real one</p>
-            <h2 className="d5">What would your next referral pay?</h2>
+            <p className="eyebrow">Try it on one you have</p>
+            <h2 className="d5">What would the next one pay?</h2>
           </div>
           <PartnerCalculator />
         </div>
@@ -151,8 +152,8 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">What you get</p>
-            <h2 className="d5">Beyond the fee</h2>
+            <p className="eyebrow">The part that is not money</p>
+            <h2 className="d5">You are lending us your name</h2>
           </div>
           <div className="services services--three">
             {PARTNER_OFFER.map(({ title, icon, copy }) => (
@@ -170,7 +171,7 @@ export default function PartnersPage() {
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">Who to send</p>
-            <h2 className="d5">They are already on your books</h2>
+            <h2 className="d5">Six you could send this week</h2>
           </div>
           <ul className="send">
             {PARTNER_SEND.map(({ title, copy }) => (
@@ -207,7 +208,7 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">In writing, before you refer anybody</p>
+            <p className="eyebrow">In writing, before you introduce anybody</p>
             <h2 className="d5">What we commit to</h2>
           </div>
           <ul className="terms">
@@ -251,13 +252,18 @@ export default function PartnersPage() {
             <h2 className="d5">Ask for the terms, or just send a property</h2>
           </div>
           <p className="body-lg">
-            For the partnership terms in writing before you refer anybody, call{" "}
+            We are not going to show you a wall of agent logos, because we have
+            not earned them yet. Test it on one property instead, which is the
+            only evidence that would convince us in your position.
+          </p>
+          <p className="body-lg">
+            For the terms in writing before you introduce anybody, call{" "}
             <a href={`tel:${CONTACT.telephoneHref}`}>{CONTACT.telephone}</a>,
             email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>, or{" "}
             <Link href="/contact">send a message</Link> and pick the agent
-            option. To find out what one property would earn first, the form
-            below goes straight to us and you will have a figure within 24
-            hours. Neither commits you to anything.
+            option. To see what one property would earn first, the form below
+            comes straight to us and you will have a figure within 24 hours.
+            Neither commits you to anything.
           </p>
         </div>
       </section>

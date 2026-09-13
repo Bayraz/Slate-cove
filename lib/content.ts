@@ -283,86 +283,95 @@ export const FOOTER_SERVICES = [
 /**
  * The commercial terms offered to a referring agent.
  *
- * Two options, and the agent picks per property rather than signing up to one
- * of them. `crossover` is where the two come out level: three months of 3% is
- * 9% of one month's revenue, and 250 divided by 0.09 is a shade under 2,800.
- * Everything below is arithmetic on these four numbers, so changing one here
- * changes the table, the examples and the calculator together.
+ * Two options, picked per property rather than once for the whole
+ * relationship. `crossover` is where they come level and is derived, not
+ * chosen: three months of 3% is 9% of one month's revenue, so it is the flat
+ * fee divided by 0.09. Change a number here and the table, the worked
+ * examples and the calculator all move together.
  */
 export const PARTNER = {
-  flatFee: 250,
+  flatFee: 275,
   revenueShare: 0.03,
   revenueMonths: 3,
-  crossover: 2800,
 } as const;
 
 const money = (n: number) => `£${Math.round(n).toLocaleString("en-GB")}`;
 
-/** Option B on a given monthly revenue, which is what the examples state. */
+/** What the share pays on a given monthly revenue. */
 export const partnerUpside = (monthlyRevenue: number) =>
   monthlyRevenue * PARTNER.revenueShare * PARTNER.revenueMonths;
 
-export const PARTNER_OPTIONS = ["Option A", "Option B"] as const;
+/** Where the two come level. Derived, so it cannot drift from the fee. */
+export const PARTNER_CROSSOVER =
+  PARTNER.flatFee / (PARTNER.revenueShare * PARTNER.revenueMonths);
+
+export const PARTNER_OPTIONS = ["The flat fee", "The share"] as const;
 
 export const PARTNER_HEADLINES = [
-  { figure: money(PARTNER.flatFee), note: "upfront, per property" },
-  { figure: "3%", note: "of revenue, for three months" },
-  { figure: "Each time", note: "you choose, whichever pays more" },
-  { figure: "None", note: "your workload, after the introduction" },
+  { figure: money(PARTNER.flatFee), note: "per property, once the listing is live" },
+  { figure: "3%", note: "of revenue, across the first three months" },
+  { figure: "Per property", note: "you choose, not once for all of them" },
+  { figure: "One email", note: "the whole of your involvement" },
+] as const;
+
+/**
+ * The worked examples are three real London property shapes rather than round
+ * numbers, and they are chosen so each option wins one. An agent should be
+ * able to find their own property in the list.
+ */
+const EXAMPLES = [
+  { label: "A one bedroom in Ealing at £2,400 a month", revenue: 2400, units: 1 },
+  { label: "A two bedroom in Kensington at £6,000 a month", revenue: 6000, units: 1 },
+  { label: "Five flats in one block at £3,500 each", revenue: 3500, units: 5 },
 ] as const;
 
 export const PARTNER_TABLE = [
   {
-    label: "What you get",
-    values: ["A flat fee per property", "3% of everything it earns"],
+    label: "How it is worked out",
+    values: ["One fee for the property", "3% of what the property earns"],
   },
   {
-    label: "When you are paid",
-    values: ["Within 14 days of go live", "Monthly, three payments"],
+    label: "When it reaches you",
+    values: ["Within 14 days of the listing going live", "Three monthly payments, alongside the owner's"],
   },
   {
-    label: "Best for",
-    values: ["Studios and smaller units", `Anything over ${money(PARTNER.crossover)} a month`],
+    label: "Suits",
+    values: ["Smaller units, and certainty", "Higher earning flats, and portfolios"],
   },
-  {
-    label: "On a £5,000 a month flat",
-    values: [money(PARTNER.flatFee), money(partnerUpside(5000))],
-  },
-  {
-    label: "On a ten unit block",
-    values: [money(PARTNER.flatFee * 10), money(partnerUpside(4000) * 10)],
-  },
+  ...EXAMPLES.map(({ label, revenue, units }) => ({
+    label,
+    values: [money(PARTNER.flatFee * units), money(partnerUpside(revenue) * units)] as const,
+  })),
 ] as const;
 
 /**
- * The properties an agent already has and has stopped thinking about. Each
- * line says what we would actually do with it, and nothing claims a figure we
- * cannot stand behind.
+ * Properties an agent has already given up on. Each line says what we would
+ * do with it, and none of them claims a figure we cannot stand behind.
  */
 export const PARTNER_SEND = [
   {
-    title: "A vendor waiting on a sale",
-    copy: "It earns instead of sitting empty, and stays on the market with you.",
+    title: "The flat that has been on since spring",
+    copy: "It earns while it stays on the market with you, and still shows for viewings.",
   },
   {
-    title: "A property that will not let",
-    copy: "Usually live and earning inside a fortnight of the owner signing.",
+    title: "The one nobody wants to rent",
+    copy: "Most are listed and taking bookings inside two weeks of the owner signing.",
   },
   {
-    title: "A landlord unhappy with the yield",
-    copy: "We price the property properly and tell them what it can realistically do.",
+    title: "The landlord who says the numbers no longer work",
+    copy: "We price it properly and tell them what it can honestly do, month by month.",
   },
   {
-    title: "An accidental landlord",
-    copy: "Income from an inherited or unsold flat, without committing to a tenancy.",
+    title: "The client who inherited a flat",
+    copy: "Income from it without handing the keys to anyone for twelve months.",
   },
   {
-    title: "A landlord between tenancies",
-    copy: "The gap earns, and the property is theirs again on 30 days' notice.",
+    title: "The owner moving back in next year",
+    copy: "The gap earns, and the property is theirs again on thirty days' notice.",
   },
   {
-    title: "A portfolio, or a whole block",
-    copy: "Pays you the most, because the fee is per unit either way.",
+    title: "The block with units standing empty",
+    copy: "The fee is the same on every unit, so a block is where this pays properly.",
   },
 ] as const;
 
@@ -396,22 +405,27 @@ export const PARTNER_ROUTES = [
 export const PARTNER_WHO =
   "This is built for independent agencies with one office or a handful. A corporate chain has its own short-let arm and an instruction to keep everything in house. An independent has the same stalled sales and the same voids, no short-let operation to hand them to, and no appetite for building one.";
 
-/** What the agent gets. The middle one is the objection, answered first. */
+/**
+ * What the fee does not cover. An agent putting their name to a supplier is
+ * lending us their reputation, and that is a bigger decision than the fee, so
+ * these three are about what happens in front of their client rather than
+ * about money.
+ */
 export const PARTNER_OFFER = [
   {
     title: "We will tell you when it is a no",
     icon: ["M11 18.5a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15", "M16.4 16.4 20.5 20.5", "M8.6 11h4.8"],
-    copy: "Some properties should not be short let, and a manager who takes them anyway costs you a client six months later. If the lease forbids it, the numbers do not work or the location is wrong, you hear that from us before the owner does.",
+    copy: "Some properties should not be short let. If the lease forbids it, the mortgage will not allow it or the numbers simply do not work, you hear that from us first and you decide how to put it to your client.",
   },
   {
-    title: "The client stays yours",
+    title: "The client stays yours, and comes back",
     icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M8.8 12.2 11 14.4l4.2-4.4"],
-    copy: "We put it in writing before you refer anybody: we do not pitch your client for the sale or for a long tenancy, we do not market to them, and when they are ready for either we send them back to you. Short lets are the whole of our business and we intend to keep it that way.",
+    copy: "We do not pitch your client for a sale or a tenancy and we do not market to them. When an owner we manage decides to sell or to let long term, we send them to the agent who introduced them. The referral runs in both directions.",
   },
   {
-    title: "Nothing for you to administer",
+    title: "You make one introduction",
     icon: ["M6 3.5h12v17H6z", "M9.2 12.3 11 14.1l3.8-4", "M9 7.5h6"],
-    copy: "You make the introduction and we take it from there: the assessment, the lease and mortgage questions, photography, the listing and the landlord. You get a statement each month showing what the property earned and what you are owed.",
+    copy: "After the email, the assessment, the lease and mortgage questions, the photography, the listing and every conversation with the owner are ours. You are copied in when the property goes live and again when you are paid.",
   },
 ] as const;
 
@@ -421,7 +435,7 @@ export const PARTNER_STEPS = [
     num: "01",
     title: "You introduce us",
     icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
-    copy: "A phone call, an email, or the property straight through the form. The postcode, the property type and a contact for the owner is enough to start.",
+    copy: "A postcode, the property type and a name to call. Phone it through, email it, or put it in the form at the foot of this page. That is the introduction done.",
   },
   {
     num: "02",
@@ -433,26 +447,26 @@ export const PARTNER_STEPS = [
     num: "03",
     title: "It goes live",
     icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
-    copy: "Photography, listing, pricing and compliance, usually within one to two weeks of the owner signing. You are copied in when it goes live.",
+    copy: "Photography, the listing, pricing and the compliance paperwork. Most properties are taking bookings inside two weeks of the owner signing, and you are copied in on the day it happens.",
   },
   {
     num: "04",
     title: "You are paid monthly",
     icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
-    copy: "Your share goes out on the same cycle as the owner's payout, with a statement behind it. No chasing, and no waiting until the end of the year.",
+    copy: "Whichever option you took, it is paid on our normal payout cycle with a statement behind it. Nothing to invoice, nothing to chase, and no waiting for a year end.",
   },
 ] as const;
 
 /** The commitments, in the order an agent worries about them. */
 export const PARTNER_TERMS = [
   "We do not act on sales or on long tenancies, so there is no instruction of yours for us to compete for.",
+  "When an owner we manage is ready to sell or to let long term, we send them back to you.",
   "We will not approach your client about a sale or a tenancy, and we will not add them to any marketing list.",
-  "If the property sells or goes back to a tenancy, management ends. No exit fee, and no tie-in on the flexible plan.",
+  "If the property sells or returns to a tenancy, the management ends. No exit fee, and no tie-in on the flexible plan.",
   "The property can still be marketed and viewed while it is let, with reasonable notice around bookings.",
-  "Your referral fee, and its amount, are set out in writing so you can disclose the arrangement to your client.",
+  "Your fee, and which option you took, are set out in writing so you can disclose the arrangement to your client.",
   "We check the lease, the mortgage terms and the freeholder position before anything is listed.",
-  "If we think a short let is wrong for the property, we tell you before we tell the owner.",
-  "One property is enough to start. There is nothing to sign to send us the first one.",
+  "One property is enough to start, and there is nothing to sign before you send it.",
 ] as const;
 
 export const PARTNER_FAQ = [
@@ -477,7 +491,7 @@ export const PARTNER_FAQ = [
     a: "One or two bedroom flats in London and the Home Counties are the core of it, particularly anything near a station, a hospital or a business district. A large family house in a quiet suburb usually is not. Send it anyway and we will tell you either way.",
   },
   {
-    q: "I am a letting agent. Does this cost me my management fee?",
+    q: "I am a letting agent. Does this cost me a management fee?",
     a: "It replaces a management fee on a property that is currently earning you nothing, and pays you on one that is earning. If the landlord is between tenancies, or has decided a long tenancy no longer works for them, the alternative is usually an empty property or a client who sells. Where a long tenancy is working, leave it alone. We are not trying to convert your managed book.",
   },
   {
