@@ -26,28 +26,26 @@ export default function HomePage() {
               We list it, price it, host it and clean it. You hand over the keys
               and read one report a month.
             </p>
-            <div className="hero__actions">
+            {/* All four in one grid: two rows of two, every box the same
+                width and the same height. The solid one stays the only filled
+                one, which is what carries the order of importance now that
+                they are all the same size. */}
+            <div className="hero__cta">
               <Link className="btn btn--solid" href="/submit-property">
                 Get a free estimate
               </Link>
               <Link className="btn btn--outline" href="/how-it-works">
                 See how it works
               </Link>
-            </div>
 
-            {/* The introduction offers, boxed like the buttons above them but
-                on their own row, so the filled one stays the only filled one
-                and the order of importance still reads. */}
-            <div className="hero__refer">
-              <p className="hero__refer-label">Introduce a landlord</p>
-              <div className="hero__refer-actions">
-                <Link className="btn btn--outline" href="/partners">
-                  Estate agents, £{PARTNER.flatFee} or 3%
-                </Link>
-                <Link className="btn btn--outline" href="/blog#refer">
-                  Anyone else, {LANDLORD_REFERRAL.fee}
-                </Link>
-              </div>
+              <p className="hero__refer-label">Introduce a landlord and earn</p>
+
+              <Link className="btn btn--outline" href="/partners">
+                Agents, £{PARTNER.flatFee} or 3%
+              </Link>
+              <Link className="btn btn--outline" href="/blog#refer">
+                Anyone else, {LANDLORD_REFERRAL.fee}
+              </Link>
             </div>
 
             <div className="stats">

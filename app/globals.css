@@ -316,12 +316,6 @@ img { max-width: 100%; display: block; }
   flex-direction: column;
   gap: 40px;
 }
-.hero__actions {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
 .hero__slot {
   min-height: 620px;
   border-left: 2px solid var(--paper-alt);
@@ -1160,7 +1154,6 @@ img { max-width: 100%; display: block; }
   .form__row,
   .form__row--address,
   .form__row--detail { grid-template-columns: 1fr; gap: 24px; }
-  .hero__actions .btn { width: 100%; text-align: center; }
   .lead-lg { font-size: 20px; }
   .lead { font-size: 20px; }
   .body-lg { font-size: 19px; }
@@ -2526,29 +2519,40 @@ html.js-reveal main > section.is-visible {
   .earn { grid-template-columns: 1fr; gap: 36px; }
 }
 
-/* The introduction offers in the hero, in the same boxes as the buttons above
-   but on their own row. The solid wine button stays the only filled thing on
-   the page, which is what keeps the order of importance readable. */
-.hero__refer {
+/* The hero's four boxes, as one grid: two rows of two, every box the same
+   width and the same height. Only the first is filled, and that is what
+   carries the order of importance now they are all one size.
+
+   Height comes from min-height rather than vertical padding, so the solid
+   button and the bordered ones line up exactly; box-sizing is border-box, so
+   the 2px border is inside the same measurement. */
+.hero__cta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 600px;
+}
+.hero__cta .btn {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: -16px 0 0;
-  padding-top: 26px;
-  border-top: 1px solid var(--blue);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 64px;
+  padding: 0 20px;
 }
 .hero__refer-label {
+  grid-column: 1 / -1;
   margin: 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--blue);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
-.hero__refer-actions { display: flex; flex-wrap: wrap; gap: 16px; }
-.hero__refer-actions .btn { padding: 16px 26px; font-size: 11px; }
 
 @media (max-width: 560px) {
-  .hero__refer-actions { flex-direction: column; align-items: stretch; }
-  .hero__refer-actions .btn { text-align: center; }
+  .hero__cta { grid-template-columns: 1fr; gap: 14px; }
+  .hero__refer-label { padding-top: 18px; }
 }
