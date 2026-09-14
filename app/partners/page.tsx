@@ -101,7 +101,7 @@ export default function PartnersPage() {
           <div className="compare-scroll">
             <div className="compare compare--two">
               <div className="compare__head">Take your pick</div>
-              {PARTNER_OPTIONS.map((option, i) => (
+              {PARTNER_OPTIONS.map((option) => (
                 <div
                   className="compare__head is-center"
                   key={option}
