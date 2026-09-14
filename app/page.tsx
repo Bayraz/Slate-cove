@@ -35,25 +35,21 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* The introduction offers, in the hero. One line of type under
-                the buttons rather than a third button: the two above it are
-                what a landlord came for, and a third of equal weight would
-                make the reader choose instead of act. This speaks to somebody
-                who is not a landlord at all. */}
-            <p className="hero__refer">
-              <span className="hero__refer-label">Introduce a landlord</span>
-              <span>
-                <Link href="/partners">
-                  Estate agents take £{PARTNER.flatFee} or 3%
+            {/* The introduction offers, boxed like the buttons above them but
+                on their own row, so the filled one stays the only filled one
+                and the order of importance still reads. */}
+            <div className="hero__refer">
+              <p className="hero__refer-label">Introduce a landlord</p>
+              <div className="hero__refer-actions">
+                <Link className="btn btn--outline" href="/partners">
+                  Estate agents, £{PARTNER.flatFee} or 3%
                 </Link>
-                <span className="hero__refer-sep" aria-hidden="true">
-                  ·
-                </span>
-                <Link href="/blog#refer">
-                  Anyone else takes {LANDLORD_REFERRAL.fee}
+                <Link className="btn btn--outline" href="/blog#refer">
+                  Anyone else, {LANDLORD_REFERRAL.fee}
                 </Link>
-              </span>
-            </p>
+              </div>
+            </div>
+
             <div className="stats">
               {STATS.map(({ figure, label }) => (
                 <div className="stat" key={label}>
