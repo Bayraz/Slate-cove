@@ -2403,3 +2403,56 @@ html.js-reveal main > section.is-visible {
 @media (max-width: 560px) {
   .loop__stages { grid-template-columns: 1fr; }
 }
+
+/* --------------------------------------------------------------------------
+   The two offers that are not "we manage your property", above the footer
+   -------------------------------------------------------------------------- */
+
+/* No fill, no border, no button. The submission form directly above it is the
+   page's one call to action, and this has to read as a footnote to the site
+   rather than as a second pitch competing with it. */
+.ways { padding: 54px 0 62px; background: var(--paper); }
+.ways__inner { display: flex; flex-direction: column; gap: 28px; }
+.ways__title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ways__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 56px;
+}
+.way { display: flex; flex-direction: column; gap: 8px; }
+.way__link {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--ink-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue);
+  align-self: flex-start;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.way__link:hover { color: var(--wine); border-color: var(--wine); }
+.way__note {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+@media (max-width: 760px) {
+  .ways { padding: 40px 0 46px; }
+  .ways__list { grid-template-columns: 1fr; gap: 26px; }
+  .way__link { font-size: 22px; }
+}

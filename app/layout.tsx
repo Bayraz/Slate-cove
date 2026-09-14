@@ -6,6 +6,7 @@ import MobileContactBar from "@/components/MobileContactBar";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/Footer";
 import SubmitBand from "@/components/SubmitBand";
+import WaysToWork from "@/components/WaysToWork";
 import { OG_IMAGE, SITE, organisationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
           <main className="main" id="main">
             {children}
             <SubmitBand />
+            <WaysToWork />
           </main>
           <Footer />
           <MobileContactBar />
