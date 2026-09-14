@@ -501,20 +501,19 @@ export const PARTNER_FAQ = [
 ] as const;
 
 /**
- * The landlord referral, which is a different offer to a different person.
+ * The landlord referral. Open to anyone, not only to owners we manage for.
  *
- * An agent is paid for introducing a client they act for, and chooses between
- * two options. A landlord is paid for introducing someone they know, which is
- * a smaller thing to ask and a simpler thing to explain, so it is one figure
- * and one condition.
+ * Widening it costs nothing, because the condition rather than the audience is
+ * what protects the fee: it is paid only when a referred property is actually
+ * live and earning, so a name that goes nowhere is never a name we pay for.
  *
- * It is for owners we already manage for. That is deliberate rather than mean:
- * a recommendation from somebody whose property we actually run is worth
- * having, and it is the only version of this we can put a price on honestly.
+ * The one rule that has to be stated is who gets paid when two people claim
+ * the same owner. Named first, before that owner contacts us. Unstated, it
+ * becomes an argument at exactly the moment we are trying to sign somebody.
  *
- * "The deal goes through" needs a date attached or it becomes an argument
- * later, so it is the property going live and earning, paid within 14 days,
- * which is the same trigger and the same window as the agent's flat fee.
+ * "The deal goes through" needs a date attached for the same reason, so it is
+ * the property going live and earning, paid within 14 days, which is the same
+ * trigger and window as the agent's flat fee.
  */
 export const LANDLORD_REFERRAL = {
   fee: "£250",
@@ -522,9 +521,10 @@ export const LANDLORD_REFERRAL = {
 } as const;
 
 export const LANDLORD_REFERRAL_POINTS = [
-  "For owners we already manage for. If we run a property for you, this is open to you.",
-  "Paid within 14 days of their property going live, on the same cycle as your own payout.",
+  "Anyone can refer. You do not have to be a landlord, or a client of ours, to be paid.",
+  "If we already manage a property for you, this is open to you as well.",
+  "Paid within 14 days of their property going live and earning. Nothing before that.",
   "There is no cap. Five owners who go ahead is five payments.",
-  "Tell them to mention your name, or send us theirs and we will make the call.",
+  "Give us their name first, before they contact us, and the introduction is yours.",
   "If we assess the property and decline it, nothing is owed and nobody is out of pocket.",
 ] as const;

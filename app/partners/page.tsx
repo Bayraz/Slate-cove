@@ -255,9 +255,9 @@ export default function PartnersPage() {
             <h2 className="d5">Ask for the terms, or just send a property</h2>
           </div>
           <p className="note">
-            Not an agent? Owners we already manage for earn{" "}
-            {LANDLORD_REFERRAL.fee} for introducing another landlord.{" "}
-            <Link href="/blog">The terms are here</Link>.
+            Not an agent? Anyone can introduce a landlord and be paid{" "}
+            {LANDLORD_REFERRAL.fee} when the property goes live.{" "}
+            <Link href="/blog#refer">The terms are here</Link>.
           </p>
           <p className="body-lg">
             We are not going to show you a wall of agent logos, because we have

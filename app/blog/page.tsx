@@ -67,18 +67,18 @@ export default function BlogIndexPage() {
       {/* The referral sits on the landlords' own page rather than with the
           agent terms. It is the same kind of offer but a different reader, and
           the figure is stated here only, so the two cannot drift apart. */}
-      <section className="section section--alt">
+      <section className="section section--alt" id="refer">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">For owners we manage for</p>
+            <p className="eyebrow">Referrals</p>
             <h2 className="d5">
-              Introduce another landlord, and we pay you {LANDLORD_REFERRAL.fee}
+              Know a London landlord? That is worth {LANDLORD_REFERRAL.fee}
             </h2>
           </div>
           <p className="lead">
-            If we run a property for you and you put another owner our way, we
-            pay you {LANDLORD_REFERRAL.fee} once their property is live and
-            earning, {LANDLORD_REFERRAL.window}. Nothing to sign, and nothing
+            Put an owner our way and we pay you {LANDLORD_REFERRAL.fee} once
+            their property is live and earning, {LANDLORD_REFERRAL.window}. You
+            do not have to be a landlord yourself. Nothing to sign, and nothing
             owed if it does not go ahead.
           </p>
           <ul className="terms">

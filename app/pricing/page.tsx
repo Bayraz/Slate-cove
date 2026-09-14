@@ -132,10 +132,10 @@ export default function PricingPage() {
             <h2 className="d5">Know another landlord? That is worth £250</h2>
           </div>
           <p className="lead">
-            Once we manage a property for you, introducing another owner is
-            worth £250, paid within 14 days of their property going live. No
-            cap, and nothing owed if it does not go ahead.{" "}
-            <Link href="/blog">The terms are on the landlords&rsquo; page</Link>,
+            Introduce another owner and we pay you £250, within 14 days of
+            their property going live. Anyone can refer, client or not, and
+            there is no cap.{" "}
+            <Link href="/blog#refer">The terms are on the landlords&rsquo; page</Link>,
             and estate agents have{" "}
             <Link href="/partners">their own arrangement</Link>.
           </p>
