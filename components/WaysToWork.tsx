@@ -23,7 +23,7 @@ import { LANDLORD_REFERRAL, PARTNER } from "@/lib/content";
  * a banner: anything shaped like an advert is filtered out before it is read,
  * and that habit is strongest in exactly this position on the page.
  */
-const WHERE_IT_ALREADY_LIVES = ["/partners", "/blog"];
+const WHERE_IT_ALREADY_LIVES = ["/", "/partners", "/blog"];
 
 export default function WaysToWork() {
   const pathname = usePathname();

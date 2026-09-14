@@ -14,9 +14,7 @@ import {
   PARTNER_ROUTES,
   PARTNER_SEND,
   PARTNER_TABLE,
-  PARTNER_WHO,
   PARTNER_FAQ,
-  PARTNER_OFFER,
   PARTNER_STEPS,
   PARTNER_TERMS,
   TICK,
@@ -81,7 +79,6 @@ export default function PartnersPage() {
               </div>
             ))}
           </div>
-          <p className="note">{PARTNER_WHO}</p>
         </div>
       </section>
 
@@ -154,24 +151,6 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">What the fee does not cover</p>
-            <h2 className="d5">You are lending us your name</h2>
-          </div>
-          <div className="services services--three">
-            {PARTNER_OFFER.map(({ title, icon, copy }) => (
-              <div className="service" key={title}>
-                <Icon className="service__icon" d={icon} />
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--alt">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
             <p className="eyebrow">Who to send</p>
             <h2 className="d5">Six you could send this week</h2>
           </div>
@@ -186,7 +165,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">How a referral runs</p>
@@ -207,7 +186,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">In writing, before you introduce anybody</p>
@@ -225,7 +204,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">FAQ</p>
@@ -248,30 +227,25 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">Two ways to start</p>
             <h2 className="d5">Ask for the terms, or just send a property</h2>
           </div>
-          <p className="note">
-            Not an agent? Anyone can introduce a landlord and be paid{" "}
-            {LANDLORD_REFERRAL.fee} when the property goes live.{" "}
-            <Link href="/blog#refer">The terms are here</Link>.
-          </p>
           <p className="body-lg">
             We are not going to show you a wall of agent logos, because we have
-            not earned them yet. Test it on one property instead, which is the
-            only evidence that would convince us in your position.
-          </p>
-          <p className="body-lg">
-            For the terms in writing before you introduce anybody, call{" "}
+            not earned them yet. Test it on one property instead. For the terms
+            in writing first, call{" "}
             <a href={`tel:${CONTACT.telephoneHref}`}>{CONTACT.telephone}</a>,
             email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>, or{" "}
             <Link href="/contact">send a message</Link> and pick the agent
-            option. To see what one property would earn first, the form below
-            comes straight to us and you will have a figure within 24 hours.
-            Neither commits you to anything.
+            option. Or send a property through the form below and you will
+            have a figure within 24 hours. Neither commits you to anything.{" "}
+            <Link href="/blog#refer">
+              Not an agent? Anyone can introduce a landlord for{" "}
+              {LANDLORD_REFERRAL.fee}
+            </Link>.
           </p>
         </div>
       </section>

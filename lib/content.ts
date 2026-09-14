@@ -113,43 +113,36 @@ export const TICK = [
   "M8.6 12.2 11 14.6l4.6-4.8",
 ] as const;
 
-export const HOME_CTA_POINTS = [
-  "Free income estimate for your property",
-  "No lock-in contracts, cancel any time",
-  "Onboarding in as little as 7 days",
-  "A dedicated local property manager",
-] as const;
-
 export const STEPS = [
   {
     num: "01",
     title: "Consultation",
     icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
-    copy: "A free consultation to understand the property, your goals and your expectations. We assess its potential, discuss availability, and answer any questions about how we manage.",
+    copy: "A free consultation: the property, your goals, what it could realistically earn, and any questions about how we work.",
   },
   {
     num: "02",
     title: "Onboarding",
     icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
-    copy: "We handle everything needed to get the property guest-ready: professional photography, listing creation, pricing setup, and coordinating any improvements worth making before launch.",
+    copy: "Photography, the listing, pricing, and any improvements worth making before launch. All of it ours to arrange.",
   },
   {
     num: "03",
     title: "Go live",
     icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M12 8.5v7", "M8.5 12h7"],
-    copy: "The listing goes live across Airbnb, Booking.com and Vrbo. Dynamic pricing starts working immediately to attract bookings at the best achievable rates.",
+    copy: "Live across Airbnb, Booking.com and Vrbo, with dynamic pricing working from the first day.",
   },
   {
     num: "04",
     title: "Ongoing management",
     icon: ["M12 15.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Z", "M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"],
-    copy: "Guest communication, cleaning, maintenance and reviews run from our side. You can be as involved as you like; most owners simply read the monthly report.",
+    copy: "Guests, cleaning, maintenance and reviews, all from our side. Be as involved as you like; most owners read the report and leave it at that.",
   },
   {
     num: "05",
     title: "Monthly payout",
     icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
-    copy: "At month end you receive a detailed performance report along with your payout: occupancy, revenue, expenses and our fee, set out in full.",
+    copy: "Your payout, with occupancy, revenue, expenses and our fee set out in full.",
   },
 ] as const;
 
@@ -385,14 +378,14 @@ export const PARTNER_ROUTES = [
     kind: "If you sell",
     title: "Let it while it sells",
     icon: ["M5.5 4.5h13v7h-13z", "M9 11.5v8", "M6 19.5h6"],
-    copy: "Your vendor has been on the market four months and is still paying a mortgage on an empty flat. We run it as a short let while it stays listed with you. It can be viewed with reasonable notice, it shows better for being cleaned and maintained every few days, and the moment it sells the management ends.",
+    copy: "A vendor four months on the market, still paying a mortgage on an empty flat. We run it as a short let while it stays listed with you. It can be viewed with notice, and the moment it sells the management ends.",
     point: "The sale stays yours. We do not act on sales.",
   },
   {
     kind: "If you let",
     title: "We take the management",
     icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M9.5 15h5"],
-    copy: "A landlord who wants the property earning rather than sitting between tenancies, or who has decided a long tenancy is not working. They come to us on our standard management terms, the same ones any owner gets, and we run the property day to day. You keep the relationship and the instruction.",
+    copy: "A landlord between tenancies, or one who has decided a long let no longer works. They come to us on our standard terms and we run the property day to day. You keep the relationship and the instruction.",
     point: "The landlord stays your client, and your landlord.",
   },
 ] as const;
@@ -435,38 +428,36 @@ export const PARTNER_STEPS = [
     num: "01",
     title: "You introduce us",
     icon: ["M20.5 12c0 3.6-3.8 6.5-8.5 6.5-1.1 0-2.2-.2-3.2-.5L4 20l1.5-3.6A6.1 6.1 0 0 1 3.5 12c0-3.6 3.8-6.5 8.5-6.5S20.5 8.4 20.5 12Z"],
-    copy: "A postcode, the property type and a name to call. Phone it through, email it, or put it in the form at the foot of this page. That is the introduction done.",
+    copy: "A postcode, the property type and a name to call. Phone, email, or use the form below. That is the introduction done.",
   },
   {
     num: "02",
     title: "We assess it honestly",
     icon: ["M11 18.5a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15", "M16.4 16.4 20.5 20.5"],
-    copy: "We look at the lease, the mortgage, the freeholder position and what the property can realistically earn. If a short let is the wrong answer we say so, to you and to the owner, rather than signing something that unravels in month three.",
+    copy: "The lease, the mortgage, the freeholder position, and what it can realistically earn. If a short let is the wrong answer we say so, rather than sign something that unravels in month three.",
   },
   {
     num: "03",
     title: "It goes live",
     icon: ["M3.5 8h4l1.6-2.5h5.8L16.5 8h4v12.5h-17z", "M12 17.5a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"],
-    copy: "Photography, the listing, pricing and the compliance paperwork. Most properties are taking bookings inside two weeks of the owner signing, and you are copied in on the day it happens.",
+    copy: "Photography, listing, pricing and compliance. Most are taking bookings inside two weeks of the owner signing, and you are copied in on the day.",
   },
   {
     num: "04",
     title: "You are paid monthly",
     icon: ["M3.5 5.5h17v15h-17z", "M3.5 10.5h17", "M8 3v3", "M16 3v3", "M8 14.5v3", "M12 13v4.5", "M16 15.5v2"],
-    copy: "Whichever option you took, it is paid on our normal payout cycle with a statement behind it. Nothing to invoice, nothing to chase, and no waiting for a year end.",
+    copy: "On our normal payout cycle, with a statement behind it. Nothing to invoice and nothing to chase.",
   },
 ] as const;
 
 /** The commitments, in the order an agent worries about them. */
 export const PARTNER_TERMS = [
   "We do not act on sales or on long tenancies, so there is no instruction of yours for us to compete for.",
-  "When an owner we manage is ready to sell or to let long term, we send them back to you.",
-  "We will not approach your client about a sale or a tenancy, and we will not add them to any marketing list.",
-  "If the property sells or returns to a tenancy, the management ends. No exit fee, and no tie-in on the flexible plan.",
-  "The property can still be marketed and viewed while it is let, with reasonable notice around bookings.",
-  "Your fee, and which option you took, are set out in writing so you can disclose the arrangement to your client.",
-  "We check the lease, the mortgage terms and the freeholder position before anything is listed.",
-  "One property is enough to start, and there is nothing to sign before you send it.",
+  "We will not approach your client about either, and when they are ready for one we send them back to you.",
+  "If the property sells or returns to a tenancy, the management ends. No exit fee and no tie-in.",
+  "It can still be marketed and viewed while it is let, with reasonable notice around bookings.",
+  "Your fee and which option you took are set out in writing, so you can disclose the arrangement to your client.",
+  "If a short let is wrong for the property, we tell you before we tell the owner.",
 ] as const;
 
 export const PARTNER_FAQ = [
