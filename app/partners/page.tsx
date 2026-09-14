@@ -4,8 +4,11 @@ import { Fragment } from "react";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import PartnerCalculator from "@/components/PartnerCalculator";
+import ReferralLoop from "@/components/ReferralLoop";
 import {
   CONTACT,
+  LANDLORD_REFERRAL,
+  LANDLORD_REFERRAL_POINTS,
   PARTNER,
   PARTNER_HEADLINES,
   PARTNER_OPTIONS,
@@ -49,7 +52,8 @@ export default function PartnersPage() {
             <p className="lead">
               Introduce a landlord and take £275 when the property goes live,
               or 3% of what it earns across its first three months. You choose,
-              property by property. After the email, the rest is ours.
+              property by property. Send us a postcode and a name to call, and
+              everything after that is ours to do.
             </p>
             <p className="note">
               We do not act on sales or long tenancies. Short lets are the whole
@@ -62,8 +66,8 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Two ways in</p>
-            <h2 className="d5">Whichever side of the business you are on</h2>
+            <p className="eyebrow">Sales and lettings</p>
+            <h2 className="d5">Two kinds of property, two things we do with them</h2>
           </div>
           <div className="routes">
             {PARTNER_ROUTES.map(({ kind, title, icon, copy, point }) => (
@@ -100,7 +104,7 @@ export default function PartnersPage() {
 
           <div className="compare-scroll">
             <div className="compare compare--two">
-              <div className="compare__head">Take your pick</div>
+              <div className="compare__head">Compared</div>
               {PARTNER_OPTIONS.map((option) => (
                 <div
                   className="compare__head is-center"
@@ -130,11 +134,10 @@ export default function PartnersPage() {
           </div>
 
           <p className="note">
-            You choose per property rather than signing up to one option for
-            everything you send, so a studio and a Kensington two bedroom are
-            each paid the way that suits them. The two come level at about
-            £3,000 a month: below that the flat fee pays more, above it the
-            share does.
+            The choice is made property by property, not once for everything
+            you send. As a rule of thumb the two come level at about £3,000 a
+            month: below that the flat fee pays more, above it the share does.
+            The calculator below works it out on any figure you give it.
           </p>
         </div>
       </section>
@@ -142,8 +145,8 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Try it on one you have</p>
-            <h2 className="d5">What would the next one pay?</h2>
+            <p className="eyebrow">Work out one of yours</p>
+            <h2 className="d5">What would a property you have pay?</h2>
           </div>
           <PartnerCalculator />
         </div>
@@ -152,7 +155,7 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">The part that is not money</p>
+            <p className="eyebrow">What the fee does not cover</p>
             <h2 className="d5">You are lending us your name</h2>
           </div>
           <div className="services services--three">
@@ -211,6 +214,7 @@ export default function PartnersPage() {
             <p className="eyebrow">In writing, before you introduce anybody</p>
             <h2 className="d5">What we commit to</h2>
           </div>
+          <ReferralLoop />
           <ul className="terms">
             {PARTNER_TERMS.map((term) => (
               <li key={term}>
@@ -246,6 +250,31 @@ export default function PartnersPage() {
       </section>
 
       <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Not an agent?</p>
+            <h2 className="d5">
+              Landlords earn {LANDLORD_REFERRAL.fee} for an introduction too
+            </h2>
+          </div>
+          <p className="lead">
+            If you own a property and you know somebody else who does, tell them
+            about us. When their property goes live with us we pay you{" "}
+            {LANDLORD_REFERRAL.fee}, {LANDLORD_REFERRAL.trigger}. Nothing to
+            sign, and nothing owed if it does not go ahead.
+          </p>
+          <ul className="terms">
+            {LANDLORD_REFERRAL_POINTS.map((point) => (
+              <li key={point}>
+                <Icon className="tick" d={TICK} />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">Two ways to start</p>

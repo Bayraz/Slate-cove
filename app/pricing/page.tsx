@@ -125,6 +125,22 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Referrals</p>
+            <h2 className="d5">Know another landlord? That is worth £250</h2>
+          </div>
+          <p className="lead">
+            If you introduce another owner and their property goes live with us,
+            we pay you £250 once it is live and earning. No cap, and nothing
+            owed if it does not go ahead.{" "}
+            <Link href="/partners">See how referrals work</Link>, including the
+            separate terms for estate and letting agents.
+          </p>
+        </div>
+      </section>
+
     </>
   );
 }

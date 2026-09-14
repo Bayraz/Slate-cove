@@ -16,7 +16,13 @@
   --blue:       #B9C6CE;  /* hairlines, accents, numerals */
   --wine:       #7A1F2B;  /* primary accent: buttons, eyebrows, CTA bands */
   --wine-deep:  #5E1721;  /* wine hover */
-  --near-black: #100F0E;  /* navigation links */
+  --near-black: #100F0E;
+
+  /* Chart series. Not the site's --blue, which is a background tint: it fails
+     the chroma floor and the 3:1 contrast check as a 2px line on paper. These
+     two were validated as a pair against the paper surface. */
+  --series-flat:  #9A2B3A;
+  --series-share: #2A6F9E;  /* navigation links */
 
   /* Type */
   --serif: var(--font-instrument-serif), Georgia, serif;
@@ -2218,9 +2224,35 @@ html.js-reveal main > section.is-visible {
   border-top: 2px solid var(--blue);
   padding: 24px 0 0;
 }
-/* The option that pays more is the answer, so it is marked rather than left
-   for the reader to compare two numbers and work out. */
-.calc__opt.is-best { border-top-color: var(--wine); }
+/* Each option owns a colour for the whole of this block, the swatch, the
+   figure and its line on the chart, so the colour means the option and never
+   "the one that won". Which pays more is said in words instead. */
+.calc__opt--flat  { border-top-color: var(--series-flat); }
+.calc__opt--share { border-top-color: var(--series-share); }
+.calc__opt--flat  .calc__figure { color: var(--series-flat); }
+.calc__opt--share .calc__figure { color: var(--series-share); }
+.calc__key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  vertical-align: baseline;
+}
+.calc__opt--flat  .calc__key { background: var(--series-flat); }
+.calc__opt--share .calc__key { background: var(--series-share); }
+.calc__win {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 3px 9px;
+  background: var(--ink-deep);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 .calc__label {
   margin: 0;
   font-family: var(--mono);
@@ -2229,7 +2261,6 @@ html.js-reveal main > section.is-visible {
   text-transform: uppercase;
   color: var(--muted);
 }
-.calc__opt.is-best .calc__label { color: var(--wine); }
 .calc__figure {
   margin: 0;
   font-family: var(--serif);
@@ -2237,7 +2268,6 @@ html.js-reveal main > section.is-visible {
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
-.calc__opt.is-best .calc__figure { color: var(--wine); }
 .calc__sub { margin: 0; font-size: 15px; font-weight: 300; color: var(--muted); }
 .calc__verdict {
   margin: 0;
@@ -2280,4 +2310,96 @@ html.js-reveal main > section.is-visible {
   .calc__inputs { grid-template-columns: 1fr; }
   .calc__out { grid-template-columns: 1fr; gap: 24px; }
   .calc__verdict { font-size: 18px; }
+}
+
+/* The two options, seen whole. A flat line and a rising one, crossing. */
+.calc__chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.calc__tickline { stroke: var(--blue); stroke-width: 1; opacity: 0.55; }
+.calc__axis { stroke: var(--ink); stroke-width: 1.5; }
+.calc__ticklabel,
+.calc__crosslabel,
+.calc__series {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  fill: var(--muted);
+}
+.calc__ticklabel { text-anchor: middle; }
+.calc__crosslabel { text-anchor: middle; fill: var(--ink-deep); }
+.calc__series { font-family: var(--sans); font-size: 14px; letter-spacing: 0; fill: var(--ink-deep); }
+.calc__cross { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 4; }
+.calc__line { stroke-width: 2; stroke-linecap: round; fill: none; }
+.calc__line--flat { stroke: var(--series-flat); }
+.calc__line--share { stroke: var(--series-share); }
+/* A ring of the surface colour, so the dots stay separate where they overlap. */
+.calc__dot { stroke: var(--paper); stroke-width: 2; }
+.calc__dot--flat { fill: var(--series-flat); }
+.calc__dot--share { fill: var(--series-share); }
+
+.calc__chartwrap { overflow-x: auto; }
+
+@media (max-width: 700px) {
+  /* Held at a size its own labels stay readable at, and swiped. */
+  .calc__chart { min-width: 600px; }
+}
+
+/* The referral drawn as a circle: four stages and a leg returning to the first. */
+.loop { display: flex; flex-direction: column; }
+.loop__stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px 32px;
+}
+.loop__stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 2px solid var(--ink);
+  padding: 20px 0 26px;
+}
+.loop__n {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--wine);
+}
+.loop__title { font-family: var(--serif); font-size: 26px; line-height: 1.15; color: var(--ink-deep); }
+.loop__copy { font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--muted); }
+
+.loop__return { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.loop__rule {
+  display: block;
+  width: 100%;
+  height: 44px;
+  fill: none;
+  stroke: var(--wine);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* The path is stretched to the container width, so the stroke must not be. */
+  vector-effect: non-scaling-stroke;
+}
+.loop__label {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+
+@media (max-width: 900px) {
+  .loop__stages { grid-template-columns: repeat(2, 1fr); gap: 2px 28px; }
+  .loop__title { font-size: 22px; }
+}
+@media (max-width: 560px) {
+  .loop__stages { grid-template-columns: 1fr; }
 }
