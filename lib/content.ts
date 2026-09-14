@@ -503,23 +503,28 @@ export const PARTNER_FAQ = [
 /**
  * The landlord referral, which is a different offer to a different person.
  *
- * An agent is paid for introducing a client they act for. A landlord is paid
- * for introducing someone they know, which is a smaller thing to ask and a
- * simpler thing to explain, so it is one figure and one condition rather than
- * a choice of two.
+ * An agent is paid for introducing a client they act for, and chooses between
+ * two options. A landlord is paid for introducing someone they know, which is
+ * a smaller thing to ask and a simpler thing to explain, so it is one figure
+ * and one condition.
  *
- * "The deal goes through" needs a date attached to it or it becomes an
- * argument later, so it is defined as the property going live under
- * management, which is the same trigger as the agent's flat fee.
+ * It is for owners we already manage for. That is deliberate rather than mean:
+ * a recommendation from somebody whose property we actually run is worth
+ * having, and it is the only version of this we can put a price on honestly.
+ *
+ * "The deal goes through" needs a date attached or it becomes an argument
+ * later, so it is the property going live and earning, paid within 14 days,
+ * which is the same trigger and the same window as the agent's flat fee.
  */
 export const LANDLORD_REFERRAL = {
   fee: "£250",
-  trigger: "once their property is live and earning",
+  window: "within 14 days",
 } as const;
 
 export const LANDLORD_REFERRAL_POINTS = [
-  "Tell them to mention your name, or send us theirs and we will call them.",
-  "There is no cap. Five landlords who go ahead is five payments.",
-  "You do not have to be a client yourself, though most people who do this are.",
-  "If the property is assessed and we decline it, nobody is out of pocket and nothing is owed.",
+  "For owners we already manage for. If we run a property for you, this is open to you.",
+  "Paid within 14 days of their property going live, on the same cycle as your own payout.",
+  "There is no cap. Five owners who go ahead is five payments.",
+  "Tell them to mention your name, or send us theirs and we will make the call.",
+  "If we assess the property and decline it, nothing is owed and nobody is out of pocket.",
 ] as const;

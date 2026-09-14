@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { POSTS, formatDate } from "@/lib/blog";
+import { LANDLORD_REFERRAL, LANDLORD_REFERRAL_POINTS, TICK } from "@/lib/content";
 import { blogSchema, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -59,6 +61,34 @@ export default function BlogIndexPage() {
               ))}
             </ul>
           )}
+        </div>
+      </section>
+
+      {/* The referral sits on the landlords' own page rather than with the
+          agent terms. It is the same kind of offer but a different reader, and
+          the figure is stated here only, so the two cannot drift apart. */}
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">For owners we manage for</p>
+            <h2 className="d5">
+              Introduce another landlord, and we pay you {LANDLORD_REFERRAL.fee}
+            </h2>
+          </div>
+          <p className="lead">
+            If we run a property for you and you put another owner our way, we
+            pay you {LANDLORD_REFERRAL.fee} once their property is live and
+            earning, {LANDLORD_REFERRAL.window}. Nothing to sign, and nothing
+            owed if it does not go ahead.
+          </p>
+          <ul className="terms">
+            {LANDLORD_REFERRAL_POINTS.map((point) => (
+              <li key={point}>
+                <Icon className="tick" d={TICK} />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

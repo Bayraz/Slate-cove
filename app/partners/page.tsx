@@ -8,7 +8,6 @@ import ReferralLoop from "@/components/ReferralLoop";
 import {
   CONTACT,
   LANDLORD_REFERRAL,
-  LANDLORD_REFERRAL_POINTS,
   PARTNER,
   PARTNER_HEADLINES,
   PARTNER_OPTIONS,
@@ -252,34 +251,14 @@ export default function PartnersPage() {
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Not an agent?</p>
-            <h2 className="d5">
-              Landlords earn {LANDLORD_REFERRAL.fee} for an introduction too
-            </h2>
-          </div>
-          <p className="lead">
-            If you own a property and you know somebody else who does, tell them
-            about us. When their property goes live with us we pay you{" "}
-            {LANDLORD_REFERRAL.fee}, {LANDLORD_REFERRAL.trigger}. Nothing to
-            sign, and nothing owed if it does not go ahead.
-          </p>
-          <ul className="terms">
-            {LANDLORD_REFERRAL_POINTS.map((point) => (
-              <li key={point}>
-                <Icon className="tick" d={TICK} />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
             <p className="eyebrow">Two ways to start</p>
             <h2 className="d5">Ask for the terms, or just send a property</h2>
           </div>
+          <p className="note">
+            Not an agent? Owners we already manage for earn{" "}
+            {LANDLORD_REFERRAL.fee} for introducing another landlord.{" "}
+            <Link href="/blog">The terms are here</Link>.
+          </p>
           <p className="body-lg">
             We are not going to show you a wall of agent logos, because we have
             not earned them yet. Test it on one property instead, which is the
