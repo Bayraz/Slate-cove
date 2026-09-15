@@ -212,7 +212,7 @@ export function serviceSchema({
     provider: { "@id": `${SITE.url}/#organisation` },
     areaServed: servedPlaces.map((place) => ({ "@type": "Place", name: place })),
     url: canonicalUrl(path),
-    isPartOf: { "@id": `${SITE.url}/services/#catalogue` },
+    isPartOf: { "@id": `${SITE.url}/how-it-works/#catalogue` },
   };
 }
 
@@ -226,7 +226,7 @@ export function serviceCatalogueSchema(
   return {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    "@id": `${SITE.url}/services/#catalogue`,
+    "@id": `${SITE.url}/how-it-works/#catalogue`,
     name: `${SITE.name} short-let management services`,
     provider: { "@id": `${SITE.url}/#organisation` },
     itemListElement: services.map(({ name, summary, slug }, i) => ({

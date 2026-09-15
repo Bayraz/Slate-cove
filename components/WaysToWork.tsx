@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { REFERRAL } from "@/lib/content";
 
 /**
  * The two offers that are not "we will manage your property", at the foot of
@@ -23,7 +22,24 @@ import { REFERRAL } from "@/lib/content";
  * a banner: anything shaped like an advert is filtered out before it is read,
  * and that habit is strongest in exactly this position on the page.
  */
+/**
+ * The pages that carry these offers in full. Linking somebody to the section
+ * they are already reading is worse than showing nothing.
+ */
 const WHERE_IT_ALREADY_LIVES = ["/", "/partners", "/blog", "/refer"];
+
+const WAYS = [
+  {
+    href: "/refer",
+    title: "Refer a property, take £275",
+    note: "Introduce a landlord and take £275 when the property goes live. Estate agents have a choice of terms.",
+  },
+  {
+    href: "/how-it-works",
+    title: "What we actually do",
+    note: "The eight things we handle on a managed short let, each explained properly rather than in a sentence.",
+  },
+] as const;
 
 export default function WaysToWork() {
   const pathname = usePathname();
@@ -33,6 +49,10 @@ export default function WaysToWork() {
   // to the section the reader is already in.
   if (WHERE_IT_ALREADY_LIVES.includes(path)) return null;
 
+  // A link to the page you are on is not a way to work with us.
+  const ways = WAYS.filter((way) => way.href !== path);
+  if (ways.length === 0) return null;
+
   return (
     <section className="ways" aria-labelledby="ways-title">
       <div className="wrap ways__inner">
@@ -40,24 +60,14 @@ export default function WaysToWork() {
           Two other ways to work with us
         </h2>
         <ul className="ways__list">
-          <li className="way">
-            <Link className="way__link" href="/refer">
-              Refer a property, take {REFERRAL.fee}
-            </Link>
-            <span className="way__note">
-              Introduce a landlord and take {REFERRAL.fee} when the property
-              goes live. Estate agents have a choice of terms.
-            </span>
-          </li>
-          <li className="way">
-            <Link className="way__link" href="/services">
-              What we actually do
-            </Link>
-            <span className="way__note">
-              The eight things we handle on a managed short let, each explained
-              properly rather than in a sentence.
-            </span>
-          </li>
+          {ways.map(({ href, title, note }) => (
+            <li className="way" key={href}>
+              <Link className="way__link" href={href}>
+                {title}
+              </Link>
+              <span className="way__note">{note}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

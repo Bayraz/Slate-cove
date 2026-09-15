@@ -145,7 +145,7 @@ export default function HomePage() {
             ))}
           </div>
           <p className="note">
-            <Link href="/services">
+            <Link href="/how-it-works">
               Every one of these explained in full
             </Link>
             , including what it changes about what a property earns.

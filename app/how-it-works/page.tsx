@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import { breadcrumbSchema, pageMetadata, serviceCatalogueSchema } from "@/lib/seo";
 import Explainer from "@/components/Explainer";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
-import { FAQ, STEPS } from "@/lib/content";
+import Link from "next/link";
+import { FAQ, MANAGEMENT_FEES, STEPS } from "@/lib/content";
+import { SERVICE_PAGES } from "@/lib/services";
 import { faqSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,6 +25,7 @@ export default function HowItWorksPage() {
         ])}
       />
       <JsonLd schema={faqSchema} />
+      <JsonLd schema={serviceCatalogueSchema(SERVICE_PAGES)} />
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
@@ -60,7 +63,37 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* What the process actually delivers. This used to be a page of its
+          own, which was a heading and eight links: an index rather than
+          something to read. The eight pages it indexed are substantial and
+          stay where they are. */}
       <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">What we handle</p>
+            <h2 className="d5">Eight standing responsibilities, all of them ours</h2>
+          </div>
+          <p className="lead">
+            All of it is covered by one management fee:{" "}
+            {MANAGEMENT_FEES.fullTime} of net revenue on the full-time plan and{" "}
+            {MANAGEMENT_FEES.flexible} on the flexible one. No setup costs and
+            no per-service charges.
+          </p>
+          <ul className="svclist svclist--hub">
+            {SERVICE_PAGES.map((service) => (
+              <li key={service.slug}>
+                <Link href={`/services/${service.slug}/`}>
+                  <Icon className="svclist__icon" d={service.icon} />
+                  <span className="svclist__name">{service.name}</span>
+                  <span className="svclist__sum">{service.summary}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">FAQ</p>

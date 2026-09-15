@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/services",
+      "destination": "/how-it-works",
+      "permanent": true
+    }
+  ]
+}
