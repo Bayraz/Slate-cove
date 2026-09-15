@@ -22,6 +22,26 @@ export const CONTACT = {
 } as const;
 
 /**
+ * The financial proposition.
+ *
+ * The range is the reason most landlords look at short lets at all, so it is
+ * stated rather than avoided. It is framed as potential throughout, and the
+ * qualifier travels with it: every place the figure appears, the sentence
+ * saying what it depends on appears too. It is not presented as a result every
+ * property achieves, and it is not called a return.
+ *
+ * There is no Slate & Cove performance data in this repository to derive a
+ * more precise figure from, so nothing here claims more precision than
+ * "potentially".
+ */
+export const UPLIFT = {
+  range: "30\u201340%",
+  headline: "Potentially 30\u201340% more than a traditional long-term let",
+  qualifier:
+    "Every property is different. What yours could do depends on its location, type, local demand, how much of the year it is available and what it costs to run. We assess the property and give you a realistic estimate rather than a number off a website.",
+} as const;
+
+/**
  * The reassurance strip under the hero.
  *
  * It used to lead with "30-40% more than a long tenancy". Nothing in this
@@ -517,7 +537,7 @@ export const HOME_FAQ = [
   },
   {
     q: "How do I find out what my property could earn?",
-    a: "Send us the property. A manager comes back within 24 hours with a realistic figure based on what comparable properties nearby are achieving. It is free, there is no obligation, and if a short let is wrong for your property we will say so.",
+    a: "Send us the property. A manager comes back within 24 hours with a realistic figure based on what comparable properties nearby are actually achieving. A well-run short let can potentially earn 30 to 40% more than a traditional long-term let, though that depends entirely on the property, its location, its availability and what it costs to run, which is why we look before quoting. It is free, there is no obligation, and if a short let is wrong for your property we will say so.",
   },
 ] as const;
 

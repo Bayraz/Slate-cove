@@ -28,7 +28,10 @@ function body() {
 > ${SITE.description}
 
 Slate & Cove manages short lets end to end, so the owner has no day-to-day
-involvement.
+involvement. A well-run short let can potentially earn 30-40% more than a
+traditional long-term let, depending on the property, its location, its
+availability and what it costs to run. That is potential rather than a result
+every property achieves, and Slate & Cove assesses a property before quoting.
 
 ## Pricing
 

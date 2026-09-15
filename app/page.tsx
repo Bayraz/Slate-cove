@@ -16,6 +16,7 @@ import {
   REFERRAL,
   SERVICE_GROUPS,
   THE_WORK,
+  UPLIFT,
 } from "@/lib/content";
 import { faqSchemaFor } from "@/lib/seo";
 
@@ -173,19 +174,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. The estimate. Sells the conversation, not a number. -------- */}
+      {/* 7. The financial proposition, and the estimate.
+
+             The range is the reason most landlords look at this at all, so it
+             is stated at size. It sits here rather than in the hero, where it
+             would compete with the brand line, and the qualifier is set
+             directly underneath it rather than in small print somewhere else
+             on the page: it is potential, not a result, and the two sentences
+             have to be read together. --------------------------------------- */}
       <section className="section section--dark">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow eyebrow--light">Property potential</p>
             <h2 className="d5">What could your property earn?</h2>
           </div>
-          <p className="fee__line">
-            Every property is different. We assess yours on its location, size,
-            condition and what comparable properties nearby are actually
-            achieving, then tell you honestly what it could do. If a short let
-            is the wrong answer for your property, we will say that instead.
-          </p>
+          <div className="uplift">
+            <p className="uplift__figure">{UPLIFT.range}</p>
+            <div className="uplift__body">
+              <p className="uplift__line">{UPLIFT.headline}</p>
+              <p className="uplift__sub">{UPLIFT.qualifier}</p>
+            </div>
+          </div>
           <Link className="btn btn--light" href="/submit-property">
             Get a free property estimate
           </Link>
