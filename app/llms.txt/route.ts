@@ -9,6 +9,7 @@ import {
 } from "@/lib/content";
 import { AREA_PAGES } from "@/lib/areas";
 import { SERVICE_PAGES } from "@/lib/services";
+import { PARTNER, REFERRAL } from "@/lib/content";
 import { POSTS } from "@/lib/blog";
 import { SITE } from "@/lib/seo";
 
@@ -53,6 +54,18 @@ compliance, including the 90-night rule, is tracked.
 ## How it works
 
 ${STEPS.map((s) => `${s.num}. ${s.title}: ${s.copy}`).join("\n\n")}
+
+## Referral programme
+
+Anyone can introduce a property owner to Slate & Cove.
+
+Estate and letting agents choose, per property, between £${PARTNER.flatFee} when the
+property goes live and 3% of what it earns across its first three months. The
+two come level at about £3,000 a month.
+${url("/partners")}
+
+Everyone else takes a flat ${REFERRAL.fee} when the property goes live. No cap.
+${url("/refer")}
 
 ## Areas covered
 

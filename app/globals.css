@@ -2786,3 +2786,8 @@ html.js-reveal main > section.is-visible {
 /* The stack lays its children out stretched, which turns a button into a
    full-width bar. Buttons inside a stack size to their own text. */
 .stack > .btn { align-self: flex-start; }
+
+/* The headline figures on a dark ground. */
+.headlines--light .headline { border-top-color: rgba(255, 255, 255, 0.34); }
+.headlines--light .headline__figure { color: #FFFFFF; }
+.headlines--light .headline__note { color: var(--blue); }

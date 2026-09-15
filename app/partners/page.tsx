@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
+import PartnerCalculator from "@/components/PartnerCalculator";
 import ReferralForm from "@/components/ReferralForm";
+import { Fragment } from "react";
 import {
   CONTACT,
+  PARTNER,
+  PARTNER_CROSSOVER,
+  PARTNER_HEADLINES,
+  PARTNER_OPTIONS,
+  PARTNER_TABLE,
   REFERRAL,
   REFERRAL_FAQ,
   REFERRAL_STEPS,
@@ -16,9 +23,9 @@ import {
 import { breadcrumbSchema, faqSchemaFor, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Refer a Property, Receive £275",
+  title: "Estate Agent Referrals: £275 or 3% of Three Months",
   description:
-    "Introduce a London landlord to Slate & Cove and receive £275 when the property goes live. Open to estate agents and to anyone who knows a property owner. One flat fee, no cap, and the client stays yours.",
+    "Introduce a London landlord to Slate & Cove and take £275 when the property goes live, or 3% of what it earns across its first three months. You choose per property. We do not act on sales or long tenancies, so the client stays yours.",
   path: "/partners",
 });
 
@@ -42,7 +49,9 @@ export default function PartnersPage() {
           <div className="page-head__body">
             <p className="lead">
               Introduce them to Slate &amp; Cove. We manage the property, and
-              you receive a {REFERRAL.fee} referral reward when it goes live.
+              you take £{PARTNER.flatFee} when it goes live, or 3% of what it
+              earns for its first three months. Your choice, property by
+              property.
             </p>
             <div className="hero__cta hero__cta--pair">
               <Link className="btn btn--solid" href="#refer">
@@ -56,21 +65,74 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      {/* The figure, once, large. It is the whole offer and it should be
-          readable from across the room. */}
+      {/* The two options. An agent's book is not uniform, so the choice is
+          made per property rather than once for the relationship. */}
       <section className="section section--dark">
-        <div className="wrap fee">
-          <p className="fee__figure">{REFERRAL.fee}</p>
-          <div className="fee__body">
-            <p className="fee__line">
-              For every property that goes live with us. One flat fee, whoever
-              you are and whatever the property earns.
-            </p>
-            <p className="fee__sub">
-              No percentage, no tiers, no cap. Paid {REFERRAL.window} of the
-              property going live and earning.
-            </p>
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow eyebrow--light">The terms</p>
+            <h2 className="d5">Paid on the listing, or paid on what it earns</h2>
           </div>
+          <div className="headlines headlines--light">
+            {PARTNER_HEADLINES.map(({ figure, note }) => (
+              <div className="headline" key={note}>
+                <p className="headline__figure">{figure}</p>
+                <p className="headline__note">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Compared</p>
+            <h2 className="d5">Which option suits which property</h2>
+          </div>
+          <div className="compare-scroll">
+            <div className="compare compare--two">
+              <div className="compare__head">Compared</div>
+              {PARTNER_OPTIONS.map((option) => (
+                <div className="compare__head is-center" key={option}>
+                  {option}
+                </div>
+              ))}
+
+              {PARTNER_TABLE.map(({ label, values }, row) => {
+                const last = row === PARTNER_TABLE.length - 1 ? " is-last" : "";
+                return (
+                  <Fragment key={label}>
+                    <div className={`compare__label${last}`}>{label}</div>
+                    {values.map((value) => (
+                      <div
+                        className={["compare__cell", last.trim()].filter(Boolean).join(" ")}
+                        key={`${label}-${value}`}
+                      >
+                        {value}
+                      </div>
+                    ))}
+                  </Fragment>
+                );
+              })}
+            </div>
+          </div>
+          <p className="note">
+            You choose per property, not once for everything you send. As a
+            rule of thumb the two come level at about £3,000 a month: below
+            that the flat fee pays more, above it the share does. A property
+            earning well is worth referring on the share.
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Work out one of yours</p>
+            <h2 className="d5">What would a property you have pay?</h2>
+          </div>
+          <PartnerCalculator />
         </div>
       </section>
 
@@ -92,6 +154,11 @@ export default function PartnersPage() {
               </div>
             ))}
           </div>
+          <p className="note">
+            Not in property yourself?{" "}
+            <Link href="/refer">The independent referral page</Link> has the
+            flat fee and nothing else to weigh up.
+          </p>
         </div>
       </section>
 

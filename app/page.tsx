@@ -52,7 +52,7 @@ export default function HomePage() {
                 different reader and must not compete with the estimate. */}
             <p className="hero__aside">
               Not a landlord?{" "}
-              <Link href="/partners">
+              <Link href="/refer">
                 Introduce one and take {REFERRAL.fee}
               </Link>
               .

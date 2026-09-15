@@ -23,7 +23,7 @@ import { REFERRAL } from "@/lib/content";
  * a banner: anything shaped like an advert is filtered out before it is read,
  * and that habit is strongest in exactly this position on the page.
  */
-const WHERE_IT_ALREADY_LIVES = ["/", "/partners", "/blog"];
+const WHERE_IT_ALREADY_LIVES = ["/", "/partners", "/blog", "/refer"];
 
 export default function WaysToWork() {
   const pathname = usePathname();
@@ -41,12 +41,12 @@ export default function WaysToWork() {
         </h2>
         <ul className="ways__list">
           <li className="way">
-            <Link className="way__link" href="/partners">
+            <Link className="way__link" href="/refer">
               Refer a property, take {REFERRAL.fee}
             </Link>
             <span className="way__note">
               Introduce a landlord and take {REFERRAL.fee} when the property
-              goes live. Estate agents and anybody else, same terms.
+              goes live. Estate agents have a choice of terms.
             </span>
           </li>
           <li className="way">

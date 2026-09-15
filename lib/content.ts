@@ -267,6 +267,7 @@ export const AREAS = [
 /** Extra footer links that are not in the main navigation. */
 export const FOOTER_EXTRA = [
   { href: "/submit-property", label: "Submit your property" },
+  { href: "/refer", label: "Refer a property" },
 ] as const;
 
 export const FOOTER_SERVICES = [
@@ -282,6 +283,81 @@ export const FOOTER_SERVICES = [
 /* --------------------------------------------------------------------------
    Estate and letting agent partnership
    -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Estate agents: two ways to be paid
+   -------------------------------------------------------------------------- */
+
+/**
+ * Agents choose per property between a flat fee and a share of what the
+ * property earns for its first three months.
+ *
+ * The choice exists because an agent's book is not uniform. A studio and a
+ * Kensington house are worth very different amounts to us, and one flat fee
+ * pays the same for both, which under-rewards exactly the referral we most
+ * want: a high-revenue property. The share fixes that without us guessing at
+ * a property's value in advance.
+ *
+ * It is offered to agents only. An agent refers repeatedly and will happily
+ * learn a rule; somebody who knows one landlord will not, and asking them to
+ * weigh two structures is how an introduction stops being made. Independent
+ * referrers get the flat fee, stated on its own page.
+ */
+export const PARTNER = {
+  flatFee: 275,
+  revenueShare: 0.03,
+  revenueMonths: 3,
+} as const;
+
+const money = (n: number) => `£${Math.round(n).toLocaleString("en-GB")}`;
+
+/** What the share pays on a given monthly revenue. */
+export const partnerUpside = (monthlyRevenue: number) =>
+  monthlyRevenue * PARTNER.revenueShare * PARTNER.revenueMonths;
+
+/** Where the two come level. Derived, so it cannot drift from the fee. */
+export const PARTNER_CROSSOVER =
+  PARTNER.flatFee / (PARTNER.revenueShare * PARTNER.revenueMonths);
+
+export const PARTNER_OPTIONS = ["The flat fee", "The share"] as const;
+
+export const PARTNER_HEADLINES = [
+  { figure: money(PARTNER.flatFee), note: "per property, once the listing is live" },
+  { figure: "3%", note: "of revenue, across the first three months" },
+  { figure: "Per property", note: "you choose, not once for all of them" },
+  { figure: "One email", note: "the whole of your involvement" },
+] as const;
+
+/**
+ * The worked examples are three real London property shapes rather than round
+ * numbers, and they are chosen so each option wins one. An agent should be
+ * able to find their own property in the list.
+ */
+const EXAMPLES = [
+  { label: "A one bedroom in Ealing at £2,400 a month", revenue: 2400, units: 1 },
+  { label: "A two bedroom in Kensington at £6,000 a month", revenue: 6000, units: 1 },
+  { label: "Five flats in one block at £3,500 each", revenue: 3500, units: 5 },
+] as const;
+
+export const PARTNER_TABLE = [
+  {
+    label: "How it is worked out",
+    values: ["One fee for the property", "3% of what the property earns"],
+  },
+  {
+    label: "When it reaches you",
+    values: ["Within 14 days of the listing going live", "Three monthly payments, alongside the owner's"],
+  },
+  {
+    label: "Suits",
+    values: ["Smaller units, and knowing the figure in advance", "Higher earning flats, and portfolios"],
+  },
+  ...EXAMPLES.map(({ label, revenue, units }) => ({
+    label,
+    values: [money(PARTNER.flatFee * units), money(partnerUpside(revenue) * units)] as const,
+  })),
+] as const;
+
 
 /**
  * The referral programme. One figure, one trigger, one audience.
@@ -315,13 +391,13 @@ export const REFERRERS = [
     kind: "Estate and letting agents",
     icon: ["M5.5 4.5h13v7h-13z", "M9 11.5v8", "M6 19.5h6"],
     copy: "You already act for landlords whose property is empty, will not shift, or is earning less than it should. Introduce one and we take it from there. We do not act on sales or long tenancies, so there is no instruction of yours for us to compete for.",
-    point: "The client stays yours, in writing.",
+    point: "£275, or 3% for three months. Your choice, per property.",
   },
   {
     kind: "Anyone else",
     icon: ["M12 3.5 5 7v6c0 4 3 6.9 7 7.5 4-.6 7-3.5 7-7.5V7Z", "M8.8 12.2 11 14.4l4.2-4.4"],
-    copy: "You do not have to work in property. Mortgage brokers, solicitors, accountants, relocation agents, developers, existing landlords, or somebody who simply knows an owner with an empty flat. The fee and the terms are identical.",
-    point: "Same £275, same trigger, no paperwork.",
+    copy: "You do not have to work in property. Mortgage brokers, solicitors, accountants, relocation agents, developers, existing landlords, or somebody who simply knows an owner with an empty flat. One flat fee, nothing to weigh up.",
+    point: "A flat £275 when the property goes live.",
   },
 ] as const;
 
@@ -365,8 +441,8 @@ export const REFERRAL_STEPS = [
   },
   {
     num: "05",
-    title: "You are paid £275",
-    copy: "Within 14 days of the property going live, on our normal payout cycle. Nothing to invoice and nothing to chase.",
+    title: "You are paid",
+    copy: "Whichever option you took, within 14 days of the property going live, on our normal payout cycle. Nothing to invoice and nothing to chase.",
   },
 ] as const;
 
@@ -383,11 +459,11 @@ export const REFERRAL_TERMS = [
 export const REFERRAL_FAQ = [
   {
     q: "Who can become a partner?",
-    a: "Anyone. Estate and letting agents are the reason the programme exists, but it is not limited to them. Mortgage brokers, solicitors, accountants, relocation agents, developers, landlords and people who simply know an owner with an empty flat are all paid on the same terms.",
+    a: "Anyone. Estate and letting agents are the reason the programme exists and they get a choice of how they are paid, because they refer repeatedly and their properties vary. Everybody else, mortgage brokers, solicitors, accountants, relocation agents, developers, landlords and people who simply know an owner with an empty flat, takes the flat £275.",
   },
   {
     q: "How much do I receive?",
-    a: "£275 for each property that goes live with us. One figure, whoever you are and whatever the property earns. There is no percentage, no tier and no cap on how many you refer.",
+    a: "Estate and letting agents choose per property: £275 when the property goes live, or 3% of what it earns across its first three months. The two come level at about £3,000 a month, so a higher earning property is usually worth taking on the share. Everyone else takes the flat £275. There is no cap on how many properties you refer, either way.",
   },
   {
     q: "When do I get paid?",
@@ -555,4 +631,20 @@ export const THE_WORK = [
   "Reviews, asked for and answered",
   "Keeping the calendar full and the gaps priced",
   "Whatever goes wrong at two in the morning",
+] as const;
+
+/**
+ * Who actually refers a property, written as jobs somebody holds rather than
+ * as a list of "partner types". These are the people who find out first that
+ * an owner has a property doing nothing.
+ */
+export const WHO_CAN_REFER = [
+  "A friend or a relative with a flat they have stopped getting much out of",
+  "A mortgage broker whose client has just completed on a second property",
+  "A solicitor acting on a probate sale that nobody wants to rush",
+  "An accountant whose client is asking what to do with an empty property",
+  "A relocation agent whose client is leaving the country for a year",
+  "A developer with completed units that have not sold yet",
+  "A landlord who knows another landlord",
+  "A builder, a cleaner or a concierge who sees inside a lot of properties",
 ] as const;
