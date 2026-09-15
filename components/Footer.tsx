@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FOOTER_AREAS } from "@/lib/areas";
-import { CONTACT, FOOTER_EXTRA, FOOTER_SERVICES, NAV } from "@/lib/content";
+import { CONTACT, FOOTER_EXTRA, NAV } from "@/lib/content";
+import { SERVICE_PAGES } from "@/lib/services";
 
 export default function Footer() {
   return (
@@ -20,7 +21,7 @@ export default function Footer() {
         <div>
           <div className="footer__heading">Pages</div>
           <ul className="footer__col">
-            {[...NAV, ...FOOTER_EXTRA].map(({ href, label }) => (
+            {[{ href: "/", label: "Home" }, ...NAV, ...FOOTER_EXTRA].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href}>{label}</Link>
               </li>
@@ -31,8 +32,10 @@ export default function Footer() {
         <div>
           <div className="footer__heading">Services</div>
           <ul className="footer__col">
-            {FOOTER_SERVICES.map((service) => (
-              <li key={service}>{service}</li>
+            {SERVICE_PAGES.map((service) => (
+              <li key={service.slug}>
+                <Link href={`/services/${service.slug}/`}>{service.name}</Link>
+              </li>
             ))}
           </ul>
         </div>

@@ -5,10 +5,10 @@ import {
   MANAGEMENT_FEES,
   FOOTER_EXTRA,
   NAV,
-  SERVICES,
   STEPS,
 } from "@/lib/content";
 import { AREA_PAGES } from "@/lib/areas";
+import { SERVICE_PAGES } from "@/lib/services";
 import { POSTS } from "@/lib/blog";
 import { SITE } from "@/lib/seo";
 
@@ -43,7 +43,7 @@ tenancy.
 
 ## What is included
 
-${SERVICES.map((s) => `- ${s.title}: ${s.copy}`).join("\n")}
+${SERVICE_PAGES.map((s) => `- ${s.name}: ${s.summary}\n  ${url(`/services/${s.slug}`)}`).join("\n")}
 
 Listings run on Airbnb, Booking.com, Vrbo, Expedia and Blueground. Short-let
 compliance, including the 90-night rule, is tracked.

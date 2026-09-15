@@ -4,7 +4,7 @@
 // than duplicated markup.
 
 export const NAV = [
-  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/locations", label: "Locations" },

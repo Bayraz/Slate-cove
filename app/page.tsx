@@ -4,13 +4,13 @@ import Icon from "@/components/Icon";
 import Explainer from "@/components/Explainer";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import { FOOTER_AREAS } from "@/lib/areas";
+import { SERVICE_PAGES } from "@/lib/services";
 import { HERO_IMAGES } from "@/lib/images";
 import {
   LANDLORD_REFERRAL,
   PARTNER,
   COMPARISON_COLUMNS,
   COMPARISON_ROWS,
-  SERVICES,
   STATS,
 } from "@/lib/content";
 
@@ -20,11 +20,20 @@ export default function HomePage() {
       <section className="section">
         <div className="wrap hero">
           <div className="hero__body">
-            <p className="eyebrow">Short-let &amp; Airbnb management in London</p>
-            <h1 className="d1">Your property, managed properly</h1>
+            <p className="eyebrow">
+              Short-let &amp; Airbnb management in London
+            </p>
+            {/* Two lines, because the break is the point: the property is
+                yours, the work is ours. */}
+            <h1 className="d1">
+              Your property.
+              <br />
+              Properly managed.
+            </h1>
             <p className="lead-lg">
-              We list it, price it, host it and clean it. You hand over the keys
-              and read one report a month.
+              End-to-end short-let management across London and the Home
+              Counties. We handle the listing, pricing, guests, cleaning,
+              maintenance and reporting. You do not have to.
             </p>
             {/* All four in one grid: two rows of two, every box the same
                 width and the same height. The solid one stays the only filled
@@ -32,7 +41,7 @@ export default function HomePage() {
                 they are all the same size. */}
             <div className="hero__cta">
               <Link className="btn btn--solid" href="/submit-property">
-                Get a free estimate
+                Get a free income estimate
               </Link>
               <Link className="btn btn--outline" href="/how-it-works">
                 See how it works
@@ -86,15 +95,17 @@ export default function HomePage() {
             with no day-to-day involvement.
           </p>
 
-          <div className="services">
-            {SERVICES.map(({ title, copy, icon }) => (
-              <div className="service" key={title}>
-                <Icon className="service__icon" d={icon} />
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
+          <ul className="svclist svclist--hub">
+            {SERVICE_PAGES.map((s) => (
+              <li key={s.slug}>
+                <Link href={`/services/${s.slug}/`}>
+                  <Icon className="svclist__icon" d={s.icon} />
+                  <span className="svclist__name">{s.name}</span>
+                  <span className="svclist__sum">{s.summary}</span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div className="coverage-note">
             <p className="note">Where we manage</p>

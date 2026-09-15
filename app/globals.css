@@ -2556,3 +2556,65 @@ html.js-reveal main > section.is-visible {
   .hero__cta { grid-template-columns: 1fr; gap: 14px; }
   .hero__refer-label { padding-top: 18px; }
 }
+
+/* --------------------------------------------------------------------------
+   Service pages
+   -------------------------------------------------------------------------- */
+
+/* Two definitions side by side: what the thing is, and why an owner should
+   care. A reader who takes only these two paragraphs has the service. */
+.svc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; }
+.svc__block { display: flex; flex-direction: column; gap: 18px; border-top: 2px solid var(--blue); padding-top: 28px; }
+.svc__h {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+
+/* The method, numbered because these genuinely happen in this order. */
+.howlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.howlist > li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-top: 1px solid var(--blue);
+  font-size: 19px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.howlist__n { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; color: var(--wine); }
+
+/* The other services, as a list of links rather than a grid of cards: it is
+   navigation, and a card implies there is something to read here. */
+.svclist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
+.svclist--hub { grid-template-columns: repeat(2, 1fr); }
+.svclist > li { border-top: 1px solid var(--blue); }
+.svclist a {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 6px 18px;
+  padding: 24px 0 26px;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+.svclist a:hover { color: var(--wine); }
+.svclist a:hover .svclist__name { color: var(--wine); }
+.svclist__icon { grid-row: 1 / 3; width: 28px; height: 28px; color: var(--wine); margin-top: 4px; }
+.svclist__name { font-family: var(--serif); font-size: 26px; line-height: 1.15; color: var(--ink-deep); transition: color 0.2s ease; }
+.svclist__sum { font-size: 16px; line-height: 1.6; font-weight: 300; color: var(--muted); text-wrap: pretty; }
+
+@media (max-width: 860px) {
+  .svc { grid-template-columns: 1fr; gap: 32px; }
+  .svclist, .svclist--hub { grid-template-columns: 1fr; gap: 0; }
+  .howlist > li { grid-template-columns: 40px 1fr; gap: 16px; font-size: 17px; }
+  .svclist__name { font-size: 22px; }
+}
