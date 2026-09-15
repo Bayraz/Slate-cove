@@ -280,7 +280,7 @@ export default function Explainer() {
                 We will tell you what it could earn. Free, and no lock-in contract.
               </span>
               <Link className="btn btn--solid xp-cta" href="/submit-property">
-                Get a free estimate
+                Get a free property estimate
               </Link>
             </div>
           </section>

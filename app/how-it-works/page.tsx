@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import Explainer from "@/components/Explainer";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { FAQ, STEPS } from "@/lib/content";
@@ -32,6 +33,15 @@ export default function HowItWorksPage() {
             From your first enquiry to your first payout, this is exactly what to
             expect when you appoint us.
           </p>
+        </div>
+      </section>
+
+      {/* The process as a walk-through, moved here from the home page where
+          it duplicated four separate sections. It belongs on the page that
+          exists to explain the process. */}
+      <section className="section">
+        <div className="wrap">
+          <Explainer />
         </div>
       </section>
 

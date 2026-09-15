@@ -1,130 +1,203 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
-import Explainer from "@/components/Explainer";
 import HeroSlideshow from "@/components/HeroSlideshow";
+import JsonLd from "@/components/JsonLd";
 import { FOOTER_AREAS } from "@/lib/areas";
-import { SERVICE_PAGES } from "@/lib/services";
 import { HERO_IMAGES } from "@/lib/images";
+import { SERVICE_BY_SLUG } from "@/lib/services";
 import {
-  REFERRAL,
+  ASSURANCES,
   COMPARISON_COLUMNS,
   COMPARISON_ROWS,
-  STATS,
+  HOME_FAQ,
+  HOW_IT_WORKS,
+  OWNERS,
+  REFERRAL,
+  SERVICE_GROUPS,
+  THE_WORK,
 } from "@/lib/content";
+import { faqSchemaFor } from "@/lib/seo";
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd schema={faqSchemaFor("/", HOME_FAQ)} />
+
+      {/* 1. Hero ------------------------------------------------------- */}
       <section className="section">
         <div className="wrap hero">
           <div className="hero__body">
             <p className="eyebrow">
               Short-let &amp; Airbnb management in London
             </p>
-            {/* Two lines, because the break is the point: the property is
-                yours, the work is ours. */}
-            <h1 className="d1">
-              Your property.
-              <br />
-              Properly managed.
-            </h1>
+            <h1 className="d1">Your property, managed properly</h1>
             <p className="lead-lg">
-              End-to-end short-let management across London and the Home
-              Counties. We handle the listing, pricing, guests, cleaning,
-              maintenance and reporting. You do not have to.
+              We manage London short lets end to end: the listing, the pricing,
+              the guests, the cleaning, the maintenance and the reporting. You
+              keep the property and the income, and none of the work.
             </p>
-            {/* All four in one grid: two rows of two, every box the same
-                width and the same height. The solid one stays the only filled
-                one, which is what carries the order of importance now that
-                they are all the same size. */}
-            <div className="hero__cta">
+
+            <div className="hero__cta hero__cta--pair">
               <Link className="btn btn--solid" href="/submit-property">
-                Get a free income estimate
+                Get a free property estimate
               </Link>
               <Link className="btn btn--outline" href="/how-it-works">
-                See how it works
-              </Link>
-
-              <p className="hero__refer-label">Introduce a landlord</p>
-              <Link className="btn btn--outline hero__cta-wide" href="/partners">
-                Refer a property, take {REFERRAL.fee}
+                How it works
               </Link>
             </div>
 
-            <div className="stats">
-              {STATS.map(({ figure, label }) => (
-                <div className="stat" key={label}>
-                  <span className="stat__figure">{figure}</span>
-                  <span className="stat__label">{label}</span>
-                </div>
-              ))}
-            </div>
+            {/* The referral route, deliberately one quiet line. It is for a
+                different reader and must not compete with the estimate. */}
+            <p className="hero__aside">
+              Not a landlord?{" "}
+              <Link href="/partners">
+                Introduce one and take {REFERRAL.fee}
+              </Link>
+              .
+            </p>
           </div>
           <HeroSlideshow images={HERO_IMAGES} />
         </div>
       </section>
 
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
-            <p className="eyebrow">The short version</p>
-            <h2 className="d5">How this works for you</h2>
-          </div>
-          <Explainer />
+      {/* 2. Reassurance. Facts about the service, not predictions. ------ */}
+      <section className="section section--tight">
+        <div className="wrap assure">
+          {ASSURANCES.map(({ figure, label }) => (
+            <div className="assure__item" key={label}>
+              <span className="assure__figure">{figure}</span>
+              <span className="assure__label">{label}</span>
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* 3. The problem, stated plainly. The interactive explainer that used
+             to sit here now lives on the how-it-works page: it covered the
+             problem, the process, the services and the comparison, which are
+             four of the sections below, and saying all of it twice is what
+             made this page long. ------------------------------------------ */}
       <section className="section">
-        <div className="wrap stack">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">The problem</p>
+            <h2 className="d5">
+              Short lets pay well. Running one is a different job.
+            </h2>
+          </div>
+          <p className="lead">
+            A short let is a small hospitality business attached to a flat. It
+            is not difficult work, but it is constant, and almost none of it
+            can wait until the weekend.
+          </p>
+          <ul className="work">
+            {THE_WORK.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 4. Who it is for. --------------------------------------------- */}
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Who we work with</p>
+            <h2 className="d5">Owners who would rather not run it themselves</h2>
+          </div>
+          <ul className="owners">
+            {OWNERS.map(({ who, copy }) => (
+              <li key={who}>
+                <p className="owners__who">{who}</p>
+                <p className="owners__copy">{copy}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 5. What we handle, in four groups rather than eight cards. ----- */}
+      <section className="section">
+        <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">What we handle</p>
             <h2 className="d5">A short let managed end to end, by one team</h2>
           </div>
-
-          {/* The strongest claim on the page, given its own line rather than
-              buried in a paragraph. */}
-          <p className="pullout">
-            Landlords typically earn{" "}
-            <strong>30&ndash;40% more than a standard long-term tenancy</strong>,
-            with no day-to-day involvement.
-          </p>
-
-          <ul className="svclist svclist--hub">
-            {SERVICE_PAGES.map((s) => (
-              <li key={s.slug}>
-                <Link href={`/services/${s.slug}/`}>
-                  <Icon className="svclist__icon" d={s.icon} />
-                  <span className="svclist__name">{s.name}</span>
-                  <span className="svclist__sum">{s.summary}</span>
-                </Link>
-              </li>
+          <div className="groups">
+            {SERVICE_GROUPS.map(({ group, copy, items }) => (
+              <div className="group" key={group}>
+                <h3 className="group__name">{group}</h3>
+                <p className="group__copy">{copy}</p>
+                <ul className="group__list">
+                  {items.map((slug) => {
+                    const service = SERVICE_BY_SLUG.get(slug);
+                    if (!service) return null;
+                    return (
+                      <li key={slug}>
+                        <Link href={`/services/${slug}/`}>{service.name}</Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
+          <p className="note">
+            <Link href="/services">
+              Every one of these explained in full
+            </Link>
+            , including what it changes about what a property earns.
+          </p>
+        </div>
+      </section>
 
-          <div className="coverage-note">
-            <p className="note">Where we manage</p>
-            <ul className="chips">
-              {FOOTER_AREAS.map((area) => (
-                <li key={area.slug}>
-                  <Link href={`/locations/${area.slug}/`}>{area.name}</Link>
-                </li>
-              ))}
-              <li>
-                <Link className="chips__all" href="/locations/">
-                  All 38 areas
-                </Link>
-              </li>
-            </ul>
+      {/* 6. How it works. ---------------------------------------------- */}
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">How it works</p>
+            <h2 className="d5">You hand over the keys. We take it from there.</h2>
+          </div>
+          <div className="steps">
+            {HOW_IT_WORKS.map(({ num, title, copy }) => (
+              <div className="step step--plain" key={num}>
+                <div className="step__num" aria-hidden="true">
+                  {num}
+                </div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section section--alt">
+      {/* 7. The estimate. Sells the conversation, not a number. -------- */}
+      <section className="section section--dark">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow eyebrow--light">Property potential</p>
+            <h2 className="d5">What could your property earn?</h2>
+          </div>
+          <p className="fee__line">
+            Every property is different. We assess yours on its location, size,
+            condition and what comparable properties nearby are actually
+            achieving, then tell you honestly what it could do. If a short let
+            is the wrong answer for your property, we will say that instead.
+          </p>
+          <Link className="btn btn--light" href="/submit-property">
+            Get a free property estimate
+          </Link>
+        </div>
+      </section>
+
+      {/* 8. The comparison. -------------------------------------------- */}
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">The comparison</p>
-            <h2 className="d5">Compare what&rsquo;s included</h2>
+            <h2 className="d5">Which model suits your property</h2>
           </div>
           <div className="compare-scroll">
             <div className="compare">
@@ -169,29 +242,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The referral offer. One figure, one audience, one link. */}
-      <section className="section section--dark">
+      {/* 9. Where we manage. ------------------------------------------- */}
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow eyebrow--light">Referral programme</p>
-            <h2 className="d5">Know a landlord who needs a better option?</h2>
+            <p className="eyebrow">Where we manage</p>
+            <h2 className="d5">Across London and the Home Counties</h2>
           </div>
-          <div className="fee">
-            <p className="fee__figure">{REFERRAL.fee}</p>
-            <div className="fee__body">
-              <p className="fee__line">
-                Introduce a property owner to us and take {REFERRAL.fee} when
-                the property goes live. Estate agents and anybody else, on the
-                same terms.
-              </p>
-              <Link className="earn__link" href="/partners">
-                How referrals work
+          <ul className="chips">
+            {FOOTER_AREAS.map((area) => (
+              <li key={area.slug}>
+                <Link href={`/locations/${area.slug}/`}>{area.name}</Link>
+              </li>
+            ))}
+            <li>
+              <Link className="chips__all" href="/locations/">
+                View all areas
               </Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
 
+      {/* 10. FAQ and the final call to action. -------------------------- */}
+      <section className="section">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">FAQ</p>
+            <h2 className="d5">What landlords ask us first</h2>
+          </div>
+          <div className="faq">
+            {HOME_FAQ.map(({ q, a }) => (
+              <details className="faq__item" key={q}>
+                <summary>
+                  <span>{q}</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+                       strokeLinecap="round" aria-hidden="true">
+                    <path d="M12 5.5v13M5.5 12h13" />
+                  </svg>
+                </summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+          <p className="note">
+            <Link href="/how-it-works">More questions answered</Link>, including
+            guest screening, damage and what the fee covers.
+          </p>
+        </div>
+      </section>
     </>
   );
 }

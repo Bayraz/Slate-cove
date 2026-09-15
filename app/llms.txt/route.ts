@@ -28,8 +28,7 @@ function body() {
 > ${SITE.description}
 
 Slate & Cove manages short lets end to end, so the owner has no day-to-day
-involvement. Landlords typically earn 30-40% more than a standard long-term
-tenancy.
+involvement.
 
 ## Pricing
 

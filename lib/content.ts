@@ -21,10 +21,21 @@ export const CONTACT = {
   hoursLines: ["Office, weekdays 9am–10pm", "Guest line, always"],
 } as const;
 
-export const STATS = [
-  { figure: "30–40%", label: "More than a long tenancy" },
-  { figure: "7 days", label: "Onboarding, at the fastest" },
-  { figure: "24/7", label: "Guest cover, every night" },
+/**
+ * The reassurance strip under the hero.
+ *
+ * It used to lead with "30-40% more than a long tenancy". Nothing in this
+ * repository substantiates that, and a comparative performance claim needs
+ * substantiating, so it is gone rather than restated more carefully. These
+ * four are facts about the service we sell rather than predictions about what
+ * a property will do, which is the difference between a claim we can defend
+ * and one we cannot.
+ */
+export const ASSURANCES = [
+  { figure: "London", label: "and the Home Counties" },
+  { figure: "End to end", label: "listing, guests, cleaning, upkeep" },
+  { figure: "24/7", label: "guest cover, every night" },
+  { figure: "Monthly", label: "owner report and payout" },
 ] as const;
 
 /**
@@ -74,7 +85,7 @@ export const SERVICES = [
   },
 ] as const;
 
-export const COMPARISON_COLUMNS = ["Slate & Cove", "Hosting yourself", "Estate agent"] as const;
+export const COMPARISON_COLUMNS = ["Slate & Cove", "Hosting yourself", "A long tenancy"] as const;
 
 export const COMPARISON_ROWS = [
   { label: "Short-stay lettings", values: ["Yes", "Yes", "No"] },
@@ -84,27 +95,6 @@ export const COMPARISON_ROWS = [
   { label: "Repairs & upkeep", values: ["Yes", "No", "Yes"] },
   { label: "Smart dynamic pricing", values: ["Yes", "No", "No"] },
   { label: "Listed across all platforms", values: ["Yes", "No", "No"] },
-] as const;
-
-export const TESTIMONIALS = [
-  {
-    quote:
-      "“Within the first month we were earning 35% more than with our previous long-term tenant. Absolutely brilliant service.”",
-    name: "James Thornton",
-    role: "Landlord, Manchester",
-  },
-  {
-    quote:
-      "“The team handled everything: photography, listings, guests, cleaning. I genuinely don't have to do a thing.”",
-    name: "Sarah Okafor",
-    role: "Property owner, London",
-  },
-  {
-    quote:
-      "“The transparency is what sets them apart. A clear monthly report and my payout lands on time every single month.”",
-    name: "David Whitmore",
-    role: "Landlord, Birmingham",
-  },
 ] as const;
 
 /** The tick used on feature lists. One definition, so they never diverge. */
@@ -149,7 +139,7 @@ export const STEPS = [
 export const FAQ = [
   {
     q: "How much can I earn?",
-    a: "Earnings depend on location, size, amenities and season. On average our managed properties earn 40% more than self-managed listings. We give a personalised estimate at the consultation, based on comparable properties nearby.",
+    a: "It depends on location, size, amenities and season, and anyone who gives you a figure before seeing the property is guessing. We give a personalised estimate at the consultation, based on what comparable properties nearby are actually achieving, and we will tell you if a short let is the wrong answer for your property.",
   },
   {
     q: "What does the fee cover?",
@@ -407,4 +397,142 @@ export const REFERRAL_FAQ = [
     q: "Will you take my client off me?",
     a: "No, and it is in the agreement rather than left to good faith. We do not act on sales or long tenancies at all, so there is no instruction of yours for us to compete for. When the owner is ready to sell or let long term, we tell them to speak to you.",
   },
+] as const;
+
+/* --------------------------------------------------------------------------
+   Home page: who it is for, and what we group the work into
+   -------------------------------------------------------------------------- */
+
+/**
+ * The owners we help, written as the sentence they would use about themselves
+ * rather than as a marketing segment. No claim about what any of them will
+ * earn: the point is recognition, not a promise.
+ */
+export const OWNERS = [
+  {
+    who: "Too busy to run it yourself",
+    copy: "You have a job. Guest messages at eleven at night and a cleaner who has not turned up are not part of it.",
+  },
+  {
+    who: "Living overseas",
+    copy: "The property is in London and you are not. Somebody has to hold keys, meet trades and answer the phone in the right time zone.",
+  },
+  {
+    who: "A property sitting empty",
+    copy: "Between tenancies, waiting on a sale, or simply unlet. An empty flat costs you every month it stands still.",
+  },
+  {
+    who: "Already hosting, and tired of it",
+    copy: "You have done it yourself and it works, but it has become a second job. The listing stays; the work moves.",
+  },
+  {
+    who: "A let that is not performing",
+    copy: "The tenancy no longer covers what it should, or the agent has gone quiet. Worth knowing what else the property could do.",
+  },
+  {
+    who: "Building a portfolio",
+    copy: "More than one property, and no appetite for running any of them. One team, one report, one point of contact.",
+  },
+] as const;
+
+/**
+ * The eight services in four groups.
+ *
+ * Eight separate cards asks the reader to hold eight things. Four groups asks
+ * them to hold one idea, that the whole job is covered, which is the thing we
+ * actually want them to leave with. Each service still links to its own page
+ * for anybody who wants the detail.
+ */
+export const SERVICE_GROUPS = [
+  {
+    group: "Property",
+    copy: "Getting it right before a guest ever sees it, and keeping it that way.",
+    items: ["photography", "listing-optimisation", "cleaning-and-linen", "maintenance"],
+  },
+  {
+    group: "Revenue",
+    copy: "What the property is priced at, and how often it sells.",
+    items: ["dynamic-pricing", "listing-optimisation"],
+  },
+  {
+    group: "Guests",
+    copy: "Who books, how they are handled, and what they write afterwards.",
+    items: ["guest-communication", "review-management"],
+  },
+  {
+    group: "Operations",
+    copy: "The running of it, and the record of what happened.",
+    items: ["cleaning-and-linen", "maintenance", "monthly-reporting"],
+  },
+] as const;
+
+/** The process, in the four stages an owner actually experiences. */
+export const HOW_IT_WORKS = [
+  {
+    num: "01",
+    title: "We assess the property",
+    copy: "A free consultation: the lease, the mortgage position, what it could realistically earn, and whether a short let suits it at all.",
+  },
+  {
+    num: "02",
+    title: "We prepare and list it",
+    copy: "Photography, the listing, pricing and compliance. Most properties are taking bookings inside two weeks of signing.",
+  },
+  {
+    num: "03",
+    title: "We manage the guests and the property",
+    copy: "Bookings, messages at any hour, changeovers, cleaning, linen and repairs. You can be as involved as you like.",
+  },
+  {
+    num: "04",
+    title: "You get a report and a payout",
+    copy: "Occupancy, revenue, costs, our fee and your payout, on one statement, every month.",
+  },
+] as const;
+
+/**
+ * The questions a landlord asks on the home page, which are not the same as
+ * the ones they ask after reading how it works. Six, then a link to the rest.
+ */
+export const HOME_FAQ = [
+  {
+    q: "What does Slate & Cove actually manage?",
+    a: "All of it. The listing, the photography, the pricing, every guest message, check-in, cleaning, linen, maintenance, reviews and a monthly report. The only decisions that come to you are the ones that are genuinely yours to make.",
+  },
+  {
+    q: "Do I have to deal with guests?",
+    a: "No. Guest communication is ours, day and night, from the first enquiry to the review afterwards. Most owners never speak to a guest.",
+  },
+  {
+    q: "Can I still use the property myself?",
+    a: "Yes. Block out whatever dates you want. On the flexible plan there is no minimum availability at all, which is why that plan carries the higher fee.",
+  },
+  {
+    q: "Do I need to furnish it first?",
+    a: "It needs to be furnished to let short-term, but you do not need to have done it before we speak. We will tell you what the property needs and what is worth spending, and we would rather say that before you spend than after.",
+  },
+  {
+    q: "What happens if something breaks?",
+    a: "We deal with it. Faults are triaged the same day, we use trades we have used before, and you set a limit below which we simply get it done rather than telephoning you about a toilet seat. Every job appears on your monthly statement.",
+  },
+  {
+    q: "How do I find out what my property could earn?",
+    a: "Send us the property. A manager comes back within 24 hours with a realistic figure based on what comparable properties nearby are achieving. It is free, there is no obligation, and if a short let is wrong for your property we will say so.",
+  },
+] as const;
+
+/**
+ * The work an owner is actually signing away. Stated plainly and once: the
+ * point is recognition rather than alarm, and a landlord who has done it for
+ * a month does not need persuading that it is a job.
+ */
+export const THE_WORK = [
+  "Guest messages, at whatever hour they arrive",
+  "Pricing the calendar, night by night",
+  "Check-ins, keys and late arrivals",
+  "Cleaning and linen between every stay",
+  "Maintenance, and the trades to do it",
+  "Reviews, asked for and answered",
+  "Keeping the calendar full and the gaps priced",
+  "Whatever goes wrong at two in the morning",
 ] as const;
