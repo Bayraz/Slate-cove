@@ -610,7 +610,11 @@ img { max-width: 100%; display: block; }
    How it works: numbered steps
    -------------------------------------------------------------------------- */
 
-.steps { padding: 0; }
+/* The intent here is no vertical padding: the rows carry their own. The
+   shorthand also wiped the horizontal gutter this element inherits from
+   .wrap, which pushed every step out to the edge of the viewport while the
+   rest of the page stayed inset. padding-block only touches the axis meant. */
+.steps { padding-block: 0; }
 .step {
   display: grid;
   grid-template-columns: 76px 44px 300px 1fr;
