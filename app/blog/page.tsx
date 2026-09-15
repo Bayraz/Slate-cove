@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { POSTS, formatDate } from "@/lib/blog";
+import { REFERRAL } from "@/lib/content";
 import { blogSchema, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -59,6 +60,23 @@ export default function BlogIndexPage() {
               ))}
             </ul>
           )}
+        </div>
+      </section>
+
+      <section className="section section--alt" id="refer">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Referral programme</p>
+            <h2 className="d5">
+              Know another landlord? That is worth {REFERRAL.fee}
+            </h2>
+          </div>
+          <p className="lead">
+            Introduce a property owner to us and we pay you {REFERRAL.fee} once
+            their property is live and earning, {REFERRAL.window}. Anyone can
+            refer, and there is no cap.{" "}
+            <Link href="/partners">See how referrals work</Link>.
+          </p>
         </div>
       </section>
 

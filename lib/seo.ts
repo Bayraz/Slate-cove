@@ -186,6 +186,82 @@ export function areaServiceSchema(areaName: string, path: string) {
 }
 
 /**
+ * One of the eight services, as its own offering.
+ *
+ * `areaServed` repeats the places from the organisation rather than pointing
+ * at them, because a Service is frequently read on its own by an assistant
+ * that has not fetched the organisation node, and "where" is half of what it
+ * needs to answer a question about us.
+ */
+export function serviceSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${canonicalUrl(path)}#service`,
+    name,
+    description,
+    serviceType: "Short-let and Airbnb property management",
+    provider: { "@id": `${SITE.url}/#organisation` },
+    areaServed: servedPlaces.map((place) => ({ "@type": "Place", name: place })),
+    url: canonicalUrl(path),
+    isPartOf: { "@id": `${SITE.url}/services/#catalogue` },
+  };
+}
+
+/**
+ * The eight services as one offer catalogue, so an assistant reading the hub
+ * gets the whole service list as a set rather than eight unrelated pages.
+ */
+export function serviceCatalogueSchema(
+  services: { name: string; summary: string; slug: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${SITE.url}/services/#catalogue`,
+    name: `${SITE.name} short-let management services`,
+    provider: { "@id": `${SITE.url}/#organisation` },
+    itemListElement: services.map(({ name, summary, slug }, i) => ({
+      "@type": "Offer",
+      position: i + 1,
+      itemOffered: {
+        "@type": "Service",
+        "@id": `${canonicalUrl(`/services/${slug}`)}#service`,
+        name,
+        description: summary,
+        url: canonicalUrl(`/services/${slug}`),
+      },
+    })),
+  };
+}
+
+/**
+ * A FAQPage for any page that carries questions. A FAQPage is tied to the URL
+ * it appears on, so each one needs its own id rather than sharing the one on
+ * the how-it-works page.
+ */
+export function faqSchemaFor(path: string, items: readonly { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${canonicalUrl(path)}#faq`,
+    mainEntity: items.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
+}
+
+/**
  * A single blog post. `BlogPosting` is what Google and the AI assistants read
  * to know this is an article, who wrote it and when it was last revised, which
  * is the part that matters for a piece that gets updated as rules change.

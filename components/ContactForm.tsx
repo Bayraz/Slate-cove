@@ -92,6 +92,7 @@ export default function ContactForm() {
         <span>What is this about?</span>
         <select name="enquiry-type" defaultValue="I have a property to let" required>
           <option>I have a property to let</option>
+          <option>I am an estate or letting agent</option>
           <option>I am already a client</option>
           <option>I am a guest with a booking question</option>
           <option>Press or partnership</option>

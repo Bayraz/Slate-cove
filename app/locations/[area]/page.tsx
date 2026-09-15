@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { AREA_BY_SLUG, AREA_PAGES, nearbyAreas } from "@/lib/areas";
-import { MANAGEMENT_FEES, SERVICES } from "@/lib/content";
+import { MANAGEMENT_FEES } from "@/lib/content";
+import { SERVICE_PAGES } from "@/lib/services";
 import { SITE, areaServiceSchema, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 const PROPERTY_ICON = [
@@ -94,15 +95,20 @@ export default async function AreaPage({ params }: Props) {
               {area.name} as everywhere else we manage.
             </p>
           </div>
-          <div className="services">
-            {SERVICES.map(({ title, copy, icon }) => (
-              <div className="service" key={title}>
-                <Icon className="service__icon" d={icon} />
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
+          {/* Links rather than cards. Thirty-eight area pages each linking to
+              the same eight service pages is the internal linking that tells a
+              crawler these are one business, not thirty-eight. */}
+          <ul className="svclist svclist--hub">
+            {SERVICE_PAGES.map((service) => (
+              <li key={service.slug}>
+                <Link href={`/services/${service.slug}/`}>
+                  <Icon className="svclist__icon" d={service.icon} />
+                  <span className="svclist__name">{service.name}</span>
+                  <span className="svclist__sum">{service.summary}</span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 

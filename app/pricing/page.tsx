@@ -5,6 +5,7 @@ import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
   EXCLUSIONS,
+  REFERRAL,
   MANAGEMENT_FEES,
   PLAN_FLEXIBLE,
   PLAN_FULL_TIME,
@@ -122,6 +123,23 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section section--alt">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Referrals</p>
+            <h2 className="d5">
+              Know another landlord? That is worth {REFERRAL.fee}
+            </h2>
+          </div>
+          <p className="lead">
+            Introduce another owner and we pay you {REFERRAL.fee}, within 14
+            days of their property going live. Anyone can refer, client or not,
+            and there is no cap.{" "}
+            <Link href="/partners">See how referrals work</Link>.
+          </p>
         </div>
       </section>
 

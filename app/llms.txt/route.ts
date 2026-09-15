@@ -5,10 +5,11 @@ import {
   MANAGEMENT_FEES,
   FOOTER_EXTRA,
   NAV,
-  SERVICES,
   STEPS,
 } from "@/lib/content";
 import { AREA_PAGES } from "@/lib/areas";
+import { SERVICE_PAGES } from "@/lib/services";
+import { PARTNER, REFERRAL } from "@/lib/content";
 import { POSTS } from "@/lib/blog";
 import { SITE } from "@/lib/seo";
 
@@ -28,8 +29,10 @@ function body() {
 > ${SITE.description}
 
 Slate & Cove manages short lets end to end, so the owner has no day-to-day
-involvement. Landlords typically earn 30-40% more than a standard long-term
-tenancy.
+involvement. A well-run short let can potentially earn 30-40% more than a
+traditional long-term let, depending on the property, its location, its
+availability and what it costs to run. That is potential rather than a result
+every property achieves, and Slate & Cove assesses a property before quoting.
 
 ## Pricing
 
@@ -43,7 +46,7 @@ tenancy.
 
 ## What is included
 
-${SERVICES.map((s) => `- ${s.title}: ${s.copy}`).join("\n")}
+${SERVICE_PAGES.map((s) => `- ${s.name}: ${s.summary}\n  ${url(`/services/${s.slug}`)}`).join("\n")}
 
 Listings run on Airbnb, Booking.com, Vrbo, Expedia and Blueground. Short-let
 compliance, including the 90-night rule, is tracked.
@@ -51,6 +54,18 @@ compliance, including the 90-night rule, is tracked.
 ## How it works
 
 ${STEPS.map((s) => `${s.num}. ${s.title}: ${s.copy}`).join("\n\n")}
+
+## Referral programme
+
+Anyone can introduce a property owner to Slate & Cove.
+
+Estate and letting agents choose, per property, between £${PARTNER.flatFee} when the
+property goes live and 3% of what it earns across its first three months. The
+two come level at about £3,000 a month.
+${url("/partners")}
+
+Everyone else takes a flat ${REFERRAL.fee} when the property goes live. No cap.
+${url("/refer")}
 
 ## Areas covered
 
