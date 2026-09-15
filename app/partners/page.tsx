@@ -23,7 +23,7 @@ import {
 import { breadcrumbSchema, faqSchemaFor, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Estate Agent Referrals: £275 or 3% of Three Months",
+  title: "Estate Agents & Partners: Refer a Property",
   description:
     "Introduce a London landlord to Slate & Cove and take £275 when the property goes live, or 3% of what it earns across its first three months. You choose per property. We do not act on sales or long tenancies, so the client stays yours.",
   path: "/partners",
@@ -35,7 +35,7 @@ export default function PartnersPage() {
       <JsonLd
         schema={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "For estate agents", path: "/partners" },
+          { name: "Agents & partners", path: "/partners" },
         ])}
       />
       <JsonLd schema={faqSchemaFor("/partners", REFERRAL_FAQ)} />
@@ -43,7 +43,7 @@ export default function PartnersPage() {
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
-            <p className="eyebrow">Referral programme</p>
+            <p className="eyebrow">For estate agents and partners</p>
             <h1 className="d2">Have a landlord who needs a better option?</h1>
           </div>
           <div className="page-head__body">
