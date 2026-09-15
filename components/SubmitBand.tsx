@@ -15,7 +15,7 @@ import PropertySubmissionForm from "@/components/PropertySubmissionForm";
  * means duplicate field names, which confuses browser autofill and gives a
  * screen reader two identically labelled sets of controls.
  */
-const ALREADY_HAS_A_FORM = ["/submit-property", "/contact"];
+const ALREADY_HAS_A_FORM = ["/submit-property", "/contact", "/partners"];
 
 export default function SubmitBand() {
   const pathname = usePathname();

@@ -1,30 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Fragment } from "react";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
-import PartnerCalculator from "@/components/PartnerCalculator";
-import ReferralLoop from "@/components/ReferralLoop";
+import ReferralForm from "@/components/ReferralForm";
 import {
   CONTACT,
-  LANDLORD_REFERRAL,
-  PARTNER,
-  PARTNER_HEADLINES,
-  PARTNER_OPTIONS,
-  PARTNER_ROUTES,
-  PARTNER_SEND,
-  PARTNER_TABLE,
-  PARTNER_FAQ,
-  PARTNER_STEPS,
-  PARTNER_TERMS,
+  REFERRAL,
+  REFERRAL_FAQ,
+  REFERRAL_STEPS,
+  REFERRAL_TERMS,
+  REFERRERS,
   TICK,
+  WHO_TO_REFER,
 } from "@/lib/content";
-import { breadcrumbSchema, pageMetadata, partnerFaqSchema } from "@/lib/seo";
+import { breadcrumbSchema, faqSchemaFor, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Estate Agent Partnerships: Refer a Landlord, Keep the Client",
+  title: "Refer a Property, Receive £275",
   description:
-    "Introduce a London landlord and take £275 when the property goes live, or 3% of what it earns across its first three months. You choose, per property. We do not act on sales or long tenancies, so the client stays yours.",
+    "Introduce a London landlord to Slate & Cove and receive £275 when the property goes live. Open to estate agents and to anyone who knows a property owner. One flat fee, no cap, and the client stays yours.",
   path: "/partners",
 });
 
@@ -34,46 +28,65 @@ export default function PartnersPage() {
       <JsonLd
         schema={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Partners", path: "/partners" },
+          { name: "For estate agents", path: "/partners" },
         ])}
       />
-      <JsonLd schema={partnerFaqSchema} />
+      <JsonLd schema={faqSchemaFor("/partners", REFERRAL_FAQ)} />
 
       <section className="section">
         <div className="wrap page-head">
           <div className="page-head__title">
-            <p className="eyebrow">For independent estate and letting agents</p>
-            <h1 className="d2">Refer a landlord, keep the client</h1>
+            <p className="eyebrow">Referral programme</p>
+            <h1 className="d2">Have a landlord who needs a better option?</h1>
           </div>
           <div className="page-head__body">
             <p className="lead">
-              Introduce a landlord and take £275 when the property goes live,
-              or 3% of what it earns across its first three months. You choose,
-              property by property. Send us a postcode and a name to call, and
-              everything after that is ours to do.
+              Introduce them to Slate &amp; Cove. We manage the property, and
+              you receive a {REFERRAL.fee} referral reward when it goes live.
             </p>
-            <p className="note">
-              We do not act on sales or long tenancies. Short lets are the whole
-              of our business, which is the only reason this arrangement works.
+            <div className="hero__cta hero__cta--pair">
+              <Link className="btn btn--solid" href="#refer">
+                Refer a property
+              </Link>
+              <a className="btn btn--outline" href={`mailto:${CONTACT.email}`}>
+                Talk to us first
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The figure, once, large. It is the whole offer and it should be
+          readable from across the room. */}
+      <section className="section section--dark">
+        <div className="wrap fee">
+          <p className="fee__figure">{REFERRAL.fee}</p>
+          <div className="fee__body">
+            <p className="fee__line">
+              For every property that goes live with us. One flat fee, whoever
+              you are and whatever the property earns.
+            </p>
+            <p className="fee__sub">
+              No percentage, no tiers, no cap. Paid {REFERRAL.window} of the
+              property going live and earning.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Sales and lettings</p>
-            <h2 className="d5">Two kinds of property, two things we do with them</h2>
+            <p className="eyebrow">Who can refer</p>
+            <h2 className="d5">You do not have to be an estate agent</h2>
           </div>
           <div className="routes">
-            {PARTNER_ROUTES.map(({ kind, title, icon, copy, point }) => (
+            {REFERRERS.map(({ kind, icon, copy, point }) => (
               <div className="route" key={kind}>
                 <p className="route__kind">
                   <Icon className="route__icon" d={icon} />
                   <span>{kind}</span>
                 </p>
-                <h3 className="route__title">{title}</h3>
                 <p className="route__copy">{copy}</p>
                 <p className="route__point">{point}</p>
               </div>
@@ -82,102 +95,35 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
-            <p className="eyebrow">The terms</p>
-            <h2 className="d5">Paid on the listing, or paid on what it earns</h2>
-          </div>
-
-          <div className="headlines">
-            {PARTNER_HEADLINES.map(({ figure, note }) => (
-              <div className="headline" key={note}>
-                <p className="headline__figure">{figure}</p>
-                <p className="headline__note">{note}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="compare-scroll">
-            <div className="compare compare--two">
-              <div className="compare__head">Compared</div>
-              {PARTNER_OPTIONS.map((option) => (
-                <div
-                  className="compare__head is-center"
-                  key={option}
-                >
-                  {option}
-                </div>
-              ))}
-
-              {PARTNER_TABLE.map(({ label, values }, row) => {
-                const last = row === PARTNER_TABLE.length - 1 ? " is-last" : "";
-                return (
-                  <Fragment key={label}>
-                    <div className={`compare__label${last}`}>{label}</div>
-                    {values.map((value) => (
-                      <div
-                        className={["compare__cell", last.trim()].filter(Boolean).join(" ")}
-                        key={`${label}-${value}`}
-                      >
-                        {value}
-                      </div>
-                    ))}
-                  </Fragment>
-                );
-              })}
-            </div>
-          </div>
-
-          <p className="note">
-            The choice is made property by property, not once for everything
-            you send. As a rule of thumb the two come level at about £3,000 a
-            month: below that the flat fee pays more, above it the share does.
-            The calculator below works it out on any figure you give it.
-          </p>
-        </div>
-      </section>
-
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Work out one of yours</p>
-            <h2 className="d5">What would a property you have pay?</h2>
+            <p className="eyebrow">Who to refer</p>
+            <h2 className="d5">The owners worth introducing</h2>
           </div>
-          <PartnerCalculator />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
-            <p className="eyebrow">Who to send</p>
-            <h2 className="d5">Six you could send this week</h2>
-          </div>
-          <ul className="send">
-            {PARTNER_SEND.map(({ title, copy }) => (
-              <li key={title}>
-                <p className="send__title">{title}</p>
-                <p className="send__copy">{copy}</p>
+          <ul className="terms">
+            {WHO_TO_REFER.map((line) => (
+              <li key={line}>
+                <Icon className="tick" d={TICK} />
+                <span>{line}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">How a referral runs</p>
-            <h2 className="d5">From introduction to your first payment</h2>
+            <p className="eyebrow">The process</p>
+            <h2 className="d5">You make the introduction. We do the rest.</h2>
           </div>
           <div className="steps">
-            {PARTNER_STEPS.map(({ num, title, copy, icon }) => (
-              <div className="step" key={num}>
+            {REFERRAL_STEPS.map(({ num, title, copy }) => (
+              <div className="step step--plain" key={num}>
                 <div className="step__num" aria-hidden="true">
                   {num}
                 </div>
-                <Icon className="step__icon" d={icon} />
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </div>
@@ -186,15 +132,14 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">In writing, before you introduce anybody</p>
             <h2 className="d5">What we commit to</h2>
           </div>
-          <ReferralLoop />
           <ul className="terms">
-            {PARTNER_TERMS.map((term) => (
+            {REFERRAL_TERMS.map((term) => (
               <li key={term}>
                 <Icon className="tick" d={TICK} />
                 <span>{term}</span>
@@ -204,14 +149,29 @@ export default function PartnersPage() {
         </div>
       </section>
 
+      <section className="section" id="refer">
+        <div className="wrap stack stack--tight">
+          <div className="section-head">
+            <p className="eyebrow">Refer a property</p>
+            <h2 className="d5">Send us the property and the owner</h2>
+          </div>
+          <p className="lead">
+            Nothing to sign, and one property is enough to start. We contact the
+            owner, usually the same day, and tell them the introduction came
+            from you.
+          </p>
+          <ReferralForm />
+        </div>
+      </section>
+
       <section className="section section--alt">
         <div className="wrap stack stack--tight">
           <div className="section-head">
             <p className="eyebrow">FAQ</p>
-            <h2 className="d5">What agents ask us first</h2>
+            <h2 className="d5">Questions we are asked first</h2>
           </div>
           <div className="faq">
-            {PARTNER_FAQ.map(({ q, a }) => (
+            {REFERRAL_FAQ.map(({ q, a }) => (
               <details className="faq__item" key={q}>
                 <summary>
                   <span>{q}</span>
@@ -224,29 +184,6 @@ export default function PartnersPage() {
               </details>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap stack stack--tight">
-          <div className="section-head">
-            <p className="eyebrow">Two ways to start</p>
-            <h2 className="d5">Ask for the terms, or just send a property</h2>
-          </div>
-          <p className="body-lg">
-            We are not going to show you a wall of agent logos, because we have
-            not earned them yet. Test it on one property instead. For the terms
-            in writing first, call{" "}
-            <a href={`tel:${CONTACT.telephoneHref}`}>{CONTACT.telephone}</a>,
-            email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>, or{" "}
-            <Link href="/contact">send a message</Link> and pick the agent
-            option. Or send a property through the form below and you will
-            have a figure within 24 hours. Neither commits you to anything.{" "}
-            <Link href="/blog#refer">
-              Not an agent? Anyone can introduce a landlord for{" "}
-              {LANDLORD_REFERRAL.fee}
-            </Link>.
-          </p>
         </div>
       </section>
     </>

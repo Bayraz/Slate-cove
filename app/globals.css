@@ -2618,3 +2618,43 @@ html.js-reveal main > section.is-visible {
   .howlist > li { grid-template-columns: 40px 1fr; gap: 16px; font-size: 17px; }
   .svclist__name { font-size: 22px; }
 }
+
+/* --------------------------------------------------------------------------
+   The referral fee, stated once and large
+   -------------------------------------------------------------------------- */
+
+/* One figure is the whole offer, so it is set at display size beside the
+   sentence that qualifies it rather than buried in a paragraph. */
+.fee { display: grid; grid-template-columns: auto 1fr; gap: 20px 56px; align-items: center; }
+.fee__figure {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(76px, 11vw, 148px);
+  line-height: 0.9;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+.fee__body { display: flex; flex-direction: column; gap: 14px; }
+.fee__line { margin: 0; font-size: 21px; line-height: 1.6; font-weight: 300; color: var(--paper-alt); max-width: 46ch; text-wrap: pretty; }
+.fee__sub { margin: 0; font-size: 16px; line-height: 1.6; font-weight: 300; color: var(--blue); max-width: 46ch; }
+
+/* On the partners page the head carries two buttons rather than four. */
+.hero__cta--pair { max-width: 600px; }
+
+/* One full-width box under the hero label, now there is one offer. */
+.hero__cta-wide { grid-column: 1 / -1; }
+
+/* The referral steps carry no icon, so the row is three columns rather than
+   four and the children fall into place in order: numeral, heading, copy. */
+.step--plain { grid-template-columns: 76px 300px 1fr; }
+
+@media (max-width: 900px) {
+  /* This rule sits after the breakpoint that collapses .step, and matches it
+     for specificity, so it has to restate the collapse for itself. */
+  .step--plain { grid-template-columns: auto 1fr; }
+}
+
+@media (max-width: 760px) {
+  .fee { grid-template-columns: 1fr; gap: 16px; }
+  .fee__figure { font-size: clamp(64px, 20vw, 96px); }
+}

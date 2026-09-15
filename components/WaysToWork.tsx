@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LANDLORD_REFERRAL, PARTNER } from "@/lib/content";
+import { REFERRAL } from "@/lib/content";
 
 /**
  * The two offers that are not "we will manage your property", at the foot of
@@ -42,20 +42,20 @@ export default function WaysToWork() {
         <ul className="ways__list">
           <li className="way">
             <Link className="way__link" href="/partners">
-              Estate and letting agents
+              Refer a property, take {REFERRAL.fee}
             </Link>
             <span className="way__note">
-              £{PARTNER.flatFee} when a property goes live, or 3% of what it
-              earns for three months. The client stays yours.
+              Introduce a landlord and take {REFERRAL.fee} when the property
+              goes live. Estate agents and anybody else, same terms.
             </span>
           </li>
           <li className="way">
-            <Link className="way__link" href="/blog#refer">
-              Introduce a landlord
+            <Link className="way__link" href="/services">
+              What we actually do
             </Link>
             <span className="way__note">
-              {LANDLORD_REFERRAL.fee} once their property is live and earning.
-              Anyone can, and there is no cap.
+              The eight things we handle on a managed short let, each explained
+              properly rather than in a sentence.
             </span>
           </li>
         </ul>

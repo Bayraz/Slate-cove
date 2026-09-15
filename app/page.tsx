@@ -7,8 +7,7 @@ import { FOOTER_AREAS } from "@/lib/areas";
 import { SERVICE_PAGES } from "@/lib/services";
 import { HERO_IMAGES } from "@/lib/images";
 import {
-  LANDLORD_REFERRAL,
-  PARTNER,
+  REFERRAL,
   COMPARISON_COLUMNS,
   COMPARISON_ROWS,
   STATS,
@@ -47,13 +46,9 @@ export default function HomePage() {
                 See how it works
               </Link>
 
-              <p className="hero__refer-label">Introduce a landlord and earn</p>
-
-              <Link className="btn btn--outline" href="/partners">
-                Agents, £{PARTNER.flatFee} or 3%
-              </Link>
-              <Link className="btn btn--outline" href="/blog#refer">
-                Anyone else, {LANDLORD_REFERRAL.fee}
+              <p className="hero__refer-label">Introduce a landlord</p>
+              <Link className="btn btn--outline hero__cta-wide" href="/partners">
+                Refer a property, take {REFERRAL.fee}
               </Link>
             </div>
 
@@ -174,39 +169,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The partner and referral offers, given the weight the business puts
-          on them. The one dark ground on the page, low enough that it never
-          stands between a landlord and the form. */}
+      {/* The referral offer. One figure, one audience, one link. */}
       <section className="section section--dark">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow eyebrow--light">Work with us</p>
-            <h2 className="d5">Two ways to earn from a property that is not yours</h2>
+            <p className="eyebrow eyebrow--light">Referral programme</p>
+            <h2 className="d5">Know a landlord who needs a better option?</h2>
           </div>
-          <div className="earn">
-            <div className="earn__col">
-              <p className="earn__who">Estate and letting agents</p>
-              <p className="earn__figure">£{PARTNER.flatFee} or 3%</p>
-              <p className="earn__copy">
-                Introduce a landlord and take £{PARTNER.flatFee} when the
-                property goes live, or 3% of what it earns for three months.
-                Your choice, property by property. We do not act on sales or
-                tenancies, so the client stays yours.
+          <div className="fee">
+            <p className="fee__figure">{REFERRAL.fee}</p>
+            <div className="fee__body">
+              <p className="fee__line">
+                Introduce a property owner to us and take {REFERRAL.fee} when
+                the property goes live. Estate agents and anybody else, on the
+                same terms.
               </p>
               <Link className="earn__link" href="/partners">
-                See the partner terms
-              </Link>
-            </div>
-            <div className="earn__col">
-              <p className="earn__who">Anyone at all</p>
-              <p className="earn__figure">{LANDLORD_REFERRAL.fee}</p>
-              <p className="earn__copy">
-                Know a London landlord? Introduce them and take{" "}
-                {LANDLORD_REFERRAL.fee} once their property is live and
-                earning. You do not have to be a landlord or a client, and
-                there is no cap.
-              </p>
-              <Link className="earn__link" href="/blog#refer">
                 How referrals work
               </Link>
             </div>

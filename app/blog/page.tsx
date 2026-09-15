@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import { POSTS, formatDate } from "@/lib/blog";
-import { LANDLORD_REFERRAL, LANDLORD_REFERRAL_POINTS, TICK } from "@/lib/content";
+import { REFERRAL } from "@/lib/content";
 import { blogSchema, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -64,31 +63,20 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      {/* The referral sits on the landlords' own page rather than with the
-          agent terms. It is the same kind of offer but a different reader, and
-          the figure is stated here only, so the two cannot drift apart. */}
       <section className="section section--alt" id="refer">
         <div className="wrap stack stack--tight">
           <div className="section-head">
-            <p className="eyebrow">Referrals</p>
+            <p className="eyebrow">Referral programme</p>
             <h2 className="d5">
-              Know a London landlord? That is worth {LANDLORD_REFERRAL.fee}
+              Know another landlord? That is worth {REFERRAL.fee}
             </h2>
           </div>
           <p className="lead">
-            Put an owner our way and we pay you {LANDLORD_REFERRAL.fee} once
-            their property is live and earning, {LANDLORD_REFERRAL.window}. You
-            do not have to be a landlord yourself. Nothing to sign, and nothing
-            owed if it does not go ahead.
+            Introduce a property owner to us and we pay you {REFERRAL.fee} once
+            their property is live and earning, {REFERRAL.window}. Anyone can
+            refer, and there is no cap.{" "}
+            <Link href="/partners">See how referrals work</Link>.
           </p>
-          <ul className="terms">
-            {LANDLORD_REFERRAL_POINTS.map((point) => (
-              <li key={point}>
-                <Icon className="tick" d={TICK} />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
