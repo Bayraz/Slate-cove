@@ -211,3 +211,11 @@ publishes nothing and emails the owner.
 
 The job writes nothing when every queued topic is already covered. An empty
 queue is a prompt to add topics, not a reason to generate filler.
+
+## `automation/`
+
+Tooling that runs alongside the site rather than in it. Currently
+`automation/zeevou-concierge`: a Python/Playwright loop that reads new guest
+messages from the Zeevou Unified Inbox, drafts replies with Claude, asks for
+approval over Telegram, and posts the approved reply back into Zeevou. It has
+its own README and dependencies and is not part of the Next.js build.

@@ -1,0 +1,21 @@
+{
+  "shared_notes": "Slate & Cove manages the property; guests book through the platform. Office hours are weekdays 9am-10pm, and the guest line is answered at any hour. Never share the owner's personal contact details.",
+  "properties": [
+    {
+      "name": "Cove Loft, Shoreditch",
+      "aliases": ["Cove Loft", "SH-01"],
+      "address": "12 Example Street, London E1 6AA",
+      "check_in": "From 3pm, self check-in via the key safe by the front door",
+      "check_out": "By 11am",
+      "key_safe_code": "Sent automatically the morning of arrival - never quote it before then",
+      "wifi": "Network 'CoveLoft-5G', password in the welcome book on the kitchen counter",
+      "parking": "No on-site parking. Nearest car park is Example NCP, 4 minutes walk",
+      "quiet_hours": "10pm-8am, the building is residential",
+      "pets": "Not allowed",
+      "smoking": "Not allowed anywhere on the property, including the balcony",
+      "extra_guests": "Maximum 4, no exceptions - the fire certificate covers 4",
+      "local_tips": ["Brick Lane market is 6 minutes walk", "Nearest tube is Shoreditch High Street"],
+      "escalate_if": ["Refund or discount requests", "Anything about damage or a broken appliance", "Complaints from neighbours"]
+    }
+  ]
+}

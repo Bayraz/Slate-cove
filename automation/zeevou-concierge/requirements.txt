@@ -1,0 +1,8 @@
+# Runtime dependencies for the Zeevou guest-message concierge.
+anthropic>=1.0.0
+playwright>=1.44.0
+aiohttp>=3.9.0
+python-dotenv>=1.0.0
+
+# Development only.
+pytest>=8.0.0

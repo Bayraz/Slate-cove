@@ -1,0 +1,9 @@
+# Secrets and local state — never commit these.
+.env
+data/
+config/properties.json
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
