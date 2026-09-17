@@ -105,6 +105,7 @@ this queue against what people are actually typing.
 
 ## Written
 
+- What insurance does a short let actually need? (`what-insurance-does-a-short-let-actually-need.md`)
 - Can you short-let on a buy-to-let mortgage? (`can-you-short-let-on-a-buy-to-let-mortgage.md`)
 - Can you short-let a leasehold flat in London? (`can-you-short-let-a-leasehold-flat.md`)
 - Airbnb versus a long tenancy on a London flat: which earns more? (`airbnb-versus-long-tenancy-london-which-earns-more.md`)
