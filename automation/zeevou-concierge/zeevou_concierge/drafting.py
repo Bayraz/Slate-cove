@@ -9,23 +9,21 @@ from dataclasses import dataclass
 import anthropic
 
 from .config import Settings
-from .properties import PropertyBook
+from .properties import Brand, PropertyBook
 
 log = logging.getLogger(__name__)
 
 ESCALATE_MARKER = "[ESCALATE]"
 
-SYSTEM_PROMPT = """You draft replies to guests on behalf of Slate & Cove, a \
-short-let management company in London. A human reads and approves every draft \
-before it is sent, so write the reply itself — not advice about what to write.
+PROMPT_TEMPLATE = """You draft replies to guests on behalf of {brand}{description}. \
+A human reads and approves every draft before it is sent, so write the reply \
+itself — not advice about what to write.
 
 How to write:
 - Warm, direct, and brief. Two to five sentences is usually right.
 - British English. Plain words. No marketing language, no exclamation marks.
 - Answer the question that was asked. If they asked two things, answer both.
-- Sign off as the Slate & Cove team only when the message reads like a fresh \
-conversation rather than a quick back-and-forth.
-
+{tone}{sign_off}
 What you may say:
 - Only facts given in the property context below, plus ordinary courtesy.
 - If a needed fact is missing, do not guess it and do not invent an address, a \
@@ -41,7 +39,26 @@ reply so the human has something to edit.
 
 Output the reply text and nothing else. No preamble, no subject line, no \
 explanation of your choices, no quotation marks around the whole reply.
-""".format(marker=ESCALATE_MARKER)
+"""
+
+
+def build_system_prompt(brand: Brand) -> str:
+    """The drafting instructions, in the voice of whichever company this is."""
+    description = f", {brand.description}" if brand.description else ""
+    tone = f"- {brand.tone.strip()}\n" if brand.tone else ""
+    sign_off = (
+        f"- Sign off as {brand.sign_off.strip()} when the message reads like a "
+        "fresh conversation rather than a quick back-and-forth.\n"
+        if brand.sign_off
+        else ""
+    )
+    return PROMPT_TEMPLATE.format(
+        brand=brand.name,
+        description=description,
+        tone=tone,
+        sign_off=sign_off,
+        marker=ESCALATE_MARKER,
+    )
 
 
 @dataclass
@@ -78,6 +95,7 @@ class Drafter:
     def __init__(self, settings: Settings, book: PropertyBook) -> None:
         self.settings = settings
         self.book = book
+        self.system_prompt = build_system_prompt(book.brand)
         self._client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
 
     async def draft(
@@ -114,7 +132,7 @@ class Drafter:
                 system=[
                     {
                         "type": "text",
-                        "text": SYSTEM_PROMPT,
+                        "text": self.system_prompt,
                         "cache_control": {"type": "ephemeral"},
                     }
                 ],

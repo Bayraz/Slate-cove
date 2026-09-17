@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from zeevou_concierge.drafting import ESCALATE_MARKER, parse_reply
+from zeevou_concierge.drafting import ESCALATE_MARKER, build_system_prompt, parse_reply
 from zeevou_concierge.properties import PropertyBook
 
 
@@ -73,3 +73,36 @@ def test_unknown_property_tells_claude_not_to_invent(tmp_path):
 def test_missing_property_file_is_not_fatal(tmp_path):
     book = PropertyBook.load(tmp_path / "nope.json")
     assert book.context_for("") == "No property context available."
+
+
+def test_brand_defaults_are_neutral_when_not_configured(tmp_path):
+    book = PropertyBook.load(tmp_path / "missing.json")
+    prompt = build_system_prompt(book.brand)
+    assert "the property management company" in prompt
+    assert "Sign off as" not in prompt
+
+
+def test_brand_from_file_shapes_the_prompt(tmp_path):
+    path = tmp_path / "properties.json"
+    path.write_text(
+        json.dumps(
+            {
+                "brand": {
+                    "name": "Airhost",
+                    "description": "a short-let management company",
+                    "sign_off": "the Airhost team",
+                    "tone": "Friendly but efficient.",
+                },
+                "properties": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    book = PropertyBook.load(path)
+    prompt = build_system_prompt(book.brand)
+
+    assert "on behalf of Airhost, a short-let management company" in prompt
+    assert "Sign off as the Airhost team" in prompt
+    assert "Friendly but efficient." in prompt
+    # The company the tool was first written for must not leak into another brand.
+    assert "Slate & Cove" not in prompt

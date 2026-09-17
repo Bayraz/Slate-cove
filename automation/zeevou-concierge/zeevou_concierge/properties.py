@@ -19,6 +19,30 @@ def _normalise(text: str) -> str:
 
 
 @dataclass
+class Brand:
+    """Who the replies are written on behalf of.
+
+    Kept out of the code so one checkout can serve more than one company —
+    point PROPERTIES_FILE at a different file and the voice changes with it.
+    """
+
+    name: str = "the property management company"
+    description: str = ""
+    sign_off: str = ""
+    tone: str = ""
+
+    @classmethod
+    def from_dict(cls, raw: dict[str, Any] | None) -> "Brand":
+        raw = raw or {}
+        return cls(
+            name=raw.get("name") or cls.name,
+            description=raw.get("description", ""),
+            sign_off=raw.get("sign_off", ""),
+            tone=raw.get("tone", ""),
+        )
+
+
+@dataclass
 class PropertyContext:
     name: str
     facts: dict[str, Any]
@@ -37,9 +61,15 @@ class PropertyContext:
 
 
 class PropertyBook:
-    def __init__(self, properties: list[PropertyContext], house_rules: str = "") -> None:
+    def __init__(
+        self,
+        properties: list[PropertyContext],
+        house_rules: str = "",
+        brand: Brand | None = None,
+    ) -> None:
         self.properties = properties
         self.house_rules = house_rules
+        self.brand = brand or Brand()
         self._index: dict[str, PropertyContext] = {}
         for prop in properties:
             for key in [prop.name, *prop.aliases]:
@@ -49,7 +79,7 @@ class PropertyBook:
     def load(cls, path: str | Path) -> "PropertyBook":
         path = Path(path)
         if not path.exists():
-            return cls([], "")
+            return cls([], "", Brand())
         raw = json.loads(path.read_text(encoding="utf-8"))
         entries = raw.get("properties", []) if isinstance(raw, dict) else raw
         properties = []
@@ -63,7 +93,8 @@ class PropertyBook:
                 )
             )
         house_rules = raw.get("shared_notes", "") if isinstance(raw, dict) else ""
-        return cls(properties, house_rules)
+        brand = Brand.from_dict(raw.get("brand") if isinstance(raw, dict) else None)
+        return cls(properties, house_rules, brand)
 
     def match(self, label: str) -> PropertyContext | None:
         """Best-effort lookup of a property from Zeevou's inbox label."""
