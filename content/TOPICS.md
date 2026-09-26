@@ -105,6 +105,7 @@ this queue against what people are actually typing.
 
 ## Written
 
+- Do you need a licence to run a short let in London? (`do-you-need-a-licence-to-run-a-short-let-in-london.md`)
 - What does short-let management cost in London? (`what-does-short-let-management-cost-in-london.md`)
 - Council tax or business rates on a London short let? (`council-tax-or-business-rates-on-a-london-short-let.md`)
 - What insurance does a short let actually need? (`what-insurance-does-a-short-let-actually-need.md`)
