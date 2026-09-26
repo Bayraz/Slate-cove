@@ -106,3 +106,19 @@ def test_brand_from_file_shapes_the_prompt(tmp_path):
     assert "Friendly but efficient." in prompt
     # The company the tool was first written for must not leak into another brand.
     assert "Slate & Cove" not in prompt
+
+
+def test_blank_greeting_gets_closed_up():
+    """A draft must never go out addressed to nobody."""
+    text, _ = parse_reply("Hi , sorry about that.\n\nThe lift is building-managed.")
+    assert text.startswith("Hi there, sorry about that.")
+
+
+def test_real_name_is_left_alone():
+    text, _ = parse_reply("Hi Ipsita, sorry about that.")
+    assert text.startswith("Hi Ipsita,")
+
+
+def test_greeting_repair_only_touches_the_opening():
+    text, _ = parse_reply("Hi Sam, say hello , to the team.")
+    assert text == "Hi Sam, say hello , to the team."

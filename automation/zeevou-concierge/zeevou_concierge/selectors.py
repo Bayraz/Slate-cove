@@ -64,6 +64,9 @@ DEFAULTS: dict[str, list[str]] = {
         "li.conversation.unread",
     ],
     "conversation_guest_name": [
+        '[class*="Conversation-guestName"]',
+        '[class*="Conversation-name"]',
+        '[class*="Conversation-title"]',
         '[data-testid="guest-name"]',
         ".guest-name",
         ".conversation-title",

@@ -21,6 +21,8 @@ itself — not advice about what to write.
 
 How to write:
 - Warm, direct, and brief. Two to five sentences is usually right.
+- Open with the guest's first name when you are given one. When you are not, \
+write "Hi there," — never leave a gap where a name would go.
 - British English. Plain words. No marketing language, no exclamation marks.
 - Answer the question that was asked. If they asked two things, answer both.
 {tone}{sign_off}
@@ -88,7 +90,16 @@ def parse_reply(raw: str) -> tuple[str, bool]:
     # Strip a wrapping pair of quotes if the model added them anyway.
     if len(text) > 1 and text[0] == text[-1] and text[0] in {'"', "'", "“"}:
         text = text[1:-1].strip()
-    return re.sub(r"\n{3,}", "\n\n", text).strip(), escalate
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    return repair_greeting(text), escalate
+
+
+BLANK_GREETING = re.compile(r"^(hi|hello|hey|dear)\s+([,.!])", re.IGNORECASE)
+
+
+def repair_greeting(text: str) -> str:
+    """Close the gap when a name was meant to go in and none was found."""
+    return BLANK_GREETING.sub(lambda m: f"{m.group(1)} there{m.group(2)}", text, count=1)
 
 
 class Drafter:
@@ -116,7 +127,11 @@ class Drafter:
                     if thread_excerpt.strip()
                     else ""
                 ),
-                "<guest_name>" + (guest_name or "unknown") + "</guest_name>",
+                (
+                    "<guest_name>" + guest_name.strip() + "</guest_name>"
+                    if guest_name.strip()
+                    else ""
+                ),
                 "<guest_message>\n" + guest_message.strip() + "\n</guest_message>",
                 "Write the reply.",
             ]
