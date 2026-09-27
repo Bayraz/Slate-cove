@@ -26,6 +26,23 @@ export const canonicalUrl = (path: string) =>
 /** Every area from the Locations page, as a flat list of served places. */
 const servedPlaces = AREAS.flatMap((area) => area.places);
 
+/**
+ * The verified Google Business Profile, as the one third-party identity the
+ * business actually has.
+ *
+ * This is the link that tells Google, and the assistants that read the same
+ * structured data, that slateandcove.com and the verified Slate & Cove
+ * listing are one entity rather than two. Without it they are two unrelated
+ * things that happen to share a name.
+ *
+ * It is the `?cid=` form rather than the long /maps/place/ URL the address bar
+ * gives you. That one carries a map centre and a zoom level, so it changes
+ * depending on how the person looking at it had the map positioned. The CID is
+ * the listing's own identifier and does not move.
+ */
+const GOOGLE_BUSINESS_PROFILE =
+  "https://maps.google.com/?cid=7998180545360676355";
+
 const postalAddress = {
   "@type": "PostalAddress",
   streetAddress: CONTACT.addressLines[0],
@@ -46,6 +63,7 @@ export const organisationSchema = {
   name: SITE.name,
   description: SITE.description,
   url: SITE.url,
+  sameAs: [GOOGLE_BUSINESS_PROFILE],
   email: CONTACT.email,
   telephone: CONTACT.telephone,
   address: postalAddress,
