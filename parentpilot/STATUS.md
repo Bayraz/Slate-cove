@@ -1,83 +1,59 @@
 # ParentPilot: Status
 
-_As of 2026-09-30 · branch `claude/parentpilot-foundation-bgd87p` · commit `42b43a4`_
+_Phase 2 (real backend and family accounts): code complete and verified locally. **Not yet verified against a real Supabase project or a physical phone.**_
 
-**Where we are:** Stage 1 (foundation) is complete. The app runs end to end on demo data. There is no real backend and no real AI yet. Next up: Supabase wiring.
+## What works, and how it was checked
 
----
+| Area | Checked how | Result |
+| --- | --- | --- |
+| TypeScript (strict) | `npm run typecheck` | Clean |
+| Unit tests (11 suites) | `npm test` | 116 passing |
+| **Family isolation (RLS)** | `npm run test:db`: every migration applied to a real throwaway Postgres; two families, a read-only viewer, a user with no family, and a signed-out user | 52 assertions pass. A deliberately weakened policy makes it fail, so it can fail |
+| Expo bundles (iOS, Android, web) | `expo export`, in demo config and in live config | All succeed |
+| Onboarding UI in a browser | Welcome, name, child, validation errors, bad date, then Today ("Emma is 11 weeks old", honest empty states) | Works, no console errors |
+| Live-mode auth path | Real `supabase-js` pointed at an unreachable URL | Starts signed out, validates, shows a calm "couldn't reach ParentPilot", never crashes |
+| Demo mode regression | Original Today / Ask / safety flows | Unchanged and working |
+| No secrets in the app | Test scans app code and `.env.example` for service-role keys / secret `EXPO_PUBLIC_` names | Passes. It fails if I plant one |
 
-## What's done
+## NOT verified (needs your Supabase project and phone)
 
-### App shell
-- Expo SDK 57 + React Native + TypeScript (strict) + Expo Router, in `parentpilot/` (the repo root is an unrelated Next.js website, left untouched apart from one `tsconfig` exclude).
-- Five tabs: **Today**, **Ask**, **Memory**, **Reminders**, **Community**.
-- Warm, calm theme with design tokens; 48pt touch targets; screen-reader labels; contrast-checked colours.
+- Migrations applied to an actual Supabase project (they apply cleanly to plain Postgres 16 with a stub of Supabase's `auth` schema).
+- Sign-up / sign-in / sign-out / session restore against real Supabase Auth (covered by mocked-client tests and the offline run only).
+- The Supabase repositories against real PostgREST (covered by a recording fake client: queries are family-scoped, errors mapped; but no real round trip).
+- Anything on a physical phone or simulator.
+- The password-reset email and what happens after tapping its link (the in-app "new password" screen is not built).
 
-### Screens
-| Screen | State |
+## Completion criteria
+
+| Criterion | State |
 | --- | --- |
-| **Today** | Built. Greeting, child name/age (twins handled), today's appointment, due reminders, one saved question, "What can I take care of?" prompt. Loading / error / empty states. |
-| **Ask** | Built. Chat UI, suggested prompts, input validation, "Preview" banner, tool-activity lines, safety styling for urgent replies. |
-| Memory / Reminders / Community | Placeholders with visible `TODO:` markers. |
-| Sign in | Built (sign in, create account, reset password). Only shown when Supabase is configured. |
+| Create account, sign in, create family, add child, see child on Today, sign out, sign in, data still there | Implemented end to end. **Real-backend run pending** (phone test below) |
+| Family A cannot access Family B's data | Verified in Postgres (52 assertions) |
+| TypeScript clean, tests passing, Expo builds | Verified |
 
-### AI architecture
-- Flow: safety screen → provider interprets → approved tool runs → typed result → provider explains → honesty guard.
-- **Tool registry:** typed, zod-validated, unknown tools rejected, write tools blocked without confirmation. The AI never touches the database; tools only get family-scoped repositories.
-- **3 read-only tools:** `get_child_information`, `search_memory`, `list_reminders` (the other 13 are named, not built).
-- **Safety:** emergency and parent-crisis messages get fixed guidance and never reach a model; health questions are redirected to NHS/professionals; system prompt for future models; guard that blocks replies claiming an action that never happened.
-- **Preview assistant:** a keyword router, *not* real AI, clearly labelled. Only uses read-only tools.
+## Manual phone test (after setting up Supabase; see README "Setting up Supabase")
 
-### Data and domain
-- Family → Caregivers (roles/permissions) → Children; structured Memory (kinds, tags, source), Reminders (recurrence, truthful notification field), Appointments, Community models.
-- Repository interfaces with demo data isolated in `src/data/mock` (Sarah, Emma, one appointment, 3 reminders, 4 memories).
-- Reminder service with a `NotificationScheduler` abstraction (no scheduler exists, so nothing is ever reported as sent).
+1. `cd parentpilot && npm install`, then create `.env` with your URL and anon key.
+2. `npx expo start --clear`, scan the QR code with Expo Go (same Wi-Fi, or add `--tunnel`).
+3. **No "Demo mode" banner** should appear after sign-in. If you see it, the `.env` values were not picked up.
+4. Tap *Create an account*, enter an email and an 8+ character password.
+   - If email confirmation is **on**: you should see "Check your email". Confirm, return, sign in.
+   - If **off**: you go straight to onboarding.
+5. Onboarding: *Get started*, your first name, *Next*, child's name and date of birth (DD / MM / YYYY), *Finish*.
+6. **Today** shows "Good morning/afternoon/evening, <you>.", "<child> is N weeks old.", and "No appointments today." / "No reminders due today."
+7. In Supabase *Table editor*, confirm rows in `families`, `caregivers` (role owner) and `children`.
+8. Tap *Sign out* (bottom of Today). You should land on the sign-in screen.
+9. Sign in again. You should go **straight to Today** (no onboarding) with the same name and child.
+10. Fully close the app and reopen it: you should still be signed in on Today.
+11. Try a wrong password: calm message, no crash. Turn on airplane mode and try to sign in: "We couldn't reach ParentPilot."
+12. Optional isolation check: sign up a second account. It must get its own onboarding and never see the first family's child.
 
-### Backend foundation
-- Supabase auth service (sign up/in/out, reset request) + demo mode when no credentials.
-- `supabase/migrations/0001_foundation.sql`: all tables with row-level security.
+If any step fails, send me the step number and what you saw.
 
-### Docs
-`README.md`, `TODO.md`, `.env.example`, this file.
+## Not built yet
 
----
-
-## What was verified
-
-| Check | Result |
-| --- | --- |
-| TypeScript strict | Clean |
-| Unit tests (safety, tools, orchestrator, Today logic, dates) | 38 passing |
-| Expo bundling: iOS, Android, web | All succeed |
-| Web build driven in Chromium: Today, all tabs, Ask (lookup, unsupported request, emergency) | Works, no console errors |
-| SQL migration on local Postgres, two-family RLS test | Applies; family B cannot read or write family A's data |
-
-Bugs found and fixed during verification: a non-immutable generated column in the SQL, a crisis-wording gap in the safety screen, truncated tab labels, a Pressable typing error.
-
-## Not verified yet
-- Running on a real phone, iOS simulator or Android emulator.
-- Sign-in against a real Supabase project.
-- Anything involving a real AI model (none is connected).
-
----
-
-## What's not built
-- Real data persistence (everything is demo data, read-only)
-- Family onboarding and invites
-- Real AI provider (server-side, holds the key)
-- Write tools (save memory, create reminder) with confirmation
-- Push notifications
-- Memory / Reminders / Community screens
-- Calendar, baby log, trusted-information search, product search
-- Clinical review of safety wording
-- CI, e2e tests, dark mode, analytics
-
----
+In-app new-password screen; UI to add a second child (data layer and tests support it); Memory / Reminders / Community screens; real AI provider; push notifications; calendar; baby log.
 
 ## Next step
 
-**Wire up the real backend.** Create the Supabase project, apply the migration, implement the Supabase repositories, add family onboarding.
-
-**Needed from you:** Supabase project URL + anon key, and a decision on email confirmation for new accounts. Also helpful: try the app in Expo Go and share feedback.
-
-Full ordered roadmap: [TODO.md](TODO.md).
+Run the phone test above and fix whatever the real backend reveals. Then: account completion (new-password screen, add-another-child UI, invites). See [TODO.md](TODO.md).

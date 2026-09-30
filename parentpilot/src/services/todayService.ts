@@ -2,12 +2,15 @@ import type { Repositories } from "@/data";
 import type { Appointment, Child, Memory, Reminder } from "@/domain/models";
 import { formatAge, isSameLocalDay } from "@/utils/dates";
 
+/** An item plus, only when the family has more than one child, which child it is about. */
+export type ForChild<T> = T & { childName?: string };
+
 export interface TodaySummary {
   children: { id: string; name: string; ageLabel: string }[];
-  appointments: Appointment[];
-  reminders: Reminder[];
+  appointments: ForChild<Appointment>[];
+  reminders: ForChild<Reminder>[];
   /** One saved note worth surfacing today (a saved question wins over other notes). */
-  savedNote?: Memory;
+  savedNote?: ForChild<Memory>;
 }
 
 const MAX_REMINDERS = 3;
@@ -20,19 +23,25 @@ export function buildTodaySummary(
   const endOfToday = new Date(now);
   endOfToday.setHours(23, 59, 59, 999);
 
+  // With one child the name is obvious from context; with several, every item says who it is for.
+  const childNames = new Map(input.children.map((c) => [c.id, c.name]));
+  const tag = <T extends { childId?: string }>(item: T): ForChild<T> =>
+    input.children.length > 1 && item.childId && childNames.has(item.childId) ? { ...item, childName: childNames.get(item.childId) } : item;
+
   const reminders = input.reminders
     .filter((r) => !r.completedAt && new Date(r.dueAt) <= endOfToday)
     .sort((a, b) => a.dueAt.localeCompare(b.dueAt))
-    .slice(0, MAX_REMINDERS);
+    .slice(0, MAX_REMINDERS)
+    .map(tag);
 
   const newestFirst = [...input.memories].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const savedNote = newestFirst.find((m) => m.kind === "question") ?? newestFirst.find((m) => m.kind === "medical_guidance");
 
   return {
     children: input.children.map((c) => ({ id: c.id, name: c.name, ageLabel: formatAge(c.dateOfBirth, now) })),
-    appointments: input.appointments.filter((a) => isSameLocalDay(new Date(a.startsAt), now)),
+    appointments: input.appointments.filter((a) => isSameLocalDay(new Date(a.startsAt), now)).map(tag),
     reminders,
-    savedNote,
+    savedNote: savedNote ? tag(savedNote) : undefined,
   };
 }
 

@@ -16,7 +16,7 @@ repository; the Next.js website at the repository root is a separate project.
 | --- | --- |
 | App | React Native + Expo (SDK 57), TypeScript (strict), Expo Router |
 | UI | Plain React Native components + a small token-based theme (`src/theme`) |
-| Backend (planned) | Supabase: Auth, Postgres with row-level security, Edge Functions for AI |
+| Backend | Supabase: Auth and Postgres with row-level security (connected, see below). Edge Functions for AI come later |
 | Validation | zod (also produces the JSON Schemas handed to AI providers) |
 | Tests | jest-expo |
 
@@ -30,37 +30,56 @@ Requires Node 20+ (developed on 22).
 ```bash
 cd parentpilot
 npm install
-cp .env.example .env     # optional: the app runs on demo data without any values
+cp .env.example .env     # optional: with no values the app runs in demo mode
 npm start                # Expo dev server (press i / a / w, or scan the QR code)
 ```
 
-- **Phone (easiest):** install *Expo Go* from the App Store / Play Store, run `npm start`,
-  and scan the QR code (same Wi-Fi). If your network blocks this, use `npx expo start --tunnel`.
-- **iOS simulator:** `npm run ios` (macOS + Xcode).
-- **Android emulator:** `npm run android` (Android Studio emulator).
-- **Browser:** `npm run web`.
+- **Phone (easiest):** install *Expo Go*, run `npm start`, scan the QR code (same Wi-Fi). If your network blocks it: `npx expo start --tunnel`.
+- **iOS simulator:** `npm run ios` (macOS + Xcode). **Android emulator:** `npm run android`. **Browser:** `npm run web`.
+- Changed `.env`? Restart with `npx expo start --clear` (values are baked in at bundle time).
 
 Checks:
 
 ```bash
 npm run typecheck   # tsc --noEmit
-npm test            # unit tests: safety, tools, orchestrator, Today logic, dates
+npm test            # unit tests
+npm run test:db     # applies every migration to a throwaway Postgres and runs the family-isolation (RLS) tests
+npm run check       # all three
 ```
+
+`test:db` needs PostgreSQL server binaries (`initdb`, `pg_ctl`, `psql`); it never touches your Supabase project.
+
+## Two modes: live and demo
+
+The app decides once, from configuration, and uses it for **both** auth and data, so sample data never mixes with a real user's.
+
+| Mode | When | What happens |
+| --- | --- | --- |
+| **live** | `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` are both set and valid | Real sign-in, real data in Supabase, onboarding for new users |
+| **demo** | Either is missing/invalid, or `EXPO_PUBLIC_DATA_SOURCE=mock` | No login, in-memory sample data (writes are lost on reload). Today shows a "Demo mode" banner saying why |
+
+Missing or bad config never crashes the app; it falls back to demo mode and says so.
+`EXPO_PUBLIC_DEMO_SCENARIO=empty` (demo only) starts with no family so you can try onboarding without a backend.
+
+## Setting up Supabase
+
+1. Create a project at supabase.com.
+2. **Apply the migrations, in order:** open *SQL Editor* and run `supabase/migrations/0001_foundation.sql`, then `0002_onboarding_and_hardening.sql`. (Or with the Supabase CLI: `supabase db push`.)
+3. **Email confirmation:** *Authentication > Providers > Email > Confirm email*. Either setting works; the app handles both. If ON, new users are told to check their email and come back to sign in.
+4. Copy *Project settings > API > Project URL* and the **anon / public** key into `.env` as `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY`. **Never** use the `service_role` key anywhere in this app.
+5. `npx expo start --clear`.
 
 ## Environment variables
 
-See `.env.example`. Anything prefixed `EXPO_PUBLIC_` is **compiled into the app and
-public**, so only the Supabase URL and anon key belong there (the anon key is safe
-because access is enforced by row-level security). **Secrets (AI provider keys,
-Supabase service-role key, push credentials) never go in the app**; they live
-server-side (e.g. Supabase Edge Function secrets).
+See `.env.example`. Anything prefixed `EXPO_PUBLIC_` is **compiled into the app and public**, so only the Supabase URL and anon key belong there (safe because Postgres row-level security enforces access). Secrets (service-role key, AI provider keys, push credentials) never go in the app.
 
 | Variable | Purpose |
 | --- | --- |
-| `EXPO_PUBLIC_DATA_SOURCE` | `mock` (default) or `supabase` (repositories not built yet; falls back to mock with a warning) |
-| `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Enables real sign-in. Blank = **demo mode** (no login, demo family) |
-| `EXPO_PUBLIC_AI_ENDPOINT` | Future server-side AI function. Blank = preview assistant |
-| `EXPO_PUBLIC_EMERGENCY_NUMBER` | Number shown in safety guidance (default `999`) |
+| `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Enable live mode |
+| `EXPO_PUBLIC_DATA_SOURCE` | `mock` forces demo mode (development) |
+| `EXPO_PUBLIC_DEMO_SCENARIO` | `empty` = demo with no family yet |
+| `EXPO_PUBLIC_AI_ENDPOINT` | Future server-side AI function (not built) |
+| `EXPO_PUBLIC_EMERGENCY_NUMBER` | Number in safety guidance (default `999`) |
 
 ## Project structure
 
@@ -77,13 +96,14 @@ src/
   auth/               AuthService interface, Supabase + demo implementations, provider
   components/         Reusable UI (ui/, today/, ask/)
   config/env.ts       The single place env vars are read
-  data/               Repository interfaces; mock/ (demo data) and supabase/ (client)
+  data/               Repository interfaces; mock/ (demo, in-memory) and supabase/ (real, RLS-backed)
   domain/             Models (Family -> Caregivers, Children), validation, memory search
   hooks/              React glue: family context, async state, conversation state
-  services/           Business logic (Today summary, Ask wiring, reminder/notification abstraction)
+  services/           Business logic: Today summary, onboarding, memory, reminders, Ask wiring
   theme/              Colours, spacing, type scale
   utils/              Dates, logger, ids
-supabase/migrations/  Postgres schema + RLS policies
+supabase/migrations/  Postgres schema, RLS policies, atomic onboarding function
+supabase/tests/       SQL family-isolation tests (run by scripts/test-rls.sh)
 ```
 
 Dependency direction: `app` -> `hooks` -> `services`/`ai` -> `data` interfaces -> `domain`.
@@ -146,23 +166,23 @@ and the classifier needs evaluation before real families use it (see TODO.md).
 
 ## What is implemented
 
-- Expo Router app with the five tabs; **Today** and **Ask** built, **Memory / Reminders / Community** are marked placeholders.
-- **Today:** greeting, child name/age (twins handled), today's appointment, due reminders, a saved question, and an "ask" prompt; loading / error / empty states.
-- **Ask:** conversational UI, suggested prompts, input validation, honest preview banner, real tool-activity lines, safety styling.
-- Family model: Family -> Caregivers (roles/permissions) -> Children; structured Memory, Reminder (with recurrence and notification truthfulness), Appointment, and Community models.
-- AI architecture: safety screen, provider interface, typed tool registry, three read-only tools, honesty guard.
-- Auth foundation: sign up / sign in / sign out / password-reset request against Supabase; demo mode with no credentials.
-- Postgres schema with row-level security (`supabase/migrations/0001_foundation.sql`).
-- Demo data (one parent, one child, one appointment, reminders, memories) isolated in `src/data/mock`.
+**Phase 1 (foundation):** five-tab app; Today and Ask; safety layer; typed AI tool registry with three read-only tools; honest preview assistant; family data model; demo data.
+
+**Phase 2 (real backend and family accounts):**
+
+- Real Supabase auth: create account, sign in, sign out, password-reset *request*, session restore on launch, expired-session handling, calm messages for invalid credentials / existing account / unconfirmed email / network failure / rate limiting.
+- Configurable email confirmation ("check your email" state; never treats an unconfirmed account as usable).
+- Three-step onboarding (welcome, your name, child's name and date of birth) that creates the family, owner caregiver and child **atomically** in Postgres (`onboard_family`); idempotent, so a retry or double tap never makes a second family.
+- Supabase repositories for families, caregivers, children, appointments, memories and reminders, all family-scoped.
+- Today driven by real data with honest empty states; children are named on each item when a family has more than one.
+- Service layer for saving/retrieving memories and full reminder CRUD (create, list, update, complete, delete). Stored only: no notifications exist.
+- Migration `0002`: composite foreign keys so a row can never reference another family's child, and the atomic onboarding function.
+- Automated family-isolation tests (two families, a viewer, a signed-out user) against real Postgres.
 
 ## What remains
 
-See [TODO.md](TODO.md). Notably: Supabase repositories, family onboarding, the real AI provider,
-write tools with confirmation, push notifications, the Memory/Reminders/Community screens, and clinical safety review.
+See [TODO.md](TODO.md). Not built: in-app "choose a new password" screen (the reset email can be requested, but completing the reset inside the app needs deep-link handling), UI to add a second child (the data layer supports it), Memory/Reminders/Community screens, real AI provider, push notifications.
 
 ## Verification status
 
-Checked in development: `tsc` (strict), 38 unit tests, Expo bundling for iOS, Android and web, and the web build
-driven in a browser (Today, all tabs, Ask flows). The SQL migration was applied to a local Postgres and RLS
-isolation between two families was tested. **Not yet verified:** running on a physical device / simulator,
-and sign-in against a real Supabase project.
+See [STATUS.md](STATUS.md) for the current, honest status, including what has and has not been tested against a real Supabase project.

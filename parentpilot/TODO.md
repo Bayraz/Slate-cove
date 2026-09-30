@@ -2,20 +2,12 @@
 
 Ordered. Each stage should ship on its own and be testable with real parents.
 
-1. **Backend wiring**: create the Supabase project, apply `supabase/migrations`, implement
-   `createSupabaseRepositories` behind `src/data/repositories.ts`, flip `EXPO_PUBLIC_DATA_SOURCE`.
-2. **Onboarding**: create family (`create_family` RPC), add first child, invite a second caregiver;
-   finish auth (email-confirmation state, "set new password" screen, profile management, delete account).
-3. **Memory (first real write path)**: `save_memory` tool with an explicit confirm step in the Ask UI;
-   Memory screen (browse by kind, edit, delete); upgrade search to Postgres full-text.
-4. **Reminders + notifications**: reminder CRUD tools, Reminders screen, `expo-notifications` implementation of
-   `NotificationScheduler`; only set `notificationScheduledAt` when scheduling really succeeds.
-5. **Real AI provider**: server-side function holding the model key, using `SAFETY_POLICY_PROMPT` and `registry.specs()`;
-   rate limiting; conversation persistence; evaluation set for tool selection and honesty.
-6. **Safety review**: clinical review of `safety.ts` wording, localisation (region-specific numbers), broader evaluated classifier,
-   `search_trusted_information` restricted to official sources (e.g. NHS) with citations.
-7. **Calendar**: `get/create/update/delete_calendar_event` via the device calendar or a provider integration, with confirmation.
-8. **Baby log**: `log_baby_event` / `get_baby_history` (feeds, sleep), only what parents actually need.
-9. **Appointment prep**: "what should I ask the health visitor?" using memories and saved questions.
-10. **Community**: topic-based posts/comments, save, report, block; moderation tooling before launch.
-11. **Later**: `search_products`, dark mode, analytics (privacy-first), e2e tests (Maestro/Detox), CI (typecheck + test), web client.
+**Done:** 1. Foundation. 2. Real backend and family accounts (auth, onboarding, persistence, isolation tests).
+
+1. **Verify on a real Supabase project + phone** (first task in any session that has credentials): apply both migrations, run the manual phone checklist in STATUS.md, fix whatever the real backend reveals.
+2. **Account completion**: in-app "choose a new password" screen (deep link from the reset email), profile editing, delete account, "add another child" UI, invite a second caregiver.
+3. **Memory (first real write path)**: Memory screen (browse by kind, edit, delete); `save_memory` tool with an explicit confirm step in the Ask UI; Postgres full-text search.
+4. **Reminders + notifications**: Reminders screen; reminder tools; `expo-notifications` implementation of `NotificationScheduler`; set `notificationScheduledAt` only when scheduling really succeeds.
+5. **Real AI provider**: server-side function holding the model key, using `SAFETY_POLICY_PROMPT` and `registry.specs()`; rate limiting; conversation persistence; evaluation set for tool selection and honesty.
+6. **Safety review**: clinical review of `safety.ts` wording, localisation, broader evaluated classifier, `search_trusted_information` restricted to official sources with citations.
+7. **Calendar**, 8. **Baby log**, 9. **Appointment prep**, 10. **Community** (topic-based, moderated), 11. later: `search_products`, dark mode, privacy-first analytics, e2e tests on device (Maestro/Detox), CI running `npm run check`, web client.

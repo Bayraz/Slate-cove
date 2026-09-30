@@ -8,10 +8,12 @@ interface Props {
   kind: string; // "Appointment", "Reminder", "Saved question"
   title: string;
   detail?: string;
+  /** Which child this is about. Only passed when the family has more than one. */
+  childName?: string;
 }
 
-export function TodayRow({ icon, kind, title, detail }: Props) {
-  const spoken = `${kind}: ${title}${detail ? `, ${detail}` : ""}`;
+export function TodayRow({ icon, kind, title, detail, childName }: Props) {
+  const spoken = `${kind}${childName ? ` for ${childName}` : ""}: ${title}${detail ? `, ${detail}` : ""}`;
   return (
     <View accessible accessibilityLabel={spoken} style={{ flexDirection: "row", gap: spacing.md, alignItems: "flex-start" }}>
       <View
@@ -21,7 +23,7 @@ export function TodayRow({ icon, kind, title, detail }: Props) {
       </View>
       <View style={{ flex: 1 }}>
         <AppText variant="label" tone="secondary">
-          {kind.toUpperCase()}
+          {kind.toUpperCase()}{childName ? ` · ${childName.toUpperCase()}` : ""}
         </AppText>
         <AppText variant="bodyStrong">{title}</AppText>
         {detail ? <AppText tone="secondary">{detail}</AppText> : null}

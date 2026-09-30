@@ -1,9 +1,10 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { useAuth } from "@/auth/AuthProvider";
+import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
+import { ErrorView, LoadingView } from "@/components/ui/StateViews";
 import { getRepositories, type Repositories } from "@/data";
 import type { FamilyContext } from "@/data/repositories";
 import type { Child } from "@/domain/models";
-import { EmptyView, ErrorView, LoadingView } from "@/components/ui/StateViews";
 import { useAsync } from "./useAsync";
 
 interface FamilyState extends FamilyContext {
@@ -13,7 +14,10 @@ interface FamilyState extends FamilyContext {
 
 const Ctx = createContext<FamilyState | null>(null);
 
-/** Loads the signed-in user's family, caregiver and children once, then shares them with all screens. */
+/**
+ * Loads the signed-in user's family, caregiver and children once, then shares them with all screens.
+ * A signed-in user with no family yet sees onboarding instead of the app.
+ */
 export function FamilyProvider({ children: ui }: { children: ReactNode }) {
   const { user } = useAuth();
   const repos = getRepositories();
@@ -25,11 +29,10 @@ export function FamilyProvider({ children: ui }: { children: ReactNode }) {
   }, [user?.id]);
 
   if (state.status === "loading") return <LoadingView />;
-  if (state.status === "error") return <ErrorView message="We couldn't load your family. Check your connection." onRetry={state.reload} />;
-  if (!state.data) {
-    // TODO(stage: onboarding): create-family / join-family flow.
-    return <EmptyView title="Let's set up your family" message="Family setup isn't built yet." />;
+  if (state.status === "error") {
+    return <ErrorView message="We couldn't load your family. Check your connection and try again." onRetry={state.reload} />;
   }
+  if (!state.data) return <OnboardingFlow repos={repos} onDone={state.reload} />;
   return <Ctx.Provider value={state.data}>{ui}</Ctx.Provider>;
 }
 

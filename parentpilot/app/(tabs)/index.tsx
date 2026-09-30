@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Screen } from "@/components/ui/Screen";
 import { ErrorView, LoadingView } from "@/components/ui/StateViews";
+import { configStatus, demoReasonText } from "@/config/env";
 import { useFamily } from "@/hooks/FamilyProvider";
 import { useToday } from "@/hooks/useToday";
 import { suggestedPrompts } from "@/services/askService";
 import { childrenSentence } from "@/services/todayService";
-import { colors, spacing } from "@/theme";
+import { colors, radius, spacing } from "@/theme";
 import { formatTime, greetingFor } from "@/utils/dates";
 
 export default function TodayScreen() {
@@ -25,6 +26,14 @@ export default function TodayScreen() {
 
   return (
     <Screen>
+      {isDemo ? (
+        <View accessible style={{ backgroundColor: colors.surfaceMuted, borderRadius: radius.md, padding: spacing.md }}>
+          <AppText variant="secondary" tone="secondary">
+            {demoReasonText(configStatus)}
+          </AppText>
+        </View>
+      ) : null}
+
       <View style={{ gap: spacing.xs }}>
         <AppText variant="display" accessibilityRole="header">
           {greetingFor()}, {caregiver.displayName}.
@@ -46,17 +55,29 @@ export default function TodayScreen() {
           <AppText variant="title" accessibilityRole="header">
             Today
           </AppText>
-          {today.data.appointments.length + today.data.reminders.length + (today.data.savedNote ? 1 : 0) === 0 ? (
-            <AppText tone="secondary">Nothing needs you today. Enjoy the quiet.</AppText>
-          ) : null}
-          {today.data.appointments.map((a) => (
-            <TodayRow key={a.id} icon="calendar-outline" kind="Appointment" title={a.title} detail={`${formatTime(a.startsAt)}${a.location ? ` · ${a.location}` : ""}`} />
-          ))}
-          {today.data.reminders.map((r) => (
-            <TodayRow key={r.id} icon="notifications-outline" kind="Reminder" title={r.title} detail={formatTime(r.dueAt)} />
-          ))}
+          {today.data.appointments.length > 0 ? (
+            today.data.appointments.map((a) => (
+              <TodayRow
+                key={a.id}
+                icon="calendar-outline"
+                kind="Appointment"
+                childName={a.childName}
+                title={a.title}
+                detail={`${formatTime(a.startsAt)}${a.location ? ` · ${a.location}` : ""}`}
+              />
+            ))
+          ) : (
+            <AppText tone="secondary">No appointments today.</AppText>
+          )}
+          {today.data.reminders.length > 0 ? (
+            today.data.reminders.map((r) => (
+              <TodayRow key={r.id} icon="notifications-outline" kind="Reminder" childName={r.childName} title={r.title} detail={formatTime(r.dueAt)} />
+            ))
+          ) : (
+            <AppText tone="secondary">No reminders due today.</AppText>
+          )}
           {today.data.savedNote ? (
-            <TodayRow icon="bookmark-outline" kind="Saved question" title={today.data.savedNote.content} />
+            <TodayRow icon="bookmark-outline" kind="Saved question" childName={today.data.savedNote.childName} title={today.data.savedNote.content} />
           ) : null}
         </Card>
       ) : null}

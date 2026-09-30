@@ -9,7 +9,9 @@
     "android": "expo start --android",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "test:db": "bash scripts/test-rls.sh",
+    "check": "npm run typecheck && npm test && npm run test:db"
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.16",
