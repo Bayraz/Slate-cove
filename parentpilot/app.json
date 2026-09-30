@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "ParentPilot",
+    "slug": "parentpilot",
+    "scheme": "parentpilot",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": true, "bundleIdentifier": "app.parentpilot.mobile" },
+    "android": { "package": "app.parentpilot.mobile" },
+    "web": { "bundler": "metro", "output": "single" },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}
