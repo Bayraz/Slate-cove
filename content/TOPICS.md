@@ -105,6 +105,7 @@ this queue against what people are actually typing.
 
 ## Written
 
+- What does a short-let management company actually do? (`what-does-a-short-let-management-company-actually-do.md`)
 - Who pays when a guest damages something? (`who-pays-when-a-guest-damages-something.md`)
 - Do you need a licence to run a short let in London? (`do-you-need-a-licence-to-run-a-short-let-in-london.md`)
 - What does short-let management cost in London? (`what-does-short-let-management-cost-in-london.md`)
