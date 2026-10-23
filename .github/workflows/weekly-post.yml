@@ -49,7 +49,7 @@ on:
 env:
   PUBLISH_DIRECTLY: "true"
   # Swap for another model if you want. Sonnet is the sensible default here.
-  POST_MODEL: "claude-sonnet-5"
+  POST_MODEL: "claude-sonnet-5-5"
 
 jobs:
   write:

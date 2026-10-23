@@ -21,7 +21,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const MODEL = process.env.POST_MODEL || "claude-sonnet-5";
+const MODEL = process.env.POST_MODEL || "claude-sonnet-5-5";
 const ROOT = process.cwd();
 const TOPICS_PATH = path.join(ROOT, "content", "TOPICS.md");
 const BLOG_DIR = path.join(ROOT, "content", "blog");
