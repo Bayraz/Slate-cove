@@ -156,6 +156,27 @@ export const OG_IMAGE = {
  * og:title and og:url, so sharing any inner page announced it as the
  * homepage.
  */
+/**
+ * Search results cut a meta description off at roughly 160 characters. Keep
+ * whole sentences while they fit; if even the first is too long, cut at a word
+ * boundary. The full text stays on the page, only the snippet is shortened.
+ */
+export function metaDescription(text: string, max = 158): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const sentences = clean.match(/[^.!?]+[.!?]+(?=\s|$)/g) ?? [];
+  let out = "";
+  for (const s of sentences) {
+    const next = (out + s).trim();
+    if (next.length > max) break;
+    out = next + " ";
+  }
+  out = out.trim();
+  if (out.length >= 70) return out;
+  const cut = clean.slice(0, max - 1);
+  return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:\s]+$/, "") + "\u2026";
+}
+
 export function pageMetadata({
   title,
   description,
@@ -165,6 +186,7 @@ export function pageMetadata({
   description: string;
   path: string;
 }) {
+  description = metaDescription(description);
   const url = canonicalUrl(path);
   const shareTitle = path === "/" ? title : `${title} | ${SITE.name}`;
   return {
